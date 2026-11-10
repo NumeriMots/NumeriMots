@@ -819,7 +819,7 @@ $("ok").onclick=()=>{const r=rounds[queue[cur]],a=$("ans").value.trim().toLowerC
  if(mode==="w"){if(a.length!==r.w.length){msg(t("useAll",r.w.length),"ko");return}
   if(key(a)!==key(r.w)){msg(t("noMatch"),"ko");return}
   if(a!==r.w&&!dict.set.has(a)){if(mpr&&mpr.g==="a")return gpBadW(a);msg(t("notDict"),"ko");return}
-  r.done=1;if(mpr)mpr.wd=a;if(cmx)cmx.wd=a;score+=r.w.length;RTL=Math.min(performance.now()-RT0,120000);{const k=daily||mpr||chl||tbx||cmx;if(k){k.lt=dEl();if(k===chl&&!chl.opp&&chl.ev.length<60)chl.ev.push(Math.round(k.lt/100))}}ding();queue.splice(cur,1);if(cur>=queue.length)cur=0;draw();msg(t("good",r.w.length),"ok");return}
+  r.done=1;if(mpr)mpr.wd=a;if(cmx)cmx.wd=a;score+=wPts(r.w.length);RTL=Math.min(performance.now()-RT0,120000);{const k=daily||mpr||chl||tbx||cmx;if(k){k.lt=dEl();if(k===chl&&!chl.opp&&chl.ev.length<60)chl.ev.push(Math.round(k.lt/100))}}ding();queue.splice(cur,1);if(cur>=queue.length)cur=0;draw();msg(t("good",wPts(r.w.length)),"ok");return}
 };
 function tryL(a){tried=a;const c={};rounds[0].l.forEach(x=>c[x]=(c[x]||0)+1);for(const x of a){if(!c[x])return false;c[x]--}
  if(!dict.set.has(a))return false;
@@ -7510,4 +7510,10 @@ mpSetup=(o=>function(){o.apply(this,arguments);mpHeadRefresh();const R=MP.R,h=MP
 lyApply();
 
 applyLang();loadSB();
+// --- Sprint final en partie courte (solo, salon, tour par tour) : moitié des lettres arrondie au-dessus (3-3-4-4) ---
+function wCourte(){try{if(party&&party.type==="q")return true;if(mpr&&MP&&MP.R&&MP.R.mo==="o"&&MP.R.ty==="q")return true;if(tbx&&tbx.nt===4)return true}catch(e){}return false}
+function wPts(n){return wCourte()?Math.ceil(n/2):n}
+{const fr="<p>⚖️ En partie courte, barème réduit : 3 points pour un mot de 5 ou 6 lettres, 4 points pour un mot de 7 ou 8 lettres.</p>",
+ en="<p>⚖️ In a short game, reduced scoring: 3 points for a 5- or 6-letter word, 4 points for a 7- or 8-letter word.</p>";
+ ["iQ","iW","rW","wIntro","wIntroM"].forEach(k=>{if(typeof T.fr[k]==="string"&&T.fr[k].includes("</p>"))T.fr[k]+=fr;if(typeof T.en[k]==="string"&&T.en[k].includes("</p>"))T.en[k]+=en})}
 </script></body></html>
