@@ -185,12 +185,327 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 #cmRkNav .rkA{flex:0 0 52px;font-size:26px;padding:6px 0}#cmRkSel{flex:1;min-width:0;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffd24a' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--tx);border:0;border-radius:10px;padding:12px 28px 12px 12px;font-size:15px;font-weight:700;font-family:inherit;text-align:center;text-align-last:center;-webkit-appearance:none;appearance:none;cursor:pointer}#cmRkSel option{background:var(--bg);color:var(--tx)}
 #cmLg .btn.on,#cmRkLg .btn.on,#cmRkTabs .btn.on{background:var(--ac);color:#14233f}#cmInfo{margin-bottom:10px}
 #cmB0 .tbt>b .ok{color:var(--ok)}#cmB0 .tbt>b .ko{color:var(--ko)}#cmB0 .tbt>b small{color:var(--mut)}#cmB0 .pcard .pn{font-variant-numeric:tabular-nums}
+
+/* ===== Style A+ (lot 1) : police, boutons en relief, tuiles, accueil, menus ===== */
+@font-face{font-family:"Nunito Variable";font-style:normal;font-display:swap;font-weight:200 1000;src:url(https://cdn.jsdelivr.net/fontsource/fonts/nunito:vf@5.3.0/latin-wght-normal.woff2) format("woff2-variations"),url(https://cdn.jsdelivr.net/fontsource/fonts/nunito:vf@5.3.0/latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Nunito Variable";font-style:normal;font-display:swap;font-weight:200 1000;src:url(https://cdn.jsdelivr.net/fontsource/fonts/nunito:vf@5.3.0/latin-ext-wght-normal.woff2) format("woff2-variations"),url(https://cdn.jsdelivr.net/fontsource/fonts/nunito:vf@5.3.0/latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+body,button,input,select,textarea{font-family:"Nunito Variable",Nunito,system-ui,sans-serif}
+h2{font-weight:900;font-size:26px}h3{font-weight:900}
+.btn{border-radius:14px;font-weight:800;box-shadow:0 4px 0 #0e1a30;transition:transform .08s ease,box-shadow .08s ease}
+.btn.p{box-shadow:0 5px 0 #c99a1e}.btn.bl{box-shadow:0 5px 0 #2a5ca8}
+.btn.sm{border-radius:12px;box-shadow:0 3px 0 #0e1a30}
+.btn:not(:disabled):active{transform:translateY(4px);box-shadow:0 0 0 transparent!important}
+.btn:disabled{box-shadow:none}
+.mb{margin-bottom:14px}.mrow{margin-bottom:14px}
+.info{border-radius:16px;box-shadow:0 5px 0 #0e1a30;transition:transform .08s ease,box-shadow .08s ease}.info:active{transform:translateY(4px);box-shadow:none}
+input{border-radius:12px}
+/* gros boutons de menu avec icône */
+.btn.mb.ic{display:flex;align-items:center;gap:14px;text-align:left;font-size:20px;font-weight:900;padding:14px 16px}
+.mb.ic .mi{flex:0 0 46px;height:46px;border-radius:12px;background:#14233f;color:var(--ac);display:flex;align-items:center;justify-content:center}
+.btn.bl.ic .mi{color:#fff}.btn.done.ic .mi{background:#0e1a30}
+.mb.ic .mt{flex:1;min-width:0;display:block}.mb.ic .sub{font-size:13px;font-weight:700;margin-top:2px}
+.mb.ic .chv{flex:0 0 auto;display:flex;opacity:.75}
+.mrow .mb.ic{margin-bottom:0}
+/* tuiles et plaques en relief */
+.tiles{margin:14px 0 18px}
+.tile{border-radius:10px;font-weight:900;box-shadow:0 4px 0 #c99a1e;transition:transform .08s ease,box-shadow .08s ease}
+button.tile:not([data-u]):active{transform:translateY(4px);box-shadow:none}
+.tile[data-u]{opacity:1!important;background:var(--card);color:#3d5a8c;box-shadow:none;transform:translateY(4px)}
+.plate{border-radius:12px;font-weight:900;box-shadow:0 4px 0 #c99a1e}
+.plate.used{opacity:1;background:var(--card);color:#3d5a8c;box-shadow:none;transform:translateY(4px)}
+.plate.sel{outline:3px solid #fff;outline-offset:1px}
+/* bandeau du mode de jeu et de la langue */
+.stg{display:table;margin:0 auto 10px;background:#0e1a30;border:1.5px solid #2a4675;border-radius:20px;padding:5px 14px;color:var(--ac);font-size:13px;font-weight:800;line-height:1.4;text-align:center}
+.stg .dic{color:var(--mut)}
+/* boutons maison et retour */
+#homeB,#topBk{border-radius:12px;width:44px;height:44px;line-height:0;display:flex;align-items:center;justify-content:center;color:var(--mut);box-shadow:0 3px 0 #0e1a30}
+#homeB.hide,#topBk.hide{display:none}
+/* accueil */
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 6px}
+.chip{display:flex;align-items:center;gap:8px;min-width:0;max-width:75%;height:44px;background:var(--card);border:0;border-radius:22px;box-shadow:0 3px 0 #0e1a30;padding:5px 14px 5px 5px;color:var(--tx);font:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.chip .av{flex:0 0 34px;height:34px;border-radius:50%;background:var(--ac);color:#14233f;display:flex;align-items:center;justify-content:center;font-weight:900}
+.chip .pn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chip .bdg{margin-left:0}
+.ibtn{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:0;background:var(--card);box-shadow:0 3px 0 #0e1a30;color:var(--mut);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+h1.logo{margin:14px 0 20px;letter-spacing:0;text-transform:none}
+.logo .lt{display:flex;justify-content:center;gap:4px}
+.logo .lt i{font-style:normal;width:30px;height:34px;border-radius:7px;background:var(--ac);color:#14233f;box-shadow:0 4px 0 #c99a1e;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900}
+.logo .lt i.b{background:#3d7bd9;color:#fff;box-shadow:0 4px 0 #2a5ca8}
+.logo .tagl{margin-top:12px;font-weight:600}
+.ban{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px 12px;border-radius:18px;padding:14px;margin:0 0 18px}
+.ban .bi{width:44px;height:44px;border-radius:10px;background:var(--ac);color:#14233f;box-shadow:0 3px 0 #c99a1e;display:flex;align-items:center;justify-content:center;font-size:0}
+.ban .bt{min-width:0}.ban b{font-weight:900}
+.ban .ser{display:flex;align-items:center;gap:4px;background:var(--card);border-radius:12px;padding:6px 10px;color:var(--ac);font-size:14px;font-weight:900;white-space:nowrap}.ban .ser.hide{display:none}
+.ban .bp{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.ban .bp i{height:8px;border-radius:4px;background:var(--card)}.ban .bp i.d{background:var(--ok)}
+.ban.done .bi{background:var(--card);color:var(--ok);box-shadow:none}
+.h3t{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 14px}
+.h3t .btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;font-size:13px;font-weight:800;min-width:0}
+.h3t .btn:not(.bl) svg{color:var(--ac)}
+.serL{text-align:center;color:var(--ac);font-weight:800;margin:-6px 0 14px}
+/* transitions entre les écrans */
+@keyframes nmFade{from{opacity:0}to{opacity:1}}
+@keyframes nmUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pg.pin{animation:nmFade .25s ease-out}
+.pg.pin>.mb,.pg.pin>.mrow,.pg.pin>.ban,.pg.pin>.h3t,.pg.pin>.hbar,.pg.pin>h1{animation:nmUp .38s ease-out both}
+.pg.pin>:nth-child(2){animation-delay:.03s}.pg.pin>:nth-child(3){animation-delay:.07s}.pg.pin>:nth-child(4){animation-delay:.11s}.pg.pin>:nth-child(5){animation-delay:.15s}.pg.pin>:nth-child(6){animation-delay:.19s}.pg.pin>:nth-child(7){animation-delay:.23s}.pg.pin>:nth-child(8){animation-delay:.27s}.pg.pin>:nth-child(9){animation-delay:.31s}.pg.pin>:nth-child(n+10){animation-delay:.34s}
+@media (prefers-reduced-motion:reduce){.pg.pin,.pg.pin>*{animation:none!important}.btn,.tile,.info{transition:none}}
+/* ===== Style A+ (lot 2) : écrans de jeu ===== */
+.gs:not(.hide){display:flex;flex-direction:column;min-height:calc(100vh - 40px - env(safe-area-inset-top,0px));min-height:calc(100dvh - 40px - env(safe-area-inset-top,0px))}
+/* bandeau : mode de jeu et langue, puis maison · manche · score · son */
+.gh{margin:0 0 14px}
+.gh .stg{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 10px;background:none;border:0;padding:0;border-radius:0}
+.ghm .stg{margin:0}
+.chp{display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:100%;background:#0e1a30;border:1.5px solid #2a4675;border-radius:20px;padding:5px 12px;color:var(--ac);font-size:13px;font-weight:800;line-height:1.3}
+.chp svg{flex:0 0 auto;width:14px;height:14px}.chp>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chp.lg{color:var(--mut)}.chp .lgb{flex:0 0 auto;background:#3d7bd9;color:#fff;border-radius:4px;padding:0 4px;font-size:11px}
+.ghr{display:flex;align-items:stretch;gap:8px}
+.gb{flex:0 0 44px;width:44px;min-height:44px;border:0;border-radius:12px;background:var(--card);box-shadow:0 3px 0 #0e1a30;color:var(--mut);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease}
+.gb:active{transform:translateY(3px);box-shadow:none}.gbx{visibility:hidden}.mute.off{color:#3d5a8c}
+.ghm{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:8px}
+.gbox{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--card);border-radius:12px;box-shadow:0 3px 0 #0e1a30;padding:6px 12px}
+.gbox small{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--mut);text-transform:uppercase;white-space:nowrap}
+.gbox b{font-size:22px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}.gbox b i{font-style:normal;font-size:16px;color:var(--mut)}
+.gbox.sc{align-items:flex-end}.gbox.sc b{color:var(--ac)}
+/* gros chrono et barre qui se vide */
+.gtm{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 0 14px}
+.gti{font-size:15px;font-weight:900;color:var(--ac);letter-spacing:.5px;text-align:center}
+#time{font-size:84px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}#gm.w #time{font-size:72px}
+#time.low,#ctime.low,#dftime.low{color:inherit}
+.tbar{display:flex;width:200px;max-width:70%;height:8px;margin-top:4px;border-radius:4px;background:var(--card);overflow:hidden}
+.tbar i{display:block;width:100%;height:100%;border-radius:4px;background:var(--ac);transition:width 1s linear}
+.tbar.inf{visibility:hidden}
+/* Chasse aux mots et Sprint final */
+#dots{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin:0 0 6px}#dots:empty{display:none}
+#dots i{width:auto;height:34px;border-radius:8px;background:var(--card);color:var(--mut);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;font-weight:900;outline:0}
+#dots i.d{background:var(--ok);color:#0e1a30}#dots i.s{background:none;border:2px solid #ff9f43;color:#ff9f43}
+#dots i.c{background:var(--ac);color:#14233f;box-shadow:0 0 0 3px #fff}
+.dlg{text-align:center;font-size:12px;font-weight:700;color:var(--mut);margin:2px 0 10px}
+.gmid{flex:1;display:flex;flex-direction:column;justify-content:center}
+.acard{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;background:#0e1a30;border-radius:18px;padding:16px 12px 12px}
+.ansv{order:1;display:flex;justify-content:center;gap:5px;width:100%;min-height:48px}
+.ansv i{flex:0 1 36px;min-width:0;height:44px;border-radius:8px;background:#fff;color:#14233f;box-shadow:0 4px 0 var(--mut);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:24px;font-weight:900}
+.ansv i.e{background:none;box-shadow:none;border:2px dashed #2a4675}
+#gm.w .ansv{gap:6px}#gm.w .ansv i{flex-basis:42px;height:50px;font-size:26px}
+#len{order:2;margin:0;min-height:19px;text-align:center;font-size:14px;font-weight:800;color:var(--mut)}#len.ok{color:var(--ok)}
+#gm.w #len{order:0;font-size:13px}
+#ans{position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;border:0;border-radius:18px;opacity:0;font-size:16px;cursor:pointer}
+#msg{margin:8px 0 0}
+#tiles,#slots,#dfTiles{display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:10px;margin:10px 4px 0}
+#tiles .tile,#slots .tile,#dfTiles .tile{max-width:none;aspect-ratio:auto;height:60px;border-radius:12px;font-size:30px;box-shadow:0 5px 0 #c99a1e}
+#tiles .tile[data-u],#dfTiles .tile[data-u]{transform:translateY(5px);box-shadow:none}
+#gm.w #tiles{gap:8px}#gm.w #tiles .tile{height:56px;font-size:26px}
+.gbt{display:flex;gap:10px;margin-top:16px}
+.gbt .btn{flex:1;min-width:0;height:52px;padding:0 6px;font-size:16px;font-weight:900;white-space:nowrap}
+.gbt #del{flex:0 0 64px;display:flex;align-items:center;justify-content:center}
+.btn.sk{color:#ff9f43}
+.gbt2{display:flex;gap:10px;margin-top:10px}.gbt2 .btn{flex:1;height:56px;font-size:18px;font-weight:900}
+.btn.g{background:var(--ok);color:#0e1a30;box-shadow:0 5px 0 #2f9a5f}
+/* tirage voyelle / consonne */
+.dwc{flex:1;display:flex;flex-direction:column;justify-content:center}
+#drawH{margin:2px 0 16px;font-size:34px;color:var(--tx);padding:0}
+#slots .tile{background:var(--ac);color:#14233f;cursor:default}
+#slots .tile.e{background:none;box-shadow:none;border:2px dashed #2a4675}
+#slots .tile.nw{background:#fff;box-shadow:0 5px 0 var(--mut),0 0 0 4px rgba(255,210,74,.35);transform:scale(1.08);animation:pop .3s ease-out}
+.vcc{display:flex;justify-content:center;gap:10px;margin:22px 0 10px}
+.vcc span{background:var(--card);border-radius:12px;padding:6px 14px;font-size:14px;font-weight:800}.vcc i{font-style:normal}
+#nvC{color:var(--ac)}#ncC{color:#8fb6f0}
+#dmsg{margin:0;min-height:20px;text-align:center;color:var(--mut);font-size:14px;font-weight:600}
+#vcRow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+#vcRow .btn{height:72px;border-radius:16px;font-size:22px;font-weight:900}
+/* Nombre cible */
+.ccard{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0e1a30;border-radius:18px;padding:14px 16px}
+.cct{display:flex;flex-direction:column;gap:6px;min-width:0}.cct .gti{text-align:left}
+#tg{justify-content:flex-start;gap:6px;margin:0 0 5px}
+#tg b{width:46px;height:60px;border:0;border-radius:10px;background:var(--ac);color:#14233f;box-shadow:0 5px 0 #c99a1e;font-size:40px;font-weight:900}
+#tg b.rl{background:#fff;box-shadow:0 5px 0 var(--mut)}
+.gtm.sm{margin:0;flex:0 0 auto}#ctime{font-size:62px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}.gtm.sm .tbar{width:84px;max-width:none}
+#clog{display:flex;flex-direction:column;gap:8px;margin-top:14px}#clog:empty{margin-top:0}
+#clog .cl{margin:0;background:var(--card);border-radius:12px;padding:8px 8px 8px 14px}
+#clog .cl .ex{font-size:19px;font-weight:800}
+#clog .cl .plate{width:84px;height:40px;padding:0;border-radius:10px;font-size:20px;box-shadow:none;outline:0}
+#clog .cl .plate.used{background:var(--card);color:#3d5a8c;border:2px solid #2a4675;transform:none}
+#clog .cl .plate.sel{box-shadow:0 0 0 3px #fff}
+.cpend{display:flex;align-items:center;gap:8px;min-height:56px;margin-top:8px;border:2px dashed #2a4675;border-radius:12px;padding:8px 14px;font-size:19px;font-weight:800}.cpend i{font-style:normal;color:var(--mut)}
+#cmsg{margin:8px 0 0}.csp{flex:1;min-height:8px}
+#pl{gap:8px;margin:6px 0 0}
+#pl .plate{height:56px;padding:0;font-size:22px;box-shadow:0 5px 0 #c99a1e}
+#pl .plate.used{transform:translateY(5px);box-shadow:none}
+#pl .plate.ph{opacity:1;background:none;box-shadow:none;border:2px dashed #2a4675;color:transparent}
+#ops{gap:10px;margin-top:12px}#ops .btn{height:56px;padding:0;font-size:30px;font-weight:900}
+#ops .btn.sel{background:#3d7bd9;color:#fff;box-shadow:0 5px 0 #2a5ca8}
+#cGame .cbar{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:10px;margin:14px 0 0;padding-top:0}
+#cGame .cbar .btn{height:54px;padding:0 4px;font-size:14px;font-weight:900;white-space:nowrap}#cGame #cdone{font-size:18px}
+/* défis */
+.dfban{position:relative;display:flex;align-items:center;gap:14px;margin:0 0 14px;background:#3d7bd9;border-radius:16px;box-shadow:0 5px 0 #2a5ca8;padding:12px 14px 18px;overflow:hidden}
+.dfbi{flex:0 0 46px;height:46px;border-radius:12px;background:#14233f;color:var(--ac);display:flex;align-items:center;justify-content:center}
+.dfbt{flex:1;min-width:0;display:flex;flex-direction:column}.dfbt small{font-size:12px;font-weight:800;letter-spacing:1px;opacity:.85}
+#dfP .dfbt h2{margin:0;padding:0;text-align:left;color:#fff;font-size:21px;font-weight:900;line-height:1.2}
+.gtm.xs{margin:0;flex:0 0 auto}#dftime{font-size:40px;font-weight:900;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.dfban .tbar{position:absolute;left:14px;right:14px;bottom:7px;width:auto;max-width:none;height:5px;margin:0;background:rgba(14,26,48,.35)}
+.dfban .tbar i{background:#fff}
+#dfHint{font-size:15px;font-weight:700}
+#dfTiles .tile{height:54px;font-size:26px}
+#dfTiles .tile[style*="opacity"]:not([data-u]){opacity:1!important;background:none;box-shadow:none;border:2px dashed #2a4675;color:transparent}
+.dfw input{height:54px;border:2px solid #2a4675;border-radius:14px;font-weight:900;letter-spacing:2px}
+#dfIn{margin-top:auto;padding-top:10px}
+#dfIn .row{display:grid;grid-template-columns:64px 1fr;gap:10px}
+#dfIn .row .btn{height:52px;padding:0 6px;font-weight:900}
+#dfIn .row>.btn:only-child,#dfOk{grid-column:1/-1}
+#dfOk,#dfIn [data-kb="✓"]{height:58px!important;font-size:19px;background:var(--ok);color:#0e1a30;box-shadow:0 5px 0 #2f9a5f}
+@media (max-height:700px){#time{font-size:64px}#gm.w #time{font-size:56px}#tiles .tile,#slots .tile{height:52px}#vcRow .btn{height:60px}}
+/* ===== Style A+ (lot 3) : chrono, disposition des lettres, résultats, classements, salon, confettis, autres écrans ===== */
+/* chrono rouge sous 10 secondes, sans pulsation */
+#time.low,#ctime.low{color:var(--ko)}
+#dftime{padding:2px 8px;border-radius:10px}#dftime.low{color:var(--ko);background:#14233f}
+/* disposition des 10 lettres : 1 ligne */
+body.ly1 #slots,body.ly1 #dfTiles{--n:10}
+body.ly1 #slots,body.ly1 #dfTiles,#tiles.one{gap:4px;margin-left:0;margin-right:0}
+body.ly1 #slots .tile,body.ly1 #dfTiles .tile,#tiles.one .tile,#gm.w #tiles.one .tile{height:48px;font-size:clamp(17px,5.4vw,23px);border-radius:9px;box-shadow:0 4px 0 #c99a1e}
+body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4px 0 var(--mut),0 0 0 3px rgba(255,210,74,.35)}
+#tiles.one .tile[data-u],body.ly1 #dfTiles .tile[data-u]{transform:translateY(4px);box-shadow:none}
+/* fenêtre de choix et réglage */
+.lyw{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.lyc{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0e1a30;border:2px solid #2a4675;border-radius:16px;padding:14px 8px 12px;color:var(--tx);font:inherit;cursor:pointer;transition:transform .08s ease}
+.lyc:active{transform:scale(.97)}.lyc b{font-size:17px;font-weight:900}.lyc small{font-size:12px;font-weight:700;color:var(--mut)}
+.lyp{display:grid;grid-template-columns:repeat(5,12px);gap:3px;min-height:47px;align-content:center}.lyp.o{grid-template-columns:repeat(10,9px);gap:2px}
+.lyp i{font-style:normal;height:20px;border-radius:4px;background:var(--ac);color:#14233f;box-shadow:0 2px 0 #c99a1e;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.lyp.o i{height:16px;font-size:8px;border-radius:3px}.lyp i.b{background:#3d7bd9;color:#fff;box-shadow:0 2px 0 #2a5ca8}
+.lyS{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.lyS .lyc{background:var(--card);border-color:transparent;box-shadow:0 4px 0 #0e1a30;padding:12px 6px 10px}.lyS .lyc.on{border-color:var(--ac);background:#0e1a30;box-shadow:none}.lyS .lyc.on b{color:var(--ac)}
+/* écrans de résultats */
+#end:not(.hide){display:flex;flex-direction:column;min-height:calc(100vh - 40px - env(safe-area-inset-top,0px));min-height:calc(100dvh - 40px - env(safe-area-inset-top,0px))}
+#end .gh{margin:0 0 4px}#end .gh .stg{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0;background:none;border:0;padding:0}
+.esub{text-align:center;font-size:13px;font-weight:800;color:var(--mut);margin:10px 0 0;min-height:18px}.esub:empty{display:none}
+#why{margin:4px 0 0;padding:0 6px;color:var(--tx);font-size:28px;line-height:1.15}
+#final{font-size:56px;font-weight:900;line-height:1.1;color:var(--ac);margin:2px 0 0;font-variant-numeric:tabular-nums}
+#final.ok{color:var(--ok)}#final.z{color:var(--mut)}#final.ko{color:var(--ko)}#final.tx{font-size:40px}
+#ptot{font-size:15px;font-weight:700;color:var(--mut);margin:2px 0 12px}
+#end .recN{margin:0 0 12px;border:0;border-radius:16px;background:var(--ac);color:#14233f;box-shadow:0 5px 0 #c99a1e;padding:12px}#end .recN small{color:#14233f!important;opacity:.75}
+#end>.row{margin:auto 0 0;padding-top:16px;gap:10px}
+#end>.row .btn{flex:2;height:56px;padding:0 8px;font-size:17px;font-weight:900}#end>.row #tomenu{order:-1;flex:1}
+#extra{margin-bottom:4px}#extra>p,#mrB>p{line-height:1.45}
+/* ton mot, la cible, ton résultat */
+.ewc{display:flex;flex-direction:column;align-items:center;gap:8px;background:#0e1a30;border-radius:18px;padding:14px 12px 12px;margin:2px 0 16px}
+.ewc[data-wd]{cursor:pointer}
+.ewt{display:flex;justify-content:center;gap:5px;width:100%}
+.ewt i{font-style:normal;flex:0 1 34px;min-width:0;height:42px;border-radius:8px;background:var(--ok);color:#0e1a30;box-shadow:0 4px 0 #2f9a5f;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.ewt.ko i{background:var(--ko);color:#14233f;box-shadow:0 4px 0 #c94a4a}.ewt.n i{background:var(--ac);color:#14233f;box-shadow:0 4px 0 #c99a1e}
+.ewt.w i{background:#fff;color:#14233f;box-shadow:0 4px 0 var(--mut)}.ewt.e i{background:none;box-shadow:none;border:2px dashed #2a4675;color:var(--mut)}
+.ecap{font-size:14px;font-weight:800;color:var(--ok);text-align:center;line-height:1.35}.ecap.ko{color:var(--ko)}.ecap.m{color:var(--mut)}.ecap.y{color:var(--ac)}
+.ecr{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}.ecr>div{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.ecr small{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--mut);text-transform:uppercase}
+/* exemples de mots par longueur */
+.exh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 10px}.exh b{font-size:15px;font-weight:900}.exh small{font-size:12px;font-weight:700;color:var(--mut);text-align:right}
+.exr{display:flex;align-items:flex-start;gap:10px;margin:0 0 8px}
+.exn{flex:0 0 34px;height:34px;border-radius:9px;background:var(--card);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
+.exn.b{background:var(--ac);color:#14233f;box-shadow:0 3px 0 #c99a1e}.exn.y{background:var(--ok);color:#0e1a30;box-shadow:0 3px 0 #2f9a5f}
+.exw{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.exw .wdef,.ewr .wdef{text-decoration:none;cursor:pointer;-webkit-user-select:none;user-select:none}
+.exw .wdef{border-radius:10px;background:var(--card);box-shadow:0 3px 0 #0e1a30;padding:7px 10px;color:#fff;font-size:14px;font-weight:900;letter-spacing:1px;line-height:1.2;transition:transform .08s ease,box-shadow .08s ease}
+.exw .wdef:active{transform:translateY(3px);box-shadow:none}.exw .wdef.me{color:var(--ok);box-shadow:0 0 0 2px var(--ok)}
+/* Sprint final : les mots à trouver */
+.ewl{display:flex;flex-direction:column;gap:6px;margin:0 0 6px}
+.ewr{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:12px;padding:6px 12px 6px 6px}
+.ewr .exn{flex-basis:32px;height:32px;font-size:15px;background:#0e1a30}.ewr .exn.y{background:var(--ok)}
+.ewr .wdef{flex:1;min-width:0;font-size:17px;font-weight:900;letter-spacing:1.5px;color:#fff}.ewr.d .wdef{color:var(--ok)}
+.ewr small{flex:0 0 auto;font-size:13px;font-weight:800;color:var(--mut);letter-spacing:1px}.ewr.d small{color:var(--ok);font-size:16px}
+/* solutions (Nombre cible, défis) */
+.esol,#extra .dfk{margin:0 0 6px}
+.esol .cl,#extra .cl,#mrB .cl,.sol .cl{background:var(--card);border-radius:12px;padding:8px 8px 8px 14px;margin:0 0 8px}
+.esol .cl .ex,#extra .cl .ex,#mrB .cl .ex,.sol .cl .ex{font-size:19px;font-weight:800}
+.esol .cl .plate,#extra .cl .plate,#mrB .cl .plate,.sol .cl .plate{width:84px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:20px;box-shadow:none}
+#extra .tiles,#mrB .tiles,.sol .tiles{gap:4px;margin:8px 0 12px}
+#extra .tiles .tile,#mrB .tiles .tile,.sol .tiles .tile{max-width:34px;border-radius:8px;font-size:clamp(15px,5vw,20px);box-shadow:0 3px 0 #c99a1e}
+#extra .dfh,#extra .dfc{color:var(--mut)}#extra b.ok{color:var(--ok)}#extra b.ko{color:var(--ko)}
+#extra .wdef,#mrB .wdef{text-decoration-color:rgba(255,255,255,.35)}
+/* classement du jour */
+.rkg{display:grid;grid-template-columns:48px 1fr 48px;gap:8px;align-items:center;margin:0 0 14px}
+.rkg .btn{height:48px;padding:0;font-size:26px;font-weight:900;color:var(--ac);line-height:1}
+.rkgt{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}.rkgt b{font-size:18px;font-weight:900}.rkgt small{font-size:12px;font-weight:700;color:var(--mut)}.rkgt small:empty{display:none}
+.seg,.row.tabs,#cmRkTabs,#cmLg,#cmRkLg,#setLgR{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;background:#0e1a30;border-radius:14px;padding:4px;margin:0 0 14px}
+.seg .btn,.row.tabs .btn,#cmRkTabs .btn,#cmLg .btn,#cmRkLg .btn,#setLgR .btn{height:40px;padding:0 6px;border-radius:11px;background:transparent;box-shadow:none!important;transform:none!important;color:var(--mut);font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg .btn.on,.row.tabs .btn.on,#cmRkTabs .btn.on,#cmLg .btn.on,#cmRkLg .btn.on,#setLgR .btn.on,#dcTabs .btn.on{background:var(--ac);color:#14233f;font-weight:900}
+#dcTabs .btn.on{background:#3d7bd9;color:#fff}
+#rkNav,#cmRkNav{margin:0 0 14px}#rkNav .rkA,#cmRkNav .rkA{height:44px;padding:0;font-size:24px;color:var(--ac)}
+#rkSel,#cmRkSel,#rcSel{border-radius:12px;box-shadow:0 3px 0 #0e1a30;font-weight:800}
+.pod{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding-top:4px;margin:0 0 14px}
+.pod>div{flex:0 1 104px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.pod .pn{max-width:100%;font-size:14px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pod .me .pn{color:var(--ac)}
+.pod .pb{width:100%;border-radius:12px 12px 0 0;color:#14233f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 4px;text-align:center}
+.pod .p1 .pb{height:104px;background:var(--ac)}.pod .p2 .pb{height:80px;background:var(--mut)}.pod .p3 .pb{height:64px;background:#c98a4a}
+.pod .pb b{font-size:24px;font-weight:900;line-height:1}.pod .p1 .pb b{font-size:30px}
+.pod .pb small{font-size:11px;font-weight:900;line-height:1.2;overflow-wrap:anywhere}.pod .pb i{font-style:normal;font-size:10px;font-weight:800;opacity:.7}
+.pod .me .pb{box-shadow:inset 0 0 0 3px #fff}
+.rkr{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:12px;padding:11px 14px;margin:0 0 8px}
+.rkr.me{box-shadow:0 0 0 2px var(--ac)}.rkr>b{flex:0 0 26px;font-size:18px;font-weight:900;color:var(--mut)}.rkr.me>b{color:var(--ac)}
+.rkr>span{flex:1;min-width:0;font-size:16px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rkr>small{flex:0 1 auto;font-size:13px;font-weight:700;color:var(--mut);text-align:right}.rkr>small b{color:#fff;font-weight:900}
+.rksep{text-align:center;color:var(--mut);font-weight:900;margin:-4px 0 4px}
+.serB{display:flex;align-items:center;gap:10px;background:#0e1a30;border-radius:14px;padding:12px 14px;margin:6px 0 4px}
+.serB svg{flex:0 0 auto;color:var(--ac)}.serB b{flex:1;font-size:15px;font-weight:800}.serB small{font-size:13px;font-weight:700;color:var(--mut);white-space:nowrap}
+#rkS .sol,.sol{background:#0e1a30;border-radius:18px;padding:12px 12px 6px;margin-top:14px}
+/* salon multijoueur */
+.room2{display:flex;align-items:center;gap:14px;background:#0e1a30;border-radius:18px;padding:14px 16px;margin:0 0 16px}
+.room2 .rl{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.room2 small{font-size:13px;font-weight:800;color:var(--mut);line-height:1.3}
+.ctl{display:flex;gap:5px}.ctl i{font-style:normal;flex:0 1 34px;min-width:0;height:46px;border-radius:9px;background:var(--ac);color:#14233f;box-shadow:0 4px 0 #c99a1e;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,6vw,26px);font-weight:900}
+.ctl i.sp{flex:0 0 3px;background:none;box-shadow:none}
+.room2 .btn{align-self:flex-start;height:36px;padding:0 12px;font-size:13px;display:flex;align-items:center;gap:6px;box-shadow:0 3px 0 #14233f}
+.qrb{flex:0 0 104px;width:104px;height:104px;border:0;border-radius:12px;background:#fff;padding:0;overflow:hidden;cursor:pointer}
+.qrb svg.qr{width:100%;height:100%;max-width:none;margin:0;border-radius:0}
+.plh{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px}.plh b{font-size:16px;font-weight:900}.plh small{font-size:14px;font-weight:800;color:var(--mut)}
+.pll{display:flex;flex-direction:column;gap:8px;margin:0 0 16px}
+.plr{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:14px;padding:9px 12px}
+.plr.h{box-shadow:0 0 0 2px var(--ac)}.plr.off{opacity:.55}
+.plr .av{flex:0 0 36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+.plr>span:nth-child(2){flex:1;min-width:0;font-size:16px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.plr>span small{color:var(--mut);font-weight:700;font-size:13px}
+.plr .hb{background:var(--ac);color:#14233f;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:900}
+.plr .dot{flex:0 0 10px;height:10px;border-radius:50%;background:var(--ok)}.plr .ps{font-size:12px;font-weight:800;color:var(--mut)}
+.mdc{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#0e1a30;border-radius:14px;padding:12px 14px;margin:0 0 16px}
+.mdc>span{display:flex;flex-direction:column;min-width:0}.mdc small{font-size:12px;font-weight:800;color:var(--mut)}.mdc b{font-size:17px;font-weight:900}.mdc i{font-style:normal;font-size:13px;font-weight:700;color:var(--mut)}
+.mdc .btn{flex:0 0 auto;height:40px;padding:0 12px;font-size:14px;color:var(--ac);box-shadow:0 3px 0 #14233f}
+.btn.go{display:block;width:100%;height:60px;border-radius:16px;background:var(--ok);color:#0e1a30;box-shadow:0 6px 0 #2f9a5f;font-size:20px;font-weight:900}
+#mpP h3,#mpResP h3{margin:16px 0 10px}#mpWait{margin-bottom:14px}
+/* confettis (seulement pour un record) */
+.cft{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
+.cft i{position:absolute;top:-24px;width:9px;height:15px;border-radius:3px;animation:cfF var(--d) cubic-bezier(.3,.6,.6,1) var(--w) forwards}
+@keyframes cfF{to{transform:translate3d(var(--x),112vh,0) rotate(var(--r))}}
+@media (prefers-reduced-motion:reduce){.cft{display:none}}
+/* écrans encore à l'ancien style : statistiques, records, profil, amis, duels, tour par tour, La Saison… */
+.res{border-radius:12px;padding:11px 14px;margin:0 0 8px;font-weight:700;align-items:center;gap:10px}
+.res.me{outline:0;box-shadow:0 0 0 2px var(--ac)}.res .rn b{color:var(--ac);font-weight:900}.res .rv b{font-weight:900}
+.res.sep{margin:-4px 0 4px;font-weight:900}
+.fr{border-radius:12px;padding:8px 8px 8px 14px;margin:0 0 8px;min-height:50px}.fr span{font-weight:800}
+.fr .btn{border-radius:10px;box-shadow:0 3px 0 #0e1a30;background:#14233f}button.fr{padding:12px 14px;box-shadow:0 3px 0 #0e1a30}
+.pcard,.frc{background:#0e1a30;border-radius:18px;padding:18px 14px;margin-bottom:16px}
+.pcard .pn{font-size:26px;font-weight:900}.frc b{font-weight:900}
+.frc .btn{background:var(--card);box-shadow:0 3px 0 #14233f}
+.st{border-radius:14px;padding:12px 6px;box-shadow:0 3px 0 #0e1a30}.st b{font-size:24px;font-weight:900}.st small{font-weight:700}
+.sg{gap:10px;margin:8px 0 12px}
+.stb{border-spacing:0 6px}.stb td{padding:10px 6px;font-weight:800}.stb td:first-child{border-radius:12px 0 0 12px;font-weight:700}.stb td:last-child{border-radius:0 12px 12px 0}
+.tbc{border-radius:14px;padding:12px 14px;margin:0 0 10px;box-shadow:0 4px 0 #0e1a30;transition:transform .08s ease,box-shadow .08s ease}.tbc:active{transform:translateY(3px);box-shadow:none}
+.tbc.go{outline:0;box-shadow:0 0 0 2px var(--ac),0 4px 0 #0e1a30}.tbc .l1{font-weight:900}
+.tbsc{background:#0e1a30;border-radius:18px;padding:14px 8px}.tbsc b{font-weight:900}
+.tbt{border-radius:12px;padding:10px 14px;margin:0 0 8px}.tbt.cur{outline:0;box-shadow:0 0 0 2px var(--ac)}.tbt>b{font-weight:900}
+.tbe{border-radius:18px;padding:12px}
+#daL .fr.on,#tbFrL .fr.on{outline:0;box-shadow:0 0 0 2px var(--ac)}
+.mpw{border-radius:14px;border-width:1.5px}.ghost{border-radius:12px}
+.win{font-size:24px;font-weight:900}
+.fi{background:#0e1a30;border:2px solid #2a4675;border-radius:14px;font-weight:700}.fi:focus{border-color:var(--ac);outline:0}
+#mcard{border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.45)}#mcard h2{font-size:22px}#mbtn:empty{display:none}
+.rkG{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:12px;background:var(--card);box-shadow:0 3px 0 #0e1a30;color:var(--ac);font-size:24px;line-height:44px;padding:0}.rkG:active{background:var(--card);color:var(--ac);transform:translateY(3px);box-shadow:none}
+#recHd,.rkH{margin-bottom:14px}#recT{font-size:20px}
+.wl span{border-radius:10px;padding:6px 10px;font-weight:900;box-shadow:0 3px 0 #0e1a30}.wl span.c{box-shadow:0 3px 0 #c99a1e}
+.recN{border-radius:14px;border-width:1.5px}
+.dfn .dw{font-weight:900}
+.row.tabs:has(>:nth-child(3)) .btn{font-size:13px;padding:0 3px}
+#mbtn:has(>:nth-child(3)){flex-wrap:wrap}#mbtn:has(>:nth-child(3)) .btn{flex:1 1 40%}
 </style></head><body>
 <section id="vidP" class="pg hide"><video id="vid" playsinline preload="auto"></video><button class="btn" id="vskip" data-t="skip"></button></section>
-<button id="homeB" class="hide" aria-label="Menu">🏠</button><button id="topBk" class="hide" aria-label="Retour">↩&#xFE0E;</button><div id="toast" class="hide"></div><div id="mpWarn" class="hide" data-t="mpWarn"></div>
+<button id="homeB" class="hide" aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button id="topBk" class="hide" aria-label="Retour"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div id="toast" class="hide"></div><div id="mpWarn" class="hide" data-t="mpWarn"></div>
 <div id="modal" class="hide"><div id="mcard"><h2 id="mt"></h2><div id="mb"></div><div id="mbtn"></div></div></div>
 <main>
-<section id="intro" class="pg"><h1>NumériMots<small class="tagl" data-t="tagl"></small></h1><p id="invN" class="mpw hide"></p><p class="netS hide"></p>
+<section id="intro" class="pg"><h1 class="logo" aria-label="NumériMots"><span class="lt" aria-hidden="true"><i>N</i><i>U</i><i>M</i><i>É</i><i>R</i><i>I</i><i class="b">M</i><i class="b">O</i><i class="b">T</i><i class="b">S</i></span><small class="tagl" data-t="tagl"></small></h1><p id="invN" class="mpw hide"></p><p class="netS hide"></p>
 <div style="margin-top:48px"><div id="accIn" class="hide"><button class="btn p mb" id="goMe"><span id="meName"></span><small class="sub" data-t="playAs"></small></button><button class="btn mb" id="goOther" data-t="other" data-net></button></div>
 <button class="btn p mb" id="goLogin" data-t="login" data-net></button>
 <button class="btn p mb" id="goSignup" data-t="signup" data-net></button>
@@ -217,23 +532,23 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <section id="newPwP" class="pg hide"><h2 data-t="npT"></h2><p class="dnote" data-t="npH"></p>
 <div class="pw"><input class="fi" id="npPw" type="password" autocomplete="new-password" data-ph="pw6" data-go="npGo"><button class="eye" data-eye="npPw">👁</button></div>
 <div class="amsg" id="npMsg"></div><button class="btn p mb" id="npGo" data-t="submit"></button></section>
-<section id="home" class="pg hide"><h1>NumériMots<small class="tagl" data-t="tagl"></small></h1><p class="netS hide"></p>
-<button class="ban" id="daily" data-net><span class="bi" id="banI">📅</span><span><b data-t="pD"></b><small id="banS"></small></span><span class="ba">▶</span></button>
-<button class="btn p mb" id="soloB"><span data-t="pSolo"></span><small class="sub" data-t="dSolo"></small></button>
-<button class="btn p mb" id="multi" data-net><span data-t="pM"></span><span class="bdg hide" id="tbB0"></span><small class="sub" data-t="dM"></small></button>
-<button class="btn bl mb" id="dicB" data-t="pDic" data-net></button>
-<div class="row"><button class="btn" id="rules" data-t="rules"></button><button class="btn" id="records" data-t="stats"></button></div>
-<button class="btn mb" id="prof" style="margin-top:12px;font-size:16px;padding:12px" data-net></button><button class="btn mb hide" id="admB" style="font-size:16px;padding:12px" data-net data-t="admT"></button><button class="btn mb" id="setB" style="font-size:16px;padding:12px" data-t="setT"></button>
+<section id="home" class="pg hide"><div class="hbar"><button class="chip" id="prof" data-net></button><button class="ibtn" id="setB" aria-label="Réglages"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div><h1 class="logo" aria-label="NumériMots"><span class="lt" aria-hidden="true"><i>N</i><i>U</i><i>M</i><i>É</i><i>R</i><i>I</i><i class="b">M</i><i class="b">O</i><i class="b">T</i><i class="b">S</i></span><small class="tagl" data-t="tagl"></small></h1><p class="netS hide"></p>
+<button class="ban" id="daily" data-net><span class="bi" id="banI"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="bt"><b data-t="pD"></b><small id="banS"></small></span><span class="ser hide" id="serC"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.5 1.2-4 2.5-5 .2 2 1 3 2 3 0-3-.5-6 .5-9z"/></svg><span id="serN"></span></span><span class="bp" id="banP"></span></button>
+<button class="btn p mb ic" id="soloB"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></i><span class="mt"><span data-t="pSolo"></span><small class="sub" data-t="dSolo"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<button class="btn p mb ic" id="multi" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="18" cy="7" r="3"/><path d="M17 13.2c3.5-.4 7 1.8 7 5.8"/></svg></i><span class="mt"><span data-t="pM"></span><span class="bdg hide" id="tbB0"></span><small class="sub" data-t="dM"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<div class="h3t"><button class="btn bl" id="dicB" data-net><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span data-t="hDic"></span></button><button class="btn" id="rules"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg><span data-t="rules"></span></button><button class="btn" id="records"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-t="stats"></span></button></div>
+<button class="btn mb hide" id="admB" style="font-size:16px;padding:12px" data-net data-t="admT"></button>
 <div class="foot"><p id="ofS" class="hide"></p><p data-t="copy"></p><button class="lnk" data-priv data-t="privL"></button><button class="lnk" data-legal data-t="legL"></button><button class="lnk" id="rldB" data-t="reload" data-net></button></div></section>
 <section id="soloP" class="pg hide"><h2 data-t="pSolo"></h2>
-<button class="btn p mb" id="dailyS" data-net><span data-t="pD"></span><small class="sub" id="dSoloS"></small></button>
-<div class="mrow"><button class="btn p mb" id="cmHome" data-net><span data-t="cmT"></span><small class="sub"><span data-t="cmS"></span><br><span id="cmSoloS"></span></small></button><button class="info" data-info="CM">?</button></div>
-<button class="btn p mb" id="orig"><span data-t="pO"></span><small class="sub" data-t="dO"></small></button>
-<button class="btn p mb" id="free"><span data-t="pF"></span><small class="sub" data-t="dF"></small></button>
-<button class="btn p mb" id="train"><span data-t="pT"></span><small class="sub" data-t="dTr"></small></button>
+<button class="btn p mb ic" id="dailyS" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></i><span class="mt"><span data-t="pD"></span><small class="sub" id="dSoloS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<div class="mrow"><button class="btn p mb ic" id="cmHome" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></i><span class="mt"><span data-t="cmT"></span><small class="sub"><span data-t="cmS"></span><br><span id="cmSoloS"></span></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="info" data-info="CM">?</button></div>
+<button class="btn p mb ic" id="orig"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></i><span class="mt"><span data-t="pO"></span><small class="sub" data-t="dO"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<button class="btn p mb ic" id="free"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></i><span class="mt"><span data-t="pF"></span><small class="sub" data-t="dF"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<button class="btn bl mb ic" id="train"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12M3 9v6M21 9v6M6 7v10M18 7v10"/></svg></i><span class="mt"><span data-t="pT"></span><small class="sub" data-t="dTr"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn mb" data-back data-t="back"></button></section>
 <section id="setP" class="pg hide"><h2 data-t="setT"></h2>
 <h3 data-t="setLg"></h3><div class="row" id="setLgR"><button class="btn" data-setl="fr">🇫🇷 Français</button><button class="btn" data-setl="en">🇬🇧 English</button></div>
+<h3 data-t="a3LyT" style="margin-top:22px"></h3><div class="lyS" id="setLyR"></div>
 <h3 data-t="nfH" style="margin-top:22px"></h3><div id="nfBox"></div>
 <button class="btn mb" data-back data-t="back" style="margin-top:20px"></button></section>
 <section id="origP" class="pg hide"><h2 data-t="pO"></h2>
@@ -249,9 +564,9 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <div class="mrow"><button class="btn p mb" data-tm="w" data-t="mW"></button><button class="info" data-info="W">?</button></div>
 
 <button class="btn mb" data-back data-t="back"></button></section>
-<section id="dailyP" class="pg hide"><h2 data-t="pD"></h2><p id="dInfo" class="dnote"></p><div id="dList"></div>
+<section id="dailyP" class="pg hide"><h2 data-t="pD"></h2><p id="dInfo" class="dnote"></p><p id="serL" class="serL hide"></p><div id="dList"></div>
 <button class="btn mb" id="dPs" style="font-size:16px;padding:12px"></button><button class="btn mb" data-back data-t="back"></button></section>
-<section id="rankP" class="pg hide"><h2 id="rkH"><button class="rkG" id="rkGP" aria-label="‹">‹</button><span id="rkT"></span><button class="rkG" id="rkGN" aria-label="›">›</button></h2><div class="row" id="rkNav"><button class="btn rkA" id="rkPrev" aria-label="-1">‹</button><select id="rkSel"></select><button class="btn rkA" id="rkNext" aria-label="+1">›</button></div><div class="row" id="rkTabs"><button class="btn" data-sc="top" data-t="top10"></button><button class="btn" data-sc="friends" data-t="frTab"></button></div><div id="rkL"></div><div id="rkS"></div><button class="btn mb" id="rkBack" data-t="back" style="margin-top:16px"></button></section>
+<section id="rankP" class="pg hide"><h2 data-t="a3RkT"></h2><div class="rkg"><button class="btn" id="rkGP" aria-label="‹">‹</button><div class="rkgt"><b id="rkT"></b><small id="rkD"></small></div><button class="btn" id="rkGN" aria-label="›">›</button></div><div class="seg" id="rkTabs"><button class="btn" data-sc="top" data-t="a3Top"></button><button class="btn" data-sc="friends" data-t="a3Fr"></button></div><div class="row" id="rkNav"><button class="btn rkA" id="rkPrev" aria-label="-1">‹</button><select id="rkSel"></select><button class="btn rkA" id="rkNext" aria-label="+1">›</button></div><div id="rkL"></div><div id="rkSer"></div><div id="rkS"></div><button class="btn mb" id="rkBack" data-t="back" style="margin-top:16px"></button></section>
 <section id="durP" class="pg hide"><h2 id="durT"></h2><p style="text-align:center;color:var(--mut)" data-t="dur"></p><div id="durB"></div><button class="btn mb" id="durBack" data-t="back"></button></section>
 <section id="freeP" class="pg hide"><h2 data-t="pF"></h2>
 <div class="mrow"><button class="btn p mb" data-m="l"><span data-t="mL"></span><small class="sub" data-t="s30"></small></button><button class="info" data-info="L">?</button></div>
@@ -263,9 +578,9 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <section id="rulesP" class="pg hide"><h2 data-t="rules"></h2><button class="btn mb" data-r="L" data-t="mL"></button><button class="btn mb" data-r="C" data-t="mC"></button><button class="btn mb" data-r="W" data-t="mW"></button><button class="btn mb" data-r="T" data-t="mT"></button><button class="btn mb" data-r="K" data-t="mK"></button><button class="btn mb" data-r="U" data-t="mU"></button><button class="btn mb" data-r="S" data-t="mS"></button><button class="btn mb" data-r="V" data-t="mV"></button><button class="btn mb" data-r="D" data-t="pD"></button><button class="btn mb" data-r="CM" data-t="mCM"></button><button class="btn mb" data-r="M" data-t="pM"></button><button class="btn mb" data-back data-t="back"></button></section>
 <section id="ruleT" class="pg hide"><h2 id="rt"></h2><div id="rtext" class="rt"></div><button class="btn mb" id="rback" data-t="back"></button></section>
 <section id="statsP" class="pg hide"><h2 data-t="stats"></h2>
-<button class="btn p mb" id="stRec"><span data-t="stRec"></span><small class="sub" data-t="stRecS"></small></button>
-<button class="btn p mb" id="stMine"><span data-t="stMine"></span><small class="sub" data-t="stMineS"></small></button>
-<button class="btn p mb" id="stMulti"><span data-t="stMulti"></span><small class="sub" data-t="stMultiS"></small></button> <button class="btn p mb" id="stCm"><span data-t="cmT"></span><small class="sub" data-t="cmStS"></small></button>
+<button class="btn p mb ic" id="stRec"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></i><span class="mt"><span data-t="stRec"></span><small class="sub" data-t="stRecS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<button class="btn p mb ic" id="stMine"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><span class="mt"><span data-t="stMine"></span><small class="sub" data-t="stMineS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<button class="btn p mb ic" id="stMulti"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="18" cy="7" r="3"/><path d="M17 13.2c3.5-.4 7 1.8 7 5.8"/></svg></i><span class="mt"><span data-t="stMulti"></span><small class="sub" data-t="stMultiS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button> <button class="btn p mb ic" id="stCm"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></i><span class="mt"><span data-t="cmT"></span><small class="sub" data-t="cmStS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn mb" data-back data-t="back"></button></section>
 <section id="recsP" class="pg hide"><h2 data-t="stRec"></h2>
 <button class="btn p mb" data-rc="n" data-t="pN"></button><button class="btn p mb" data-rc="q" data-t="pQ"></button>
@@ -278,20 +593,21 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <section id="myStP" class="pg hide"><h2 data-t="stMine"></h2><p class="dnote" id="myN"></p><div id="myS"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section>
 <section id="cmStP" class="pg hide"><h2 data-t="cmT"></h2><p class="dnote" id="cmStN"></p><div id="cmStS"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section> <section id="mpStP" class="pg hide"><h2 data-t="stMulti"></h2><p class="dnote" id="mpN"></p><div id="mpS"></div><div id="rMulti"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section>
 <section id="dictP" class="pg hide"><h2 data-t="chooseDict"></h2><button class="btn p mb" data-d="fr" data-t="dFr"></button><button class="btn p mb" data-d="en" data-t="dEn"></button><div id="dst" style="min-height:24px;text-align:center;color:var(--mut);margin-bottom:12px"></div><button class="btn mb" id="dback" data-t="back"></button></section>
-<section id="drawP" class="pg hide"><div class="stg hide"></div><div class="top"><div class="tl"><button class="btn sm" data-quit data-t="quit"></button></div><div></div><div></div></div><h2 id="drawH" data-t="drawT"></h2><div class="tiles" id="slots"></div><div class="row" id="vcRow"><button class="btn p" id="vow" data-t="pickV"></button><button class="btn p" id="con" data-t="pickC"></button></div><p id="dmsg" style="color:var(--mut)" data-t="drawH"></p></section>
-<section id="gm" class="pg hide"><div class="stg hide"></div>
-<div class="top"><div class="tl"><button class="btn sm" data-quit data-t="quit"></button><button class="btn sm mute">♪ On</button></div><div id="time">2:00</div><div id="score" style="font-weight:700;text-align:right">0</div></div>
-<div class="ghost hide"></div><div class="dots" id="dots"></div><p id="len" style="text-align:center;color:var(--mut)"></p>
-<div class="tiles" id="tiles"></div><input id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" data-ph="ph"><div id="msg"></div>
-<div class="row"><button class="btn hide" id="lend" data-t="done"></button><button class="btn" id="del">⌫</button><button class="btn hide" id="clr" data-t="clrW"></button><button class="btn" id="shuf" data-t="shuffle"></button><button class="btn" id="skip" data-t="skipW"></button><button class="btn p" id="ok" data-t="submit"></button></div></section>
-<section id="cGame" class="pg hide"><div class="stg hide"></div>
-<div class="top"><div class="tl"><button class="btn sm" data-quit data-t="quit"></button><button class="btn sm mute">♪ On</button></div><div id="ctime">0:45</div><div></div></div>
-<div class="ghost hide"></div><div style="text-align:center;color:var(--mut)" data-t="target"></div><div class="tgt" id="tg"></div>
+<section id="drawP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><span class="gb gbx"></span></div></div><div class="dwc"><span class="gti"></span><h2 id="drawH" data-t="drawT"></h2><div class="tiles" id="slots"></div><div class="vcc" id="vcC"><span><b id="nvC">0</b> <i id="nvL"></i></span><span><b id="ncC">0</b> <i id="ncL"></i></span></div><p id="dmsg" data-t="drawH"></p></div><div class="row" id="vcRow"><button class="btn p" id="vow" data-t="pickV"></button><button class="btn bl" id="con" data-t="pickC"></button></div></section>
+<section id="gm" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div>
+<div class="ghost hide"></div><div class="gtm"><span class="gti"></span><div id="time">2:00</div><span class="tbar"><i></i></span></div>
+<div class="dots" id="dots"></div><p class="dlg hide" id="dotsL"></p>
+<div class="gmid"><div class="acard"><p id="len"></p><div class="ansv" id="ansV"></div><input id="ans" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Mot"></div><div id="msg"></div>
+<div class="tiles" id="tiles"></div></div><span id="score" class="hide"></span>
+<div class="gbt"><button class="btn" id="del" aria-label="⌫"><svg aria-hidden="true" width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h15a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8l-6-9z"/><path d="M13 8l6 6M19 8l-6 6"/></svg></button><button class="btn hide" id="clr" data-t="clrW"></button><button class="btn" id="shuf" data-t="shuffle"></button><button class="btn sk" id="skip" data-t="skipW"></button></div>
+<div class="gbt2"><button class="btn hide" id="lend" data-t="done"></button><button class="btn g" id="ok" data-t="submit"></button></div></section>
+<section id="cGame" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div>
+<div class="ghost hide"></div><div class="ccard"><div class="cct"><span class="gti" data-t="mC"></span><div class="tgt" id="tg"></div></div><div class="gtm sm"><div id="ctime">0:45</div><span class="tbar"><i></i></span></div></div>
+<div id="clog"></div><div id="cpend" class="cpend hide"></div><div id="cmsg"></div><div class="csp"></div>
 <div class="plates" id="pl"></div><div class="ops" id="ops"></div>
-<div id="clog"></div><div id="cmsg"></div>
-<div class="row cbar"><button class="btn" id="undo" data-t="undo"></button><button class="btn" id="rst" data-t="rst"></button><button class="btn p" id="cdone" data-t="done"></button></div></section>
-<section id="end" class="pg hide"><h2 id="why"></h2><div class="big" id="final"></div><div class="ptot hide" id="ptot"></div><div id="chBox"></div><div id="extra"></div>
-<div id="saveBox" class="recN hide"></div><button class="btn mb hide" id="wRul"></button>
+<div class="row cbar"><button class="btn" id="undo" data-t="undo"></button><button class="btn" id="rst" data-t="rst"></button><button class="btn g" id="cdone" data-t="done"></button></div></section>
+<section id="end" class="pg hide"><div class="gh"><div class="stg hide"></div></div><p class="esub" id="eSub"></p><h2 id="why"></h2><div class="big" id="final"></div><div class="ptot hide" id="ptot"></div><div id="extra"></div>
+<div id="saveBox" class="recN hide"></div><div id="chBox"></div><button class="btn mb hide" id="wRul"></button>
 <div class="row"><button class="btn p hide" id="next" data-t="next"></button><button class="btn p hide" id="drk" data-t="seeRank" data-net></button><button class="btn p" id="again" data-t="again"></button><button class="btn" id="tomenu" data-t="menu"></button></div></section>
 <section id="admP" class="pg hide"><h2 data-t="admT"></h2>
 <div class="row tabs" id="admTabs"><button class="btn" data-ad="ov" data-t="admOv"></button><button class="btn" data-ad="pl" data-t="admPl"></button><button class="btn" data-ad="fd" data-t="admFd"></button><button class="btn" data-ad="mu" data-t="admMu"></button></div>
@@ -303,9 +619,9 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <div id="pGst"><p class="dnote" data-t="gInfo"></p><button class="btn p mb hide" id="pUse"></button><button class="btn p mb" id="pLi" data-t="login"></button><button class="btn p mb" id="pSu" data-t="signup"></button></div>
 <button class="btn mb" id="pBack" data-t="back"></button></section>
 <section id="mpMenu" class="pg hide"><h2 data-t="pM"></h2><h3 class="mph" data-t="mpLiveH"></h3><p class="dnote" data-t="mpLive"></p>
-<button class="btn p mb" id="mpNew"><span data-t="mpNew"></span><small class="sub" data-t="mpNewS"></small></button>
-<div class="mrow"><button class="btn p mb" id="mpJoin"><span data-t="mpJoin"></span><small class="sub" data-t="mpJoinS"></small></button><button class="info" id="mpInfo">?</button></div>
-<h3 class="mph" data-t="mpAsyH"></h3><button class="btn p mb" id="chGo"><span data-t="chT"></span><span class="bdg hide" id="daB1"></span><small class="sub" data-t="chS"></small></button><div class="mrow"><button class="btn p mb" id="tbGo"><span data-t="tbT"></span><span class="bdg hide" id="tbB1"></span><small class="sub" data-t="tbS"></small></button><button class="info" id="tbInfo">?</button></div>
+<button class="btn p mb ic" id="mpNew"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></i><span class="mt"><span data-t="mpNew"></span><small class="sub" data-t="mpNewS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
+<div class="mrow"><button class="btn p mb ic" id="mpJoin"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></i><span class="mt"><span data-t="mpJoin"></span><small class="sub" data-t="mpJoinS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="info" id="mpInfo">?</button></div>
+<h3 class="mph" data-t="mpAsyH"></h3><button class="btn bl mb ic" id="chGo"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></i><span class="mt"><span data-t="chT"></span><span class="bdg hide" id="daB1"></span><small class="sub" data-t="chS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><div class="mrow"><button class="btn bl mb ic" id="tbGo"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></i><span class="mt"><span data-t="tbT"></span><span class="bdg hide" id="tbB1"></span><small class="sub" data-t="tbS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="info" id="tbInfo">?</button></div>
 <p class="dnote" id="mpNote"></p><button class="btn mb" id="mpWho" style="font-size:16px;padding:12px"></button><button class="btn mb" data-back data-t="back"></button></section>
 <section id="mpJoinP" class="pg hide"><h2 data-t="mpJoin"></h2><p class="dnote" data-t="mpCodeH"></p>
 <input class="fi" id="mjCode" inputmode="numeric" autocomplete="off" maxlength="7" data-ph="mpCodePh" data-go="mjGo">
@@ -334,9 +650,9 @@ button.admR{display:block;width:100%;text-align:left;border:0;color:var(--tx);fo
 <div class="mrow"><button class="btn p mb" data-df="s"><span data-t="mS"></span><small class="sub" data-t="s30"></small></button><button class="info" data-info="S">?</button></div>
 <div class="mrow"><button class="btn p mb" data-df="v"><span data-t="mV"></span><small class="sub" data-t="s30"></small></button><button class="info" data-info="V">?</button></div>
 <button class="btn mb" id="dfBack" data-t="back"></button></section>
-<section id="dfP" class="pg hide"><div class="stg hide"></div><div class="ghost hide"></div>
-<div class="top"><div class="tl"><button class="btn sm" data-quit data-t="quit"></button><button class="btn sm mute">♪ On</button></div><div id="dftime">0:30</div><div></div></div>
-<h2 id="dfTh"></h2><p class="dfh" id="dfHint"></p><div id="dfArea"></div><div id="dfBzL" class="mpw hide"></div><div id="dfmsg"></div><div id="dfIn"></div></section>
+<section id="dfP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="ghost hide"></div>
+<div class="dfban"><span class="dfbi" id="dfBi"></span><span class="dfbt"><small id="dfBl"></small><h2 id="dfTh"></h2></span><div class="gtm xs"><div id="dftime">0:30</div></div><span class="tbar"><i></i></span></div>
+<p class="dfh" id="dfHint"></p><div id="dfArea"></div><div id="dfBzL" class="mpw hide"></div><div id="dfmsg"></div><div id="dfIn"></div></section>
 <section id="defP" class="pg hide"><h2 data-t="pDic"></h2><p class="dnote" data-t="dicH"></p>
 <div class="row" id="dcTabs"><button class="btn" data-dcl="fr">🇫🇷 Français</button><button class="btn" data-dcl="en">🇬🇧 English</button></div>
 <div class="row"><input class="fi" id="dcIn" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" data-ph="dicPh" data-go="dcGo" style="margin:0"><button class="btn p" id="dcGo" data-t="dicGo"></button></div>
@@ -393,7 +709,10 @@ const $=id=>document.getElementById(id),t=(k,n,m)=>T[L][k].replace("{n}",n).repl
 const sh=(a,r=Math.random)=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const scr=(w,r)=>{let l;do l=sh(w.split(""),r);while(l.join("")===w);return l};
 const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/œ/g,"oe").replace(/æ/g,"ae");
-const show=id=>{all(".pg").forEach(e=>e.classList.toggle("hide",e.id!==id));onShow(id)};
+const show=id=>{all(".pg").forEach(e=>e.classList.toggle("hide",e.id!==id));pgFx(id);onShow(id)};
+function icClean(){all(".mb.ic .mt>span:first-child").forEach(e=>{const v=e.textContent.replace(/^[^\p{L}\p{N}]+/u,"");if(v!==e.textContent)e.textContent=v})}
+applyLang=(f=>function(){f.apply(this,arguments);icClean()})(applyLang);
+var pgL=null;function pgFx(id){if(id===pgL)return;pgL=id;const e=document.getElementById(id);if(!e)return;e.classList.remove("pin");void e.offsetWidth;e.classList.add("pin")}
 const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const A={theme:new Audio(),ding:new Audio("assets/son-bonne-reponse.mp3"),chiffres:new Audio(),lettres:new Audio(),l60:new Audio(),linf:new Audio(),c90:new Audio(),cinf:new Audio(),clic:new Audio("assets/son-tirage.mp3"),cible:new Audio("assets/son-cible.mp3"),defis:new Audio()};
@@ -508,7 +827,7 @@ function tryL(a){tried=a;const c={};rounds[0].l.forEach(x=>c[x]=(c[x]||0)+1);for
 function endL(){if(over)return;clearInterval(timer);lock(true);stopM();pending=null;results(tried?t(best?"wAccT":"wRefT"):t("ended"),xL())}
 const key=w=>w.split("").sort().join("");
 function timeUp(){if(mode==="l"){const a=$("ans").value.trim();if(a)tryL(a)}lock(true);msg(t("timeUp"),"ko");afterMusic(()=>results(t("timeUp"),mode==="w"?xW():xL()))}
-const xW=()=>rounds.map(r=>'<div class="res '+(r.done?"ok":"")+'"><span>'+r.l.join("").toUpperCase()+"</span>"+wdH(r.w,dl)+"</div>").join("")+wdHint();
+const xW=()=>(rounds.length>1?'<div class="exh"><b>'+t("a3Words")+"</b><small>"+t("a3ExH")+"</small></div>":"")+'<div class="ewl">'+rounds.map(r=>'<div class="ewr'+(r.done?" d":"")+'"><span class="exn'+(r.done?" y":"")+'">'+r.w.length+"</span>"+wdH(r.w,dl)+"<small>"+(r.done?"✓":esc(r.l.join("").toUpperCase()))+"</small></div>").join("")+"</div>"+(rounds.length>1?"":wdHint());
 function bestWords(l,list){const c={};l.forEach(x=>c[x]=(c[x]||0)+1);let m=0,out=[];for(const w of list){if(w.length<m)continue;const k={...c};let ok=true;for(const ch of w){if(!k[ch]){ok=false;break}k[ch]--}if(ok){if(w.length>m){m=w.length;out=[w]}else if(out.length<5)out.push(w)}}return out}
 // résultats du Mot le plus long (v20) : meilleur(s) mot(s) puis 3 exemples par nombre de lettres, jusqu'à 5 lettres
 function exL(l,list,lg){const c={};l.forEach(x=>c[x]=(c[x]||0)+1);const by={};
@@ -602,7 +921,15 @@ let DK="fwdaily";
 function getD(){try{return JSON.parse(localStorage.getItem(DK)||"{}")}catch(e){return{}}}
 function putD(o){const k=Object.keys(o).sort();while(k.length>31)delete o[k.shift()];try{localStorage.setItem(DK,JSON.stringify(o))}catch(e){}}
 const myD=(day,g)=>(getD()[day]||{})[g];
-function setMy(day,g,v){const o=getD();(o[day]=o[day]||{})[g]=v;putD(o)}
+function setMy(day,g,v){const o=getD();(o[day]=o[day]||{})[g]=v;putD(o);try{serBump(day)}catch(e){}}
+// série de jours de La partie du jour (au moins une épreuve jouée dans la journée)
+const SERK="nmSerie";
+function serPut(o){try{localStorage.setItem(SERK,JSON.stringify(o))}catch(e){}}
+function serRaw(){try{return JSON.parse(localStorage.getItem(SERK)||"null")}catch(e){return null}}
+function serInit(){const D=getD(),d0=pToday(),has=d=>!!(D[d]&&Object.keys(D[d]).length);let day=has(d0)?d0:addDay(d0,-1),n=0,last=null;while(has(day)){if(!last)last=day;n++;day=addDay(day,-1)}const o={cur:n,best:n,last:last};serPut(o);return o}
+function serGet(){const o=serRaw()||serInit(),d0=pToday();return(o.last===d0||o.last===addDay(d0,-1))?o:{cur:0,best:o.best||0,last:o.last}}
+function serBump(day){if(day!==pToday())return;const o=serRaw()||serInit();if(o.last===day)return;o.cur=o.last===addDay(day,-1)?(o.cur||0)+1:1;o.last=day;o.best=Math.max(o.best||0,o.cur);serPut(o)}
+
 // dates (heure de Paris)
 function pParts(d){return Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(d).map(x=>[x.type,x.value]))}
 function pToday(){const p=pParts(new Date());return p.year+"-"+p.month+"-"+p.day}
@@ -632,7 +959,7 @@ async function sbSend(day,g,o){if(!sb||!ME)return false;const{error}=await sb.rp
 async function sendMy(day,g){const o=myD(day,g);if(!o||!o.done||o.sent)return true;let ok=false;try{ok=await sbSend(day,g,o)}catch(e){}if(ok){const n=myD(day,g);if(n){n.sent=1;setMy(day,g,n)}}return ok}
 function syncD(){const d0=pToday();[d0,addDay(d0,-1)].forEach(day=>DG.forEach(g=>{const e=myD(day,g);if(!e)return;if(!e.done&&!(daily&&daily.g===g&&daily.day===day)){e.done=1;setMy(day,g,e)}if(e.done&&!e.sent&&ME)sendMy(day,g)}))}
 // menu du jour
-function renderD(){syncD();const day=pToday();$("dInfo").innerHTML=t("dInfo",leftMid());$("dPs").textContent=ME?t("dAcc",ME.pseudo):t("dGst");
+function renderD(){syncD();const day=pToday();{const o=serGet(),e=$("serL");if(e){e.textContent=o.best?"🔥 "+t("serL",o.cur,o.best):"";e.classList.toggle("hide",!o.best)}}$("dInfo").innerHTML=t("dInfo",leftMid());$("dPs").textContent=ME?t("dAcc",ME.pseudo):t("dGst");
  $("dList").innerHTML=DG.map(g=>{const m=DGM[g],o=myD(day,g);return'<div class="mrow"><button class="btn mb '+(o?"done":"p")+'" data-dg="'+g+'"><span>'+nameOf(g)+'</span><small class="sub">'+t(DUR[m])+(o?'<br><span class="ok2">'+t("dPlayed")+"</span>":"")+'</small></button><button class="info rk" data-rk="'+g+'">🏆</button></div>'}).join("")}
 function openDaily(){renderD();show("dailyP");if(ME)syncAcc()}
 setInterval(()=>{if(!$("dailyP").classList.contains("hide"))renderD()},30000);
@@ -730,7 +1057,7 @@ async function syncAcc(){plSync();if(!ME||!sb||!SESS||syncing)return;syncing=tru
   putD(o2);if(!$("dailyP").classList.contains("hide"))renderD()}catch(e){}finally{syncing=false}}
 // affichage
 function renderIntro(){const a=ACC;$("invN").classList.toggle("hide",!mpJoin0&&!chIn0&&!frIn0);if(frIn0&&!mpJoin0&&!chIn0)$("invN").textContent=t("frLinkInv",fmtCode(frIn0));else if(mpJoin0)$("invN").textContent=t("mpInvite",fmtCode(mpJoin0));else if(chIn0)$("invN").textContent=chIn0==="bad"?t("chBad"):chIn0.a?t("chInvR",chIn0.a.n):t("chInv",chIn0.n);$("accIn").classList.toggle("hide",!a);if(a)$("meName").textContent="▶ "+a.pseudo;$("goLogin").classList.toggle("hide",!!a);$("goSignup").classList.toggle("p",!a);$("goGuest").classList.toggle("p",!a)}
-function renderProfB(){admUI();const b=$("prof");if(!b)return;b.innerHTML=ME?esc("👤 "+ME.pseudo+" · "+t("prof"))+(ME.pending?'<span class="bdg">'+ME.pending+"</span>":""):esc("👤 "+t("prof")+" · "+t("guestN"))}
+function renderProfB(){admUI();const b=$("prof");if(!b)return;const nm=ME?ME.pseudo:t("guest"),av=ME?(Array.from(ME.pseudo.trim())[0]||"?"):"👤";b.innerHTML='<span class="av">'+esc(av.toUpperCase())+'</span><span class="pn">'+esc(nm)+"</span>"+(ME&&ME.pending?'<span class="bdg">'+ME.pending+"</span>":"");b.setAttribute("aria-label",t("prof")+" : "+nm)}
 function am(id,s,ok){const e=$(id);if(!e)return;e.textContent=s||"";e.className="amsg"+(ok?" ok":"")}
 const okMail=s=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s),cleanPs=s=>s.trim().replace(/\s+/g," ");
 const isCode=(e,c,re)=>!!e&&(e.code===c||re.test(String(e.message||"").toLowerCase()));
@@ -2229,7 +2556,7 @@ Object.assign(T.en,{frCodeT:"My friend code",frCopy:"📋 Copy",frInv:"📤 Invi
 // ===== v11 : défis du lot 2, menus, règles =====
 Object.assign(T.fr,{dX:"4 défis de 30 secondes",mU:"Mots gigognes",nU:"Mots gigognes",mS:"Défi orthographe",nS:"Défi orthographe",
  dfUH:"Trouve le nom propre (les 10 lettres) et le nom commun caché dedans",dfUP:"Nom propre :",dfUC:"Nom commun :",dfUP0:"Nom propre (10 lettres)",dfUC0:"Nom commun",dfU10:"Le nom propre utilise les 10 lettres",dfUCE:"Écris aussi le nom commun",
- dfSH:"Écris le mot prononcé",dfListen:"🔊 Écoute bien…",dfSE:"Écris le mot",dfNoVoice:"Pas de son ? Vérifie que ton téléphone n'est pas en mode silencieux, puis touche 🔊 pour réécouter. Tu peux aussi t'aider de la définition.",dfRe:"Touche 🔊 pour réécouter",dfIos:"pas de son ? vérifie le mode silencieux",dfWaitT:"Le tirage arrive…",
+ dfSH:"Écris le mot prononcé",dfListen:"🔊 Écoute bien…",dfSE:"Écris le mot",hDic:"Dictionnaire",serS:"{n} j",serL:"Série : {n} j · record : {m} j",dfNoVoice:"Pas de son ? Vérifie que ton téléphone n'est pas en mode silencieux, puis touche 🔊 pour réécouter. Tu peux aussi t'aider de la définition.",dfRe:"Touche 🔊 pour réécouter",dfIos:"pas de son ? vérifie le mode silencieux",dfWaitT:"Le tirage arrive…",
  dfRulesB:"📖 Règles du défi : {n}",
  dfProc:`<h3>Le déroulement à plusieurs</h3><p>🔔 <b>Le buzzer</b> : dès que tu as la réponse, touche BUZZ. Le premier qui buzze arrête le chrono, et a 10 secondes pour proposer sa réponse (15 secondes pour les mots gigognes et l'orthographe).</p><p>✓ <b>Bonne réponse</b> : 7 points, et le défi s'arrête.</p><p>✗ <b>Mauvaise réponse</b> : le joueur est éliminé du défi et ne peut plus répondre. Le chrono repart et seuls ses adversaires peuvent encore buzzer.</p><p>⏱ <b>Personne ne répond</b>, ou tout le monde se trompe : aucun point n'est marqué.</p>`,
  iU:`<p>Une définition de nom propre, puis une de nom commun, puis 10 lettres tirées une par une : trouve les deux mots. Le nom commun se cache dans les lettres du nom propre. 30 secondes, une seule réponse, 7 points.</p>`,
@@ -2247,7 +2574,7 @@ Object.assign(T.fr,{dX:"4 défis de 30 secondes",mU:"Mots gigognes",nU:"Mots gig
  rM:T.fr.rM.replace("(défi thème et défi calcul mental)","(thème, calcul mental, mots gigognes et orthographe)").replace("a 10 secondes pour répondre.","a 10 secondes pour répondre (15 secondes pour les mots gigognes et l'orthographe).").replace("défi thème, défi calcul mental ou au hasard","l'un des quatre défis ou au hasard")});
 Object.assign(T.en,{dX:"4 challenges of 30 seconds",mU:"Nested words",nU:"Nested words",mS:"Spelling challenge",nS:"Spelling challenge",
  dfUH:"Find the proper noun (all 10 letters) and the common noun hidden in it",dfUP:"Proper noun:",dfUC:"Common noun:",dfUP0:"Proper noun (10 letters)",dfUC0:"Common noun",dfU10:"The proper noun uses all 10 letters",dfUCE:"Write the common noun too",
- dfSH:"Write the word you heard",dfListen:"🔊 Listen carefully…",dfSE:"Write the word",dfNoVoice:"No sound? Make sure your phone isn't on silent mode, then tap 🔊 to listen again. You can also use the definition.",dfRe:"Tap 🔊 to listen again",dfIos:"no sound? check silent mode",dfWaitT:"Here comes the draw…",
+ dfSH:"Write the word you heard",dfListen:"🔊 Listen carefully…",dfSE:"Write the word",hDic:"Dictionary",serS:"{n} d",serL:"Streak: {n} d · best: {m} d",dfNoVoice:"No sound? Make sure your phone isn't on silent mode, then tap 🔊 to listen again. You can also use the definition.",dfRe:"Tap 🔊 to listen again",dfIos:"no sound? check silent mode",dfWaitT:"Here comes the draw…",
  dfRulesB:"📖 Challenge rules: {n}",
  dfProc:`<h3>How it works with several players</h3><p>🔔 <b>The buzzer</b>: as soon as you have the answer, tap BUZZ. The first player to buzz stops the clock, and has 10 seconds to answer (15 seconds for Nested words and Spelling).</p><p>✓ <b>Right answer</b>: 7 points, and the challenge ends.</p><p>✗ <b>Wrong answer</b>: that player is out of the challenge and can't answer again. The clock restarts and only their opponents can still buzz.</p><p>⏱ <b>Nobody answers</b>, or everyone is wrong: nobody scores.</p>`,
  iU:`<p>A clue for a proper noun, then a clue for a common noun, then 10 letters drawn one by one: find both words. The common noun is hidden in the letters of the proper noun. 30 seconds, one answer, 7 points.</p>`,
@@ -6662,7 +6989,7 @@ Object.assign(T.en,{pSolo:"Solo",dSolo:"daily game, season, classic game…",dTr
  banAll:"{n} challenges to play today",banN:"{n} challenges left to play",ban1:"one challenge left to play",banDone:"all played · see the leaderboards"});
 const dLeft=()=>{const day=pToday();return DG.filter(g=>!myD(day,g)).length};
 const dStat=k=>k?t(k===DG.length?"banAll":k>1?"banN":"ban1",k):t("banDone");
-function renderBan(){const k=dLeft(),b=$("daily");b.classList.toggle("done",!k);$("banI").textContent=k?"📅":"✅";$("banS").textContent=dStat(k)}
+function renderBan(){const k=dLeft(),b=$("daily"),day=pToday();b.classList.toggle("done",!k);$("banS").textContent=dStat(k);{const n=DG.filter(g=>myD(day,g)).length;$("banP").innerHTML=DG.map((g,i)=>"<i"+(i<n?' class="d"':"")+"></i>").join("")}const o=serGet();$("serN").textContent=o.cur?t("serS",o.cur):"";$("serC").classList.toggle("hide",!o.cur)}
 function renderSolo(){const k=dLeft(),b=$("dailyS");b.classList.toggle("p",!!k);b.classList.toggle("done",!k);
  $("dSoloS").innerHTML=esc(t("dD"))+"<br>"+(k?esc(dStat(k)):'<span class="ok2">✅ '+esc(dStat(k))+"</span>");
  let c="";try{const n=cmCur(),lf=cmLeftS(n);c=t("cmSeason",n)+(lf?" · "+t("cmLeft",lf):"")}catch(e){}$("cmSoloS").textContent=c}
@@ -6984,6 +7311,194 @@ function renderLegal(){$("legalX").innerHTML=t("legX")}
 all("[data-legal]").forEach(b=>b.onclick=()=>{const p=b.closest(".pg");legalFrom=p?p.id:"intro";renderLegal();show("legalP");window.scrollTo(0,0)});
 $("legalBack").onclick=()=>{show(legalFrom);if(legalFrom==="intro")renderIntro()};
 {const o=menuLang;menuLang=function(){o.apply(this,arguments);if(vis("legalP"))renderLegal()}}
+
+// ===== Style A+ (lot 2) : écrans de jeu (bandeau, manche, score, gros chrono, tirage, Nombre cible, Sprint final, défis) =====
+Object.assign(T.fr,{gRound:"Manche",gTurn:"Tour",gEp:"Épreuve",gScore:"Score",gFound:"Trouvés",gWordN:"Mot de {n} lettres",gL1:"1 lettre",gDotsL:"Vert : trouvé · Orange : passé, à revoir",gDf:"DÉFI",gVow:"voyelles",gCon:"consonnes",gVow1:"voyelle",gCon1:"consonne",gMute:"Couper le son",gUnmute:"Remettre le son",gHome:"Quitter la partie",gDel:"Retirer la dernière lettre",gDuel:"Duel",gLfr:"Français",gLen:"Anglais",gDk:"Calcul mental",gDu:"Mots gigognes",gDs:"Orthographe",gDv:"Traduction"});
+Object.assign(T.en,{gRound:"Round",gTurn:"Turn",gEp:"Round",gScore:"Score",gFound:"Found",gWordN:"{n}-letter word",gL1:"1 letter",gDotsL:"Green: found · Orange: skipped, come back to it",gDf:"CHALLENGE",gVow:"vowels",gCon:"consonants",gVow1:"vowel",gCon1:"consonant",gMute:"Mute",gUnmute:"Sound on",gHome:"Quit the game",gDel:"Remove the last letter",gDuel:"Duel",gLfr:"French",gLen:"English",gDk:"Mental maths",gDu:"Nested words",gDs:"Spelling",gDv:"Translation"});
+const gNoEm=s=>String(s).replace(/^[^\p{L}\p{N}]+/u,"").trim();
+const gIco=id=>{const e=$(id),m=e&&e.querySelector(".mi svg");return m?m.outerHTML:""};
+const gSv=p=>'<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+p+"</svg>";
+const DFI={t:gSv('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
+ k:gSv('<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18.5h8"/>'),
+ u:gSv('<rect x="2" y="5" width="20" height="14" rx="3"/><rect x="8" y="9" width="8" height="6" rx="1.5"/>'),
+ s:gSv('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'),
+ v:gSv('<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>')};
+const MUI={on:gSv('<path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>'),off:gSv('<path d="M11 5L6 9H2v6h4l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/>')};
+// jeu affiché, mode, langue
+function gG(){if(MP&&MP.R)return mpr?mpr.g:"l";return party?party.steps[party.i]:mode}
+function gMode(){
+ if(MP&&MP.R){const mo=MP.R.mo;return{ic:"multi",tx:t("mpS")+" · "+gNoEm(t(mo==="o"?"mpO":mo==="q"?"mpQ":mo==="p"?"mpP":"gpT"))}}
+ if(tbx)return{ic:"tbGo",tx:esc(gNoEm(t("tbStg",tbx.opp)))};
+ if(cmx)return{ic:"cmHome",tx:gNoEm(t("cmT"))};
+ if(daily)return{ic:"dailyS",tx:t("pD")};
+ if(chl&&chl.opp)return{ic:"chGo",tx:esc(gNoEm(t("chStg",chl.opp.n)))};
+ if(chNav&&!party&&!trn)return{ic:"chGo",tx:t("gDuel")};
+ if(party)return{ic:"orig",tx:t("pO")};
+ if(trn||(dfNav&&dfFrom==="trainP"))return{ic:"train",tx:t("pT")};
+ return{ic:"free",tx:t("pF")}}
+function gLang(g){if(!"lwatusv".includes(g||"x"))return null;
+ let lg=MP&&MP.R?MP.R.dl:tbx?(tbx.dl||dl):cmx?cmx.lg:(chl&&chl.dl)||dl;if(dfIs(g)&&dfx&&dfx.d&&dfx.d.lg)lg=dfx.d.lg;
+ if(lg!=="fr"&&lg!=="en")return null;
+ return g==="v"?{b:lg==="fr"?"EN→FR":"FR→EN",tx:t("dvs"+lg)}:{b:lg.toUpperCase(),tx:t("gL"+lg)}}
+// manche, score
+function gBoxes(g){let r=null,s=null;const live=g==="w"&&!over?(score||0):0;
+ if(MP&&MP.R){const R=MP.R;if(R.mo!=="q"){r=[t("gRound"),R.i+1,mpN()];if(R.pl&&R.pl[MID])s=(R.pl[MID].tot||0)+live}}
+ else if(party){r=[t("gRound"),party.i+1,party.steps.length];s=(party.total||0)+live}
+ else if(cmx)r=[t("gEp"),cmx.idx+1,10];
+ else if(tbx)r=[t("gTurn"),tbx.tour,tbx.nt];
+ else if(g==="w"&&rounds&&rounds.length>1){r=[t("gFound"),rounds.filter(x=>x.done).length,rounds.length];s=score||0}
+ if(!r&&s===null)return"";
+ return(r?'<div class="gbox"><small>'+r[0]+"</small><b>"+r[1]+"<i> / "+r[2]+"</i></b></div>":"")+(s!==null?'<div class="gbox sc"><small>'+t("gScore")+"</small><b>"+s+"</b></div>":"")}
+function hdr(){const g=gG(),bx=gBoxes(g);
+ all(".gh").forEach(h=>{const st=h.querySelector(".stg"),m=h.querySelector(".ghm");if(!st||!m)return;
+  m.querySelectorAll(".gbox").forEach(e=>e.remove());
+  if(bx){if(st.parentNode!==h)h.insertBefore(st,h.firstChild);m.insertAdjacentHTML("beforeend",bx)}else if(st.parentNode!==m)m.appendChild(st)});
+ const ti=T[L]["m"+String(g||"").toUpperCase()]||"";all(".gs .gti:not([data-t])").forEach(e=>e.textContent=ti||"")}
+setStage=function(){const g=gG(),M=gMode(),lg=gLang(g);
+ let h='<span class="chp">'+gIco(M.ic)+"<span>"+M.tx+"</span></span>";
+ if(lg)h+='<span class="chp lg"><span class="lgb">'+lg.b+"</span><span>"+lg.tx+"</span></span>";
+ all(".gh .stg").forEach(e=>{e.innerHTML=h;e.classList.remove("hide")});
+ all(".gs .tbar").forEach(b=>{b.classList.remove("inf");gBarSet(b,1,true)});hdr()};
+// gros chrono : secondes seules sous la minute, barre qui se vide
+function gBarSet(b,f,now){const i=b&&b.firstElementChild;if(!i)return;if(now){i.style.transition="none";i.style.width=(f*100)+"%";void i.offsetWidth;i.style.transition=""}else i.style.width=(Math.max(0,f)*100)+"%"}
+runTimer=(o=>function(sec,el){if(el){el.dataset.tot=sec;el._s=null}return o.apply(this,arguments)})(runTimer);
+function gTick(el){const tx=el.textContent,p=el.closest(".pg"),b=p&&p.querySelector(".tbar");
+ const m=/^(\d+):(\d\d)$/.exec(tx);if(m){const s=+m[1]*60+ +m[2];if(s<60){el.textContent=String(s);return}}
+ if(!b)return;if(tx==="∞"){b.classList.add("inf");return}b.classList.remove("inf");
+ const s=m?+m[1]*60+ +m[2]:parseInt(tx,10);if(isNaN(s)||s===el._s)return;el._s=s;
+ const tot=+el.dataset.tot||DFMS/1000;if(s>=tot){gBarSet(b,1,true);gBarSet(b,(s-1)/tot)}else gBarSet(b,(s-1)/tot)}
+["time","ctime","dftime"].forEach(id=>{const el=$(id);if(!el)return;new MutationObserver(()=>gTick(el)).observe(el,{childList:true,characterData:true,subtree:true})});
+// Chasse aux mots et Sprint final : mot en tuiles, compteur, pastilles des 8 mots
+function gAns(){const r=rounds&&rounds[queue[cur]];if(!r)return;const v=$("ans").value.toUpperCase(),n=mode==="w"?r.w.length:10;
+ let h="";for(const c of v)h+="<i>"+c+"</i>";if(mode==="w")for(let i=v.length;i<n;i++)h+='<i class="e"></i>';else if(v.length<n)h+='<i class="e"></i>';
+ $("ansV").innerHTML=h;$("tiles").style.setProperty("--n",mode==="w"?Math.min(8,r.l.length):5);
+ if(mode!=="w"){const e=$("len");e.textContent=v.length?(v.length===1?t("gL1"):t("lets",v.length)):t("longH");e.classList.toggle("ok",!!v.length)}}
+rt=(o=>function(){o.apply(this,arguments);gAns()})(rt);
+function gDots(){const D=$("dots"),G=$("dotsL"),w=mode==="w";$("gm").classList.toggle("w",w);
+ if(!w||!rounds||rounds.length<2){D.innerHTML="";G.classList.add("hide")}
+ else{const c=queue.length?queue[cur]:-1;D.innerHTML=rounds.map((r,i)=>'<i class="'+(r.done?"d":i===c?"c":r.sk?"s":"")+'">'+r.w.length+"</i>").join("");G.textContent=t("gDotsL");G.classList.remove("hide")}
+ if(w&&rounds&&queue.length){const e=$("len");e.textContent=t("gWordN",rounds[queue[cur]].w.length);e.classList.remove("ok")}
+ hdr()}
+draw=(o=>function(){o.apply(this,arguments);gDots()})(draw);
+$("skip").onclick=()=>{if(queue.length>1){rounds[queue[cur]].sk=1;cur=(cur+1)%queue.length;draw()}};
+// tirage voyelle / consonne avec compteur
+rdS=function(){const lg=(MP&&MP.R&&MP.R.dl)||dl||"fr",V=(WT[lg]||WT.fr).v;let a=0,b=0;
+ $("slots").innerHTML=Array.from({length:10},(_,i)=>{const c=ld[i];if(!c)return'<div class="tile e"></div>';V[c]!==undefined?a++:b++;return'<div class="tile'+(i===ld.length-1&&ld.length<10?" nw":"")+'">'+c.toUpperCase()+"</div>"}).join("");
+ $("vow").disabled=nv>=8||ld.length>=10;$("con").disabled=nc>=8||ld.length>=10;
+ $("nvC").textContent=a;$("ncC").textContent=b;$("nvL").textContent=t(a===1?"gVow1":"gVow");$("ncL").textContent=t(b===1?"gCon1":"gCon")};
+// Nombre cible : calculs avec leur résultat sélectionnable, ligne en cours
+rdC=function(){
+ $("pl").innerHTML=items.slice(0,6).map((x,i)=>i<shown?'<button class="plate'+(i===shown-1&&rv?" pop":"")+(i===sa||i===sz?" sel":"")+(x.u?" used":"")+'" data-i="'+i+'"'+(x.u?" disabled":"")+">"+x.v+"</button>":'<div class="plate ph">?</div>').join("");
+ $("ops").innerHTML=["+","−","×","÷"].map(o=>'<button class="btn'+(o===so?" sel":"")+'" data-o="'+o+'"'+(cl?" disabled":"")+">"+o+"</button>").join("");
+ $("clog").innerHTML=lines.map(l=>'<div class="cl"><span class="ex">'+l.a+" "+l.o+" "+l.b+' =</span><button class="plate'+(l.i===sa||l.i===sz?" sel":"")+(items[l.i].u?" used":"")+'" data-i="'+l.i+'"'+(items[l.i].u?" disabled":"")+">"+l.r+"</button></div>").join("");
+ const E=$("cpend"),pa=sa!==null&&sa!==undefined&&items[sa],pb=sz!==null&&sz!==undefined&&items[sz];
+ if(!cl&&(pa||so)){E.innerHTML=(pa?pa.v:"<i>…</i>")+" "+(so||"<i>?</i>")+" "+(pb?pb.v:"<i>…</i>");E.classList.remove("hide")}else E.classList.add("hide")};
+// défis : bandeau avec icône, nom et chrono
+dfDraw=(o=>function(){o.apply(this,arguments);const x=dfx;if(!x)return;$("dfBi").innerHTML=DFI[x.g]||"";$("dfBl").textContent=t("gDf");if(x.g!=="t")$("dfTh").textContent=t("gD"+x.g)})(dfDraw);
+// son et libellés des boutons
+function gMuteUI(){all(".mute").forEach(b=>{b.innerHTML=musicOn?MUI.on:MUI.off;b.classList.toggle("off",!musicOn);b.setAttribute("aria-label",t(musicOn?"gMute":"gUnmute"))})}
+all(".mute").forEach(b=>b.onclick=()=>{musicOn=!musicOn;gMuteUI();if(musicOn){hasS(music)&&music.play().catch(()=>{})}else{music&&music.pause();pending&&pending()}});
+function gLbl(){gMuteUI();all(".gh [data-quit]").forEach(b=>b.setAttribute("aria-label",t("gHome")));$("del").setAttribute("aria-label",t("gDel"));$("ans").setAttribute("aria-label",t("ph"))}
+applyLang=(f=>function(){f.apply(this,arguments);gLbl()})(applyLang);
+
+// ===== Style A+ (lot 3) : chrono rouge, disposition des lettres, résultats, classements du jour, salon, confettis =====
+Object.assign(T.fr,{a3LyT:"Disposition des lettres",a3LyQ:"Comment veux-tu voir les 10 lettres pendant le jeu ?",a3LyH:"Tu pourras changer d'avis à tout moment dans ⚙️ Réglages.",a3Ly1:"1 ligne",a3Ly2:"2 lignes",a3Ly1S:"comme avant",a3Ly2S:"lettres plus grandes",
+ a3Round:"Manche {n} sur {m}",a3Tot:"Score total : {n} points",a3YourOk:"Ton mot · valide · {n} lettres",a3YourKo:"Ton mot · refusé, absent du dictionnaire",a3NoW:"Aucun mot proposé",a3Ex:"Exemples de mots",a3ExH:"touche un mot pour sa définition",a3NoEx:"Aucun mot de 5 lettres ou plus avec ce tirage.",
+ a3Words:"Les mots à trouver",a3Tg:"Cible",a3Mine:"Ton résultat",a3Exact:"Compte exact !",a3Near:"à {n} du compte",a3NoC:"Aucun calcul proposé",a3Sol:"Une solution",
+ a3RkT:"Classement du jour",a3Top:"Top 10",a3Fr:"Amis",a3Ser:"Ta série : {n}",a3SerR:"record : {n}",a3D1:"1 jour",a3DN:"{n} jours",
+ a3PlH:"Joueurs",a3QrS:"ou fais scanner le QR code",a3Mode:"Mode",a3Edit:"Modifier",a3Go:"Lancer la partie",a3Host:"Hôte"});
+Object.assign(T.en,{a3LyT:"Letter layout",a3LyQ:"How do you want to see the 10 letters during the game?",a3LyH:"You can change your mind at any time in ⚙️ Settings.",a3Ly1:"1 row",a3Ly2:"2 rows",a3Ly1S:"like before",a3Ly2S:"bigger letters",
+ a3Round:"Round {n} of {m}",a3Tot:"Total score: {n} points",a3YourOk:"Your word · valid · {n} letters",a3YourKo:"Your word · rejected, not in the dictionary",a3NoW:"No word given",a3Ex:"Example words",a3ExH:"tap a word for its definition",a3NoEx:"No word of 5 letters or more with this draw.",
+ a3Words:"The words to find",a3Tg:"Target",a3Mine:"Your result",a3Exact:"Spot on!",a3Near:"{n} away",a3NoC:"No calculation given",a3Sol:"A solution",
+ a3RkT:"Today's leaderboard",a3Top:"Top 10",a3Fr:"Friends",a3Ser:"Your streak: {n}",a3SerR:"best: {n}",a3D1:"1 day",a3DN:"{n} days",
+ a3PlH:"Players",a3QrS:"or let them scan the QR code",a3Mode:"Mode",a3Edit:"Change",a3Go:"Start the game",a3Host:"Host"});
+
+// --- disposition des 10 lettres (1 ou 2 lignes), gardée sur le téléphone ---
+const LYK="nmLy";let lyCb=null;
+function lyGet(){try{return localStorage.getItem(LYK)}catch(e){return null}}
+const lyPrev=o=>'<span class="lyp'+(o?" o":"")+'" aria-hidden="true">'+"NUMÉRIMOTS".split("").map((c,i)=>"<i"+(i>5?' class="b"':"")+">"+c+"</i>").join("")+"</span>";
+const lyCard=v=>'<button class="lyc'+((lyGet()||"2")===v?" on":"")+'" data-ly="'+v+'">'+lyPrev(v==="1")+"<b>"+t("a3Ly"+v)+"</b><small>"+t("a3Ly"+v+"S")+"</small></button>";
+function lyUI(){const R=$("setLyR");if(R)R.innerHTML=lyCard("1")+lyCard("2")}
+function lyApply(){document.body.classList.toggle("ly1",lyGet()==="1");lyUI();try{if(rounds&&rounds.length&&!$("gm").classList.contains("hide"))gAns()}catch(e){}}
+function lySet(v){try{localStorage.setItem(LYK,v)}catch(e){}lyApply()}
+function lyAsk(cb){lyCb=cb;
+ modal(t("a3LyT"),"<p>"+t("a3LyQ")+'</p><div class="lyw">'+lyCard("1").replace(" on","")+lyCard("2").replace(" on","")+'</div><p class="dnote" style="margin:14px 0 0">'+t("a3LyH")+"</p>",[])}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-ly]");if(!b)return;lySet(b.dataset.ly);if(b.closest("#mb")){closeModal();const f=lyCb;lyCb=null;if(f)f()}});
+$("modal").onclick=e=>{if(e.target.id==="modal"&&!lyCb)closeModal()};
+// première partie avec 10 lettres après la mise à jour : choix proposé une seule fois (jamais en plein multijoueur)
+const lyWrap=(o,ok)=>function(){if(mpr||lyGet()||(ok&&!ok.apply(this,arguments)))return o.apply(this,arguments);const s=this,a=arguments;lyAsk(()=>o.apply(s,a))};
+startL=lyWrap(startL);startDL=lyWrap(startDL);startDf=lyWrap(startDf,g=>g==="t"||g==="u");
+gAns=(o=>function(){o.apply(this,arguments);const r=rounds&&rounds[queue[cur]];if(!r)return;const E=$("tiles"),one=lyGet()==="1",n=r.l.length;
+ const k=mode!=="w"?(one?10:5):n>8?(one?n:Math.ceil(n/2)):Math.min(8,n);E.style.setProperty("--n",k);E.classList.toggle("one",k>8)})(gAns);
+applyLang=(f=>function(){f.apply(this,arguments);lyUI()})(applyLang);
+
+// --- écrans de résultats ---
+const a3T=(w,c)=>'<div class="ewt'+(c?" "+c:"")+'">'+String(w).toUpperCase().split("").map(x=>"<i>"+esc(x)+"</i>").join("")+"</div>";
+function a3Ex(l,list,lg){const c={};l.forEach(x=>c[x]=(c[x]||0)+1);const by={};
+ for(const w of list){if(w.length<5)continue;const k={...c};let ok=true;for(const ch of w){if(!k[ch]){ok=false;break}k[ch]--}if(ok)(by[w.length]=by[w.length]||[]).push(w)}
+ const CM=CMN[lg]||(CMN[lg]=new Set(Object.values(lg==="fr"?F:W).flat()));for(const n in by)by[n].sort((a,b)=>(CM.has(b)-CM.has(a))||a.localeCompare(b));return by}
+function a3ExH(by,mine,lg){const ks=Object.keys(by).map(Number).sort((a,b)=>b-a);if(!ks.length)return'<p class="dnote">'+t("a3NoEx")+"</p>";
+ return'<div class="exh"><b>'+t("a3Ex")+"</b><small>"+t("a3ExH")+"</small></div>"+ks.map((n,i)=>{const mx=i?3:4;let a=by[n].slice(0,mx);if(mine&&mine.length===n)a=[mine].concat(by[n].filter(w=>w!==mine)).slice(0,mx);
+  return'<div class="exr"><span class="exn'+(i===0?" b":mine&&mine.length===n?" y":"")+'">'+n+'</span><span class="exw">'+a.map(w=>wdH(w,lg,w===mine?"me":"")).join("")+"</span></div>"}).join("")}
+// Chasse aux mots : ton mot en tuiles, puis des exemples pour chaque longueur à partir de 5 lettres
+xL=function(){const lg=dl,ok=!!best;let h='<div class="ewc"'+(ok?' data-wd="'+esc(best)+'" data-wl="'+lg+'"':"")+">";
+ h+=tried?a3T(tried,ok?"":"ko")+'<span class="ecap'+(ok?"":" ko")+'">'+(ok?t("a3YourOk",best.length):t("a3YourKo"))+"</span>":'<span class="ecap m">'+t("a3NoW")+"</span>";
+ return h+"</div>"+a3ExH(a3Ex(rounds[0].l,dict.list,lg),ok?best:"",lg)};
+// Nombre cible : la cible et ton résultat en tuiles, puis une solution
+cEnd=function(){if(over)return;cl=true;const d=bv===null?Infinity:Math.abs(tgt-bv),s=solve(P,tgt);score=d===0?10:d<=5?7:d<=15?5:0;
+ const cap=bv===null?'<span class="ecap m">'+t("a3NoC")+"</span>":'<span class="ecap'+(d===0?"":score?" y":" m")+'">'+(d===0?t("a3Exact"):t("a3Near",d))+"</span>";
+ results(d===0?t("exact"):ctu?t("timeUp"):t("ended"),'<div class="ewc"><div class="ecr"><div><small>'+t("a3Tg")+"</small>"+a3T(tgt,"n")+"</div><div><small>"+t("a3Mine")+"</small>"+(bv===null?a3T("?","e"):a3T(bv,d===0?"":"w"))+"</div></div>"+cap+'</div><div class="exh"><b>'+t("a3Sol")+'</b></div><div class="esol">'+solHTML(s)+"</div>")};
+// titre, points gagnés en gros, score total, bandeau du mode et de la langue
+function a3End(){const E=$("end");if(E.classList.contains("hide"))return;setStage();
+ const f=$("final"),tx=f.textContent;if(f.dataset.a3===tx)return;f.classList.remove("ok","z","ko","tx");
+ const m=new RegExp("^(\\d+) "+t("pts")+"$").exec(tx);if(m){const v=+m[1];f.textContent=v?"+"+v:"0";f.classList.add(v?"ok":"z")}else f.classList.add(/^✓/.test(tx)?"ok":/^✗/.test(tx)?"ko":"tx");f.dataset.a3=f.textContent;
+ const g=gG(),nm=gNoEm(T[L]["m"+String(g||"").toUpperCase()]||"");$("eSub").textContent=party&&!tbx&&!cmx&&!daily?t("a3Round",party.i+1,party.steps.length)+" · "+nm:nm;
+ if(party&&!tbx&&!cmx&&!daily){const last=party.i>=party.steps.length-1;$("ptot").textContent=(last?t("partyEnd")+" ":"")+t("a3Tot",party.total)}}
+results=(o=>function(){const r=o.apply(this,arguments);try{a3End()}catch(e){}return r})(results);
+// confettis : seulement quand on bat son record (1re place de ses records perso, hors toute première partie)
+function a3Conf(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}const c=document.createElement("div"),C=["#ffd24a","#4cd68a","#3d7bd9","#ff6b6b","#ffffff"];c.className="cft";c.setAttribute("aria-hidden","true");let h="";
+ for(let i=0;i<80;i++)h+='<i style="left:'+(Math.random()*100).toFixed(1)+"%;background:"+C[i%5]+";--x:"+Math.round(Math.random()*140-70)+"px;--r:"+Math.round(Math.random()*1000-500)+"deg;--d:"+(2+Math.random()*1.6).toFixed(2)+"s;--w:"+(Math.random()*.7).toFixed(2)+"s"+(i%3?"":";height:9px;border-radius:50%")+'"></i>';
+ c.innerHTML=h;document.body.appendChild(c);setTimeout(()=>c.remove(),4600)}
+plRecN=(o=>function(pp,pe){o.apply(this,arguments);try{for(const e of[pp,pe]){if(!e||!rcOk(e,e.g,e.l)||(e.g==="c"&&!e.p))continue;const a=rcMine(e.g,e.l),i=a.findIndex(x=>x.c===e.c);if(i<0||i>9)continue;if(i===0&&a.length>1)setTimeout(a3Conf,250);break}}catch(x){}})(plRecN);
+
+// --- classements du jour : podium, onglets Top 10 / Amis, flèches entre les jeux, série en bas ---
+const FLM='<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.5 1.2-4 2.5-5 .2 2 1 3 2 3 0-3-.5-6 .5-9z"/></svg>';
+function a3Ser(){const o=serGet(),d=n=>t(n===1?"a3D1":"a3DN",n),c=o.cur||0;return'<div class="serB">'+FLM+"<b>"+t("a3Ser",d(c))+"</b><small>"+t("a3SerR",d(Math.max(o.best||0,c)))+"</small></div>"}
+function a3Rk(list,m,open){const top=list.filter(x=>x.pos<=3).slice(0,3),rest=list.slice(top.length),v=x=>rkVal(m,x,open),tm=x=>rkNo(m,x)?"":fmtT(x.time_cs*10);let h="";
+ if(top.length)h='<div class="pod">'+[top[1],top[0],top[2]].map((x,k)=>x?'<div class="p'+[2,1,3][k]+(x.me?" me":"")+'"><span class="pn">'+esc(x.pseudo)+'</span><div class="pb"><b>'+x.pos+"</b><small>"+v(x)+"</small>"+(tm(x)?"<i>"+tm(x)+"</i>":"")+"</div></div>":"<div></div>").join("")+"</div>";
+ let prev=top.length?top[top.length-1].pos:0;
+ h+=rest.map(x=>{const s=(x.pos>prev+1?'<div class="rksep">⋯</div>':"")+'<div class="rkr'+(x.me?" me":"")+'"><b>'+x.pos+"</b><span>"+esc(x.pseudo)+"</span><small><b>"+v(x)+"</b>"+(tm(x)?" · "+tm(x):"")+"</small></div>";prev=x.pos;return s}).join("");return h}
+rank=async function(g,off){syncD();off=Math.max(0,Math.min(RKN-1,off|0));rkG=g;rkO=off;const day=addDay(pToday(),-off),m=DGM[g],lg=DGL[g],me=myD(day,g),open=!!(off||(me&&me.done)),tok=++rkTok;
+ $("rkT").textContent=gNoEm(t("m"+m.toUpperCase()));$("rkD").textContent=lg?t("gL"+lg):"";rkNav(off);
+ $("rkL").innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";$("rkSer").innerHTML=a3Ser();
+ $("rkS").innerHTML=open?'<div class="sol"><h3>'+t("solT")+"</h3>"+solD(day,g)+"</div>":'<p class="dnote" style="margin-top:14px">'+t("lock")+"</p>";show("rankP");
+ if(open&&m==="l")solL(day,g,tok);
+ all("#rkTabs [data-sc]").forEach(b=>b.classList.toggle("on",b.dataset.sc===rkScope));
+ if(rkScope==="friends"&&!ME){$("rkL").innerHTML='<p class="dnote">'+t("rkFrG")+'</p><button class="btn p mb" id="rkSu">'+t("signup")+"</button>";$("rkSu").onclick=()=>goAuth("signupP","rankP");return}
+ let list=null;
+ if(sb){if(ME){try{await sendMy(day,g)}catch(e){}}try{const r=await sb.rpc("daily_rank",{p_day:day,p_game:g,p_scope:rkScope});if(r.error)throw r.error;list=r.data||[]}catch(e){}}
+ if(tok!==rkTok)return;
+ if(!list){$("rkL").innerHTML='<p class="dnote">'+t("rkErr")+"</p>";return}
+ if(!ME)list=list.filter(x=>x.pos<=10).map(x=>({...x,me:false}));
+ let h=list.length?a3Rk(list,m,open):'<p class="dnote">'+t(off?"rkNoneP":"rkNone")+"</p>";
+ if(rkScope==="friends"&&list.length<=1)h+='<p class="dnote" style="margin-top:10px">'+t("rkFr0")+"</p>";
+ if(!ME&&me&&me.done){const x={result:me.r,detail:me.x,time_cs:Math.round(me.t/10)};h+='<p class="dnote" style="margin-top:10px">'+t("rkGuest",rkVal(m,x,true)+(rkNo(m,x)?"":" · "+fmtT(me.t)))+"</p>"}
+ $("rkL").innerHTML=h};
+
+solL=async function(day,g,tok){const d=genDaily(day,g),lg=DGL[g],dc=await loadDict(lg);if(tok!==rkTok||!$("lsol"))return;
+ $("lsol").innerHTML="<p>"+t("longest")+"</p>"+a3T(d.w,"n")+'<div style="height:14px"></div>'+a3ExH(a3Ex(d.l,[...new Set(dc.list.concat(d.w))],lg),d.w,lg)};
+// --- salon multijoueur : code en tuiles + QR code, joueurs (hôte mis en avant), mode, Lancer la partie ---
+const a3Ini=s=>{s=String(s||"?").trim()||"?";try{if(window.Intl&&Intl.Segmenter){const x=new Intl.Segmenter().segment(s)[Symbol.iterator]().next().value;if(x)return x.segment}}catch(e){}return Array.from(s)[0]};
+const A3C=[["#ffd24a","#14233f"],["#3d7bd9","#fff"],["#4cd68a","#0e1a30"],["#ff6b6b","#14233f"],["#9fb3d9","#14233f"],["#c98a4a","#14233f"]];
+function a3Pl(){const R=MP.R,ids=Object.keys(R.pl).sort((a,b)=>(b===R.hid)-(a===R.hid)||((b===MID||R.pl[b].on)-(a===MID||R.pl[a].on))),n=ids.filter(id=>id===MID||R.pl[id].on).length;
+ return'<div class="plh"><b>'+t("a3PlH")+"</b><small>"+n+" / "+MPMAX+'</small></div><div class="pll">'+ids.map((id,i)=>{const x=R.pl[id],on=id===MID||x.on,h=id===R.hid,c=h?A3C[0]:A3C[1+i%5];
+  return'<div class="plr'+(h?" h":"")+(on?"":" off")+'"><span class="av" style="background:'+c[0]+";color:"+c[1]+'">'+esc(a3Ini(x.n).toUpperCase())+"</span><span>"+esc(x.n)+(id===MID?" <small>("+t("mpYou")+")</small>":"")+"</span>"+(h?'<b class="hb">'+t("a3Host")+"</b>":on?'<i class="dot"></i>':'<small class="ps">'+t("mpOffl")+"</small>")+"</div>"}).join("")+"</div>"}
+mpHead=function(pl){const c=String(MP.code).replace(/\D/g,"");
+ return'<div class="room2"><div class="rl"><small>'+t("mpCode")+'</small><div class="ctl" aria-label="'+esc(fmtCode(MP.code))+'">'+c.split("").map((d,i)=>(i===3&&c.length>4?'<i class="sp"></i>':"")+"<i>"+d+"</i>").join("")+"</div><small>"+t("a3QrS")+'</small><button class="btn" data-mpa="share">'+SHI+t("mpShare")+'</button></div><button class="qrb" data-mpa="qr" aria-label="'+esc(t("mpQR"))+'">'+qrSvg(mpUrl())+"</button></div>"+(pl?a3Pl():"")};
+mpHeadRefresh=function(){all(".mpHead").forEach(e=>e.innerHTML=MP&&MP.R?mpHead(!!e.closest("#mpP")):"")};
+mpSetup=(o=>function(){o.apply(this,arguments);mpHeadRefresh();const R=MP.R,h=MP.host;if(["modes","rounds","orig","quick","gp","dict"].includes(R.scr))return;const g=mpGuests();
+ $("mpBody").innerHTML='<div class="mdc"><span><small>'+t("a3Mode")+"</small><b>"+mpTitle()+"</b><i>"+mpSubT()+"</i></span>"+(h?'<button class="btn" data-ms="back">'+t("a3Edit")+"</button>":"")+"</div>"+(h?'<button class="btn go" data-ms="go"'+(g?"":" disabled")+">"+t("a3Go")+"</button>"+(g?"":'<p class="dnote" style="margin-top:12px">'+t("mpNeed1")+"</p>"):"")})(mpSetup);
+lyApply();
 
 applyLang();loadSB();
 </script></body></html>
