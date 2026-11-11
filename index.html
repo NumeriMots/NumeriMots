@@ -611,7 +611,7 @@ body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4p
 <div class="row"><button class="btn p hide" id="next" data-t="next"></button><button class="btn p hide" id="drk" data-t="seeRank" data-net></button><button class="btn p" id="again" data-t="again"></button><button class="btn" id="tomenu" data-t="menu"></button></div></section>
 <section id="admP" class="pg hide"><h2 data-t="admT"></h2>
 <div class="row tabs" id="admTabs"><button class="btn" data-ad="ov" data-t="admOv"></button><button class="btn" data-ad="pl" data-t="admPl"></button><button class="btn" data-ad="fd" data-t="admFd"></button><button class="btn" data-ad="mu" data-t="admMu"></button></div>
-<div id="admC"></div><button class="btn mb" id="admMus" data-t="pmB" style="font-size:16px;padding:12px;margin-top:14px"></button><button class="btn mb" id="admMl" data-net data-t="admMl" style="font-size:16px;padding:12px;margin-top:14px"></button><button class="lnk" id="admRf" data-t="admRf"></button><button class="btn mb" data-back data-t="back"></button></section>
+<div id="admC"></div><button class="btn mb" id="admMus" data-t="pmB" style="font-size:16px;padding:12px;margin-top:14px"></button><button class="btn mb" id="admVid" data-t="admVid" style="font-size:16px;padding:12px;margin-top:14px"></button><button class="btn mb" id="admMl" data-net data-t="admMl" style="font-size:16px;padding:12px;margin-top:14px"></button><button class="lnk" id="admRf" data-t="admRf"></button><button class="btn mb" data-back data-t="back"></button></section>
 <section id="admUP" class="pg hide"><h2 data-t="admT"></h2><div id="admU"></div><button class="btn mb" id="admUBack" data-t="back" style="margin-top:12px"></button></section>
 <section id="profP" class="pg hide"><h2 data-t="prof"></h2>
 <div id="pAcc"><div class="pcard"><div class="pn" id="pName"></div><div class="pm" id="pMail"></div><div class="pm" id="pCode"></div></div><div class="amsg" id="pMsg"></div>
@@ -752,7 +752,7 @@ all(".lang").forEach(b=>b.onclick=()=>{L=L==="fr"?"en":"fr";try{localStorage.set
 // intro
 function toHome(){$("vid").pause();show("home");renderProfB();if(ME)refreshAcc()}
 function unlockA(){Object.values(A).filter(hasS).forEach(a=>{a.muted=true;a.play().then(()=>{a.pause();a.currentTime=0;a.muted=false}).catch(()=>{a.muted=false})})}
-function launch(acc){setMe(acc?ACC:null);pmApply();unlockA();if(nfIn0&&!chIn0&&!mpJoin0&&!frIn0){const o=nfIn0;nfIn0=null;renderIntro();toHome();if(acc)nfGo(o);return}if(frIn0&&!chIn0&&!mpJoin0){renderIntro();toHome();acc?frFromLink():frNeedAcc();return}if(chIn0){const o=chIn0;chIn0=null;renderIntro();toHome();chOpenLink(o);return}if(mpJoin0){const c=mpJoin0;mpJoin0=null;renderIntro();toHome();mpOpenJoin(c);return}pmApply();if(!hasS($("vid")))return toHome();show("vidP");try{$("vid").currentTime=0}catch(e){}$("vid").play().catch(toHome)}
+function launch(acc){setMe(acc?ACC:null);pmApply();unlockA();if(nfIn0&&!chIn0&&!mpJoin0&&!frIn0){const o=nfIn0;nfIn0=null;renderIntro();toHome();if(acc)nfGo(o);return}if(frIn0&&!chIn0&&!mpJoin0){renderIntro();toHome();acc?frFromLink():frNeedAcc();return}if(chIn0){const o=chIn0;chIn0=null;renderIntro();toHome();chOpenLink(o);return}if(mpJoin0){const c=mpJoin0;mpJoin0=null;renderIntro();toHome();mpOpenJoin(c);return}pmApply();if(!hasS($("vid"))||autoL){autoL=false;return toHome()}show("vidP");try{$("vid").currentTime=0}catch(e){}$("vid").play().catch(toHome)}
 $("vid").onended=toHome;$("vid").onerror=toHome;$("vskip").onclick=toHome;
 // navigation
 const SOLOK=new Set(["origP","freeP","trainP","dailyP","cmP"]);let soloBk="soloP";
@@ -7098,6 +7098,9 @@ if("serviceWorker"in navigator)navigator.serviceWorker.addEventListener("message
   if(!o)return;if(!ME||$("intro")&&!$("intro").classList.contains("hide")){nfIn0=o;return}if(nfBusyG())return toast(t("nfInGame"));closeModal();nfGo(o)}});
 
 // ===== v21.2 : copier les e-mails des joueurs (écran Admin) =====
+Object.assign(T.fr,{admVid:"🎬 Lancer le générique",admVidNo:"Générique pas encore chargé, réessaie dans un instant."});
+Object.assign(T.en,{admVid:"🎬 Play the opening video",admVidNo:"Opening video not loaded yet, try again in a moment."});
+
 Object.assign(T.fr,{admMl:"📋 Copier les e-mails des joueurs",admMlOk:"{n} adresses copiées : colle-les en Cci dans ton e-mail.",admMlErr:"Impossible de récupérer les adresses (as-tu lancé supabase-admin-emails.sql ?)"});
 Object.assign(T.en,{admMl:"📋 Copy players' e-mails",admMlOk:"{n} addresses copied: paste them in Bcc in your e-mail.",admMlErr:"Can't get the addresses (did you run supabase-admin-emails.sql?)"});
 $("admMl").onclick=async()=>{const b=$("admMl");if(b.disabled||!needSb())return;b.disabled=true;
@@ -7516,4 +7519,20 @@ function wPts(n){return wCourte()?Math.ceil(n/2):n}
 {const fr="<p>⚖️ En partie courte, barème réduit : 3 points pour un mot de 5 ou 6 lettres, 4 points pour un mot de 7 ou 8 lettres.</p>",
  en="<p>⚖️ In a short game, reduced scoring: 3 points for a 5- or 6-letter word, 4 points for a 7- or 8-letter word.</p>";
  ["iQ","iW","rW","wIntro","wIntroM"].forEach(k=>{if(typeof T.fr[k]==="string"&&T.fr[k].includes("</p>"))T.fr[k]+=fr;if(typeof T.en[k]==="string"&&T.en[k].includes("</p>"))T.en[k]+=en})}
+// --- ouverture directe sur le menu quand un joueur est déjà connecté sur ce téléphone ---
+// (écran d'accueil seulement pour un nouveau joueur, un invité ou après une déconnexion)
+var autoL=false,autoGo=false;
+(()=>{if(!ACC||recov||HT||HE||HM)return;
+ const unl=()=>{document.removeEventListener("pointerdown",unl,true);try{unlockA()}catch(e){}};
+ const go=()=>{if(!ACC||!vis("intro"))return;autoGo=true;autoL=true;launch(true);document.addEventListener("pointerdown",unl,true)};
+ if(!(nfIn0||chIn0||mpJoin0||frIn0))return go();
+ // lien reçu (notification, duel, salon, ami) : on attend que la session soit vérifiée
+ const t0=Date.now(),iv=setInterval(()=>{if(authReady||Date.now()-t0>15000){clearInterval(iv);if(authReady&&ACC&&(SESS||!NET))go()}},200)})();
+// session expirée ou refusée juste après l'ouverture directe : retour à l'écran d'accueil
+setSess=(o=>async function(){const r=await o.apply(this,arguments);if(autoGo&&!ACC&&vis("home")){renderIntro();show("intro")}return r})(setSess);
+// --- écran Admin : relancer le générique (réservé au compte admin) ---
+{let vidAdm=false;const done=()=>{if(vidAdm){vidAdm=false;try{$("vid").pause()}catch(e){}if(sb)openAdm();else show("admP")}else toHome()};
+ $("vid").onended=done;$("vid").onerror=done;$("vskip").onclick=done;
+ $("admVid").onclick=()=>{pmApply();const v=$("vid");if(!admIs()||!hasS(v))return toast(t("admVidNo"));
+  vidAdm=true;show("vidP");try{v.currentTime=0}catch(e){}v.play().catch(done)}}
 </script></body></html>
