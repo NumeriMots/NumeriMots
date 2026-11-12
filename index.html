@@ -514,6 +514,16 @@ body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4p
 .wkd div{background:var(--card);border-radius:8px;padding:6px 0}.wkd small{display:block;color:var(--mut);font-size:12px;font-weight:800}.wkd b{font-size:17px}
 .palc{background:#0e1a30;border-radius:14px;padding:10px 12px;margin:10px 0}.palc h3{margin:2px 0 8px;text-align:center}
 .palc p{margin:4px 0;font-size:15px;line-height:1.45}.palc p small{color:var(--mut)}
+
+/* --- match des champions --- */
+.chmC{text-align:left}.chmC .mt>span{font-weight:900}.chmC .sub b{color:var(--ac)}
+.chmSb{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 12px}
+.chmSb div{flex:1;display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;padding:12px;min-width:0}
+.chmSb div:first-child{justify-content:flex-end;text-align:right}.chmSb div.me{box-shadow:0 0 0 2px var(--ac)}
+.chmSb span{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chmSb b{font-size:30px;color:var(--ac)}.chmSb i{font-style:normal;font-weight:900;color:var(--mut)}
+.chmBan{background:var(--ac);color:#1a1300;border-radius:14px;padding:12px;text-align:center;font-weight:900;font-size:17px;margin:0 0 12px}
+.chmM p{display:flex;justify-content:space-between;gap:8px}.chmM p.c{justify-content:center;text-align:center;color:var(--mut)}
+.chmM p.w{font-weight:900;color:var(--ac)}.chmM .btn{margin-top:8px}
 </style></head><body>
 <section id="vidP" class="pg hide"><video id="vid" playsinline preload="auto"></video><button class="btn" id="vskip" data-t="skip"></button></section>
 <button id="homeB" class="hide" aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button id="topBk" class="hide" aria-label="Retour"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div id="toast" class="hide"></div><div id="mpWarn" class="hide" data-t="mpWarn"></div>
@@ -707,6 +717,7 @@ body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4p
 <div class="row tabs" id="cmRkLg"><button class="btn" data-cmrl="fr">🇫🇷 Français</button><button class="btn" data-cmrl="en">🇬🇧 English</button></div>
 <div class="row tabs" id="cmRkTabs"><button class="btn" data-cmsc="top" data-t="top10"></button><button class="btn" data-cmsc="friends" data-t="frTab"></button></div>
 <div id="cmRkL"></div><div id="cmRkS"></div><button class="btn mb" id="cmRkBack" data-t="back" style="margin-top:16px"></button></section>
+<section id="chmP" class="pg hide"><h2>⚔️ <span data-t="chmT"></span></h2><div class="wkh"><span id="chmSub"></span><button class="info" id="chmHow">?</button></div><div id="chmL"></div><button class="btn mb" id="chmBack" data-t="back" style="margin-top:16px"></button></section>
 <section id="palP" class="pg hide"><h2 data-t="palT"></h2><div class="row tabs" id="palTabs"><button class="btn" data-pal="d"></button><button class="btn" data-pal="c"></button></div><div id="palL"></div><button class="btn mb" id="palBack" data-t="back" style="margin-top:16px"></button></section>
 </main>
 <script>
@@ -7069,12 +7080,12 @@ async function admMu(){const el=$("admC"),k=++ADTOK;admBusy(el);let o;
 // Le tirage de chaque épreuve est gardé dans Supabase (le premier joueur le crée, les suivants reçoivent le même) ;
 // les solutions ne sont montrées qu'à partir de la saison suivante.
 Object.assign(IT,{CM:"cmT"});
-Object.assign(T.fr,{cmT:"⏱ La Saison",mCM:"⏱ La Saison",cmS:"épreuve chronométrée, le plus rapide remporte la saison",
+Object.assign(T.fr,{cmT:"🏁 La Course des as",mCM:"🏁 La Course des as",cmS:"épreuve chronométrée, renouvelée toutes les 2 semaines",
  iCM:`<p>Une course contre la montre en 10 épreuves, renouvelée toutes les 2 semaines (une saison). Le tirage est le même pour tous les joueurs.</p><p>🔢 Chiffres · 🔤 Lettres (5 lettres) · 🔢 Chiffres · 🔤 Lettres (6 lettres) · 🎯 Défi · 🔢 Chiffres · 🔤 Lettres (7 lettres) · 🔢 Chiffres · 🔤 Lettres (8 lettres) · 🎯 un autre défi.</p><p>Seule la bonne réponse arrête le chrono : le compte exact pour les chiffres, le mot mélangé remis dans l'ordre pour les lettres (tout mot du dictionnaire qui utilise toutes les lettres est accepté), la bonne réponse pour les défis. Propositions illimitées. Sans bonne réponse, tu prends le temps maximum : 45 secondes pour les chiffres, 30 secondes pour les lettres et les défis.</p><p>Tu avances à ton rythme, une épreuve à la fois, mais chaque épreuve ne se joue qu'une seule fois : si tu quittes en cours de route, elle compte au temps maximum. Termine les 10 épreuves avant la fin de la saison pour valider ton temps total : le plus petit temps gagne.</p><p>Deux courses séparées, une en français et une en anglais, chacune avec son classement. Les solutions sont dévoilées à la saison suivante.</p><p>Un compte et une connexion internet sont nécessaires.</p>`,
  cmSeason:"Saison {n}",cmUntil:"jusqu'au {n} à 23 h 59",cmLeft:"plus que {n}",cmDH:"{n} j {m} h",cmHM:"{n} h {m} min",cmEndS:"Saison terminée",
  cmProg:"{n}/10 épreuves",cmTot:"Temps total",cmDoneT:"✅ Course terminée !",cmNext:"▶ Épreuve {n}/10 : {m}",cmRkB:"🏆 Classement",cmRul:"📖 Règles",
  cmA:"Lettres · {n} lettres",cmD:"Défi surprise 🎲",cmEp:"Épreuve {n}/{m}",cmPlay:"à jouer",cmMaxS:"{n} max",cmInt:"interrompue",
- cmGuest:"<p>La Saison se joue avec un compte : ton temps est enregistré épreuve après épreuve, sur tous tes appareils.</p>",
+ cmGuest:"<p>La Course des as se joue avec un compte : ton temps est enregistré épreuve après épreuve, sur tous tes appareils.</p>",
  cmNet:"Impossible de joindre le serveur. Vérifie ta connexion internet et réessaie.",cmNetQ:"⏳ Résultat en attente d'envoi : il partira tout seul dès que possible.",
  cmAc:"<p>Six plaques et un nombre à trouver : seul le compte exact arrête le chrono. Essais illimités (tu peux revenir en arrière ou recommencer).</p><p>⏱ 45 secondes maximum.</p>",
  cmAa:"<p>Un mot de {n} lettres mélangé à remettre dans l'ordre. Tout mot du dictionnaire qui utilise toutes les lettres est accepté. Propositions illimitées.</p><p>⏱ 30 secondes maximum.</p>",
@@ -7083,17 +7094,17 @@ Object.assign(T.fr,{cmT:"⏱ La Saison",mCM:"⏱ La Saison",cmS:"épreuve chrono
  cmAd:"<p>{n}</p><p>Le chrono démarre après la présentation. Propositions illimitées : en cas d'erreur, corrige et valide à nouveau.</p><p>⏱ 30 secondes maximum.</p>",
  cmWarn:"⚠️ Une fois lancée, l'épreuve ne peut pas être rejouée. Si tu quittes en cours de route, elle compte au temps maximum.",cmGo:"C'est parti ▶",
  cmOkT:"Trouvé !",cmKoT:"Temps maximum",cmSolL:"🔒 La solution sera dévoilée à la saison prochaine.",cmTotS:"Temps total : {n}",
- cmNextB:"Épreuve suivante : {n} ▶",cmSeeRk:"🏆 Voir le classement",cmBackB:"⏱ Retour à la Saison",cmFinT:"🏁 Course terminée en {n} !",
+ cmNextB:"Épreuve suivante : {n} ▶",cmSeeRk:"🏆 Voir le classement",cmBackB:"🏁 Retour à la Course des as",cmFinT:"🏁 Course terminée en {n} !",
  cmQuitQ:"Quitter ? L'épreuve comptera avec le temps maximum ({n}).",cmGiveQ:"Abandonner l'épreuve ? Tu prendras le temps maximum ({n}).",cmWrong:"✗ Mauvaise réponse : essaie encore !",
- cmRkT:"🏆 La Saison",cmFinN:"{n} joueurs ont terminé la course",cmFin1:"1 joueur a terminé la course",cmRun:"En cours",cmNoFin:"Course non terminée",cmNone:"Aucun joueur pour l'instant.",
+ cmRkT:"🏆 La Course des as",cmFinN:"{n} joueurs ont terminé la course",cmFin1:"1 joueur a terminé la course",cmRun:"En cours",cmNoFin:"Course non terminée",cmNone:"Aucun joueur pour l'instant.",
  cmFr0:"Ajoute des amis pour comparer vos temps !",cmSolT:"Les solutions",cmSolLock:"🔒 Les solutions de cette saison seront dévoilées à la saison suivante.",cmCur:"en cours",
  cmWord:"Mot à retrouver :",cmMe:"Toi :",cmNoPl:"pas jouée",cmOver:"Cette saison est terminée : une nouvelle course commence !",cmSync:"Ta progression a été mise à jour.",cmRetry:"Réessayer"});
-Object.assign(T.en,{cmT:"⏱ The Season",mCM:"⏱ The Season",cmS:"a race against the clock, the fastest wins the season",
+Object.assign(T.en,{cmT:"🏁 Aces' Race",mCM:"🏁 Aces' Race",cmS:"timed challenge, renewed every 2 weeks",
  iCM:`<p>A race against the clock in 10 rounds, renewed every 2 weeks (one season). The draw is the same for every player.</p><p>🔢 Numbers · 🔤 Letters (5 letters) · 🔢 Numbers · 🔤 Letters (6 letters) · 🎯 Challenge · 🔢 Numbers · 🔤 Letters (7 letters) · 🔢 Numbers · 🔤 Letters (8 letters) · 🎯 another challenge.</p><p>Only the right answer stops the clock: the exact target for numbers, the unscrambled word for letters (any dictionary word using all the letters is accepted), the right answer for challenges. Unlimited attempts. Without a right answer, you get the maximum time: 45 seconds for numbers, 30 seconds for letters and challenges.</p><p>Play at your own pace, one round at a time, but each round can be played only once: if you quit halfway, it counts at the maximum time. Finish all 10 rounds before the end of the season to validate your total time: the lowest time wins.</p><p>Two separate races, one in French and one in English, each with its own leaderboard. Solutions are revealed during the following season.</p><p>You need an account and an internet connection.</p>`,
  cmSeason:"Season {n}",cmUntil:"until {n} at 11:59 pm",cmLeft:"{n} left",cmDH:"{n}d {m}h",cmHM:"{n}h {m}min",cmEndS:"Season over",
  cmProg:"{n}/10 rounds",cmTot:"Total time",cmDoneT:"✅ Race finished!",cmNext:"▶ Round {n}/10: {m}",cmRkB:"🏆 Leaderboard",cmRul:"📖 Rules",
  cmA:"Letters · {n} letters",cmD:"Surprise challenge 🎲",cmEp:"Round {n}/{m}",cmPlay:"to play",cmMaxS:"{n} max",cmInt:"interrupted",
- cmGuest:"<p>The Season is played with an account: your time is saved round after round, on all your devices.</p>",
+ cmGuest:"<p>The Aces' Race is played with an account: your time is saved round after round, on all your devices.</p>",
  cmNet:"Can't reach the server. Check your internet connection and try again.",cmNetQ:"⏳ Result waiting to be sent: it will go out on its own as soon as possible.",
  cmAc:"<p>Six tiles and a target: only the exact target stops the clock. Unlimited attempts (you can undo or start again).</p><p>⏱ 45 seconds maximum.</p>",
  cmAa:"<p>A scrambled {n}-letter word to put back in order. Any dictionary word using all the letters is accepted. Unlimited attempts.</p><p>⏱ 30 seconds maximum.</p>",
@@ -7102,9 +7113,9 @@ Object.assign(T.en,{cmT:"⏱ The Season",mCM:"⏱ The Season",cmS:"a race agains
  cmAd:"<p>{n}</p><p>The clock starts after the presentation. Unlimited attempts: if you're wrong, fix it and submit again.</p><p>⏱ 30 seconds maximum.</p>",
  cmWarn:"⚠️ Once started, the round can't be replayed. If you quit halfway, it counts at the maximum time.",cmGo:"Let's go ▶",
  cmOkT:"Found it!",cmKoT:"Maximum time",cmSolL:"🔒 The solution will be revealed next season.",cmTotS:"Total time: {n}",
- cmNextB:"Next round: {n} ▶",cmSeeRk:"🏆 See the leaderboard",cmBackB:"⏱ Back to the Season",cmFinT:"🏁 Race finished in {n}!",
+ cmNextB:"Next round: {n} ▶",cmSeeRk:"🏆 See the leaderboard",cmBackB:"🏁 Back to the Aces' Race",cmFinT:"🏁 Race finished in {n}!",
  cmQuitQ:"Quit? This round will count at the maximum time ({n}).",cmGiveQ:"Give up this round? You'll get the maximum time ({n}).",cmWrong:"✗ Wrong answer: try again!",
- cmRkT:"🏆 The Season",cmFinN:"{n} players have finished the race",cmFin1:"1 player has finished the race",cmRun:"In progress",cmNoFin:"Race not finished",cmNone:"No players yet.",
+ cmRkT:"🏆 Aces' Race",cmFinN:"{n} players have finished the race",cmFin1:"1 player has finished the race",cmRun:"In progress",cmNoFin:"Race not finished",cmNone:"No players yet.",
  cmFr0:"Add friends to compare your times!",cmSolT:"Solutions",cmSolLock:"🔒 This season's solutions will be revealed next season.",cmCur:"in progress",
  cmWord:"Word to find:",cmMe:"You:",cmNoPl:"not played",cmOver:"This season is over: a new race begins!",cmSync:"Your progress has been updated.",cmRetry:"Try again"});
 // ----- saisons et épreuves -----
@@ -7242,11 +7253,11 @@ function cmLang(){if(!$("cmP").classList.contains("hide"))renderCm();else if(!$(
  if(cmx&&!$("end").classList.contains("hide")&&cmx.sent)$("tomenu").textContent=t("cmBackB")}
 ["cmP","cmRkP","cmAn"].forEach(id=>HBP.add(id));
 // ----- v19.1 : statistiques du contre-la-montre -----
-Object.assign(T.fr,{cmStS:"temps, réussite par épreuve, saisons",cmStN:"Statistiques du compte {n}, en français et en anglais.",cmStG:"La Saison se joue avec un compte : connecte-toi pour voir tes statistiques.",
+Object.assign(T.fr,{cmStS:"temps, réussite par épreuve, saisons",cmStN:"Statistiques du compte {n}, en français et en anglais.",cmStG:"La Course des as se joue avec un compte : connecte-toi pour voir tes statistiques.",
  cmSt0:"Aucune épreuve jouée pour l'instant. Lance-toi !",cmStRaces:"Courses",cmStSeas:"Saisons jouées",cmStFin:"Courses terminées",cmStEp:"Épreuves jouées",cmStOk:"Réussite",
  cmStBest:"Meilleur temps",cmStAvg:"Temps moyen",cmStPos:"Meilleure place",cmStWin:"Victoires",cmStPod:"Podiums",cmStPosN:"Places des saisons terminées.",
  cmStByEp:"Par épreuve",cmStByEpN:"Réussite, puis temps moyen des bonnes réponses.",cmStHist:"Saison par saison",cmStErr:"Statistiques indisponibles (vérifie ta connexion)."});
-Object.assign(T.en,{cmStS:"times, success per round, seasons",cmStN:"Stats for the account {n}, in French and in English.",cmStG:"The Season is played with an account: log in to see your stats.",
+Object.assign(T.en,{cmStS:"times, success per round, seasons",cmStN:"Stats for the account {n}, in French and in English.",cmStG:"The Aces' Race is played with an account: log in to see your stats.",
  cmSt0:"No rounds played yet. Give it a go!",cmStRaces:"Races",cmStSeas:"Seasons played",cmStFin:"Races finished",cmStEp:"Rounds played",cmStOk:"Success",
  cmStBest:"Best time",cmStAvg:"Average time",cmStPos:"Best place",cmStWin:"Wins",cmStPod:"Podiums",cmStPosN:"Places in finished seasons.",
  cmStByEp:"By round",cmStByEpN:"Success rate, then average time of right answers.",cmStHist:"Season by season",cmStErr:"Stats unavailable (check your connection)."});
@@ -7287,9 +7298,9 @@ $("stCm").onclick=openCmSt;HBP.add("cmStP");
 
 
 // ===== v21 : menu Solo / Multijoueur, bandeau de la partie du jour, réglages =====
-Object.assign(T.fr,{pSolo:"Solo",dSolo:"partie du jour, saison, partie classique…",dTr:"durée au choix, jusqu'à l'infini",setT:"⚙️ Réglages",setLg:"Langue du jeu",
+Object.assign(T.fr,{pSolo:"Solo",dSolo:"partie du jour, Course des as, partie classique…",dTr:"durée au choix, jusqu'à l'infini",setT:"⚙️ Réglages",setLg:"Langue du jeu",
  banAll:"{n} défis à jouer aujourd'hui",banN:"plus que {n} défis à jouer",ban1:"plus qu'un défi à jouer",banDone:"tout est joué · voir les classements"});
-Object.assign(T.en,{pSolo:"Solo",dSolo:"daily game, season, classic game…",dTr:"any duration, even endless",setT:"⚙️ Settings",setLg:"Game language",
+Object.assign(T.en,{pSolo:"Solo",dSolo:"daily game, Aces' Race, classic game…",dTr:"any duration, even endless",setT:"⚙️ Settings",setLg:"Game language",
  banAll:"{n} challenges to play today",banN:"{n} challenges left to play",ban1:"one challenge left to play",banDone:"all played · see the leaderboards"});
 const dLeft=()=>{const day=pToday();return DG.filter(g=>!myD(day,g)).length};
 const dStat=k=>k?t(k===DG.length?"banAll":k>1?"banN":"ban1",k):t("banDone");
@@ -7479,7 +7490,7 @@ Object.assign(T.fr,{tagl:"Jeu de mots et de nombres en français 🇫🇷 et en 
 <p>🎯 <b>Les défis</b> : thème, calcul mental, mots gigognes, orthographe et traduction, 30 secondes chacun.</p>
 <h3>🙋 En solo</h3>
 <p>📅 <b>La partie du jour</b> : le même tirage pour tout le monde, chaque jour, avec un classement.</p>
-<p>⏱️ <b>La Saison</b> : une course contre la montre en 10 épreuves, renouvelée toutes les 2 semaines.</p>
+<p>🏁 <b>La Course des as</b> : une course contre la montre en 10 épreuves, renouvelée toutes les 2 semaines.</p>
 <p>🏆 <b>Partie classique</b> : les jeux s'enchaînent, en 5 ou 15 minutes.</p>
 <p>🎲 <b>Partie rapide</b> et <b>Entraînement</b> : un jeu au choix, pour le plaisir ou pour progresser.</p>
 <h3>👥 À plusieurs</h3>
@@ -7500,7 +7511,7 @@ Object.assign(T.en,{tagl:"Word and number game in French 🇫🇷 and English �
 <p>🎯 <b>Challenges</b>: theme, mental maths, nested words, spelling and translation, 30 seconds each.</p>
 <h3>🙋 Solo</h3>
 <p>📅 <b>Daily game</b>: the same draw for everyone, every day, with a leaderboard.</p>
-<p>⏱️ <b>The Season</b>: a 10-round race against the clock, renewed every 2 weeks.</p>
+<p>⏱️ <b>The Aces' Race</b>: a 10-round race against the clock, renewed every 2 weeks.</p>
 <p>🏆 <b>Classic game</b>: the games follow one another, in 5 or 15 minutes.</p>
 <p>🎲 <b>Quick play</b> and <b>Training</b>: one game of your choice, for fun or to get better.</p>
 <h3>👥 With others</h3>
@@ -7820,7 +7831,7 @@ Object.assign(T.fr,{wkH:"Classement général",wkT:"Championnat de la semaine",w
  wkTeaser:"🏅 Le championnat commence le lundi 16 novembre !",wkTeaserS:"Chaque épreuve de la partie du jour jouée rapportera des points. Les deux premiers de la semaine s'affronteront dans le match des champions.",
  wkNone:"Personne n'a encore marqué de points cette semaine.",wkHowT:"🏅 Le barème",wkDays:"LMMJVSD",wkDet:"{n} pts cette semaine",
  wkHow:"<p>Chaque épreuve de la partie du jour jouée rapporte des points :</p><p>• {a}, {b} : <b>1 point</b><br>• {c} : <b>2 points</b></p><p>Bonus pour le podium de chaque épreuve (avec une réponse valable) : <b>+3</b> au 1er, <b>+2</b> au 2e, <b>+1</b> au 3e.</p><p>Égalité de points : le plus de 1res places, puis de 2es, puis de 3es.</p><p>Seules comptent les épreuves jouées le jour même. Le championnat dure du lundi 0 h au dimanche 23 h 59 ; les deux premiers s'affrontent ensuite dans le match des champions.</p>",
- palT:"🏆 Palmarès",palS:"champions de la semaine et des saisons",palMine:"⭐ Mon palmarès",palMineL:"🏆 {n} titre(s) · 🥈 {m} · 🥉 {k}",palRace:"Course au titre {n}",palChamp:"🏆 Champion {n}",
+ palT:"🏆 Palmarès",palS:"champions de la semaine et de la Course des as",palMine:"⭐ Mon palmarès",palMineL:"🏆 {n} titre(s) · 🥈 {m} · 🥉 {k}",palRace:"Course au titre {n}",palChamp:"🏆 Champion {n}",
  palHist:"📜 Historique",palNoneC:"Aucune saison terminée pour l'instant.",palNoneD:"Aucun championnat terminé pour l'instant. Le premier commence le lundi 16 novembre.",
  palMatchD:"Le champion de chaque semaine sera désigné par le match des champions entre les deux premiers (premier match à partir du lundi 23 novembre).",palErr:"Impossible de charger le palmarès. Vérifie ta connexion internet."});
 Object.assign(T.en,{wkH:"Overall standings",wkT:"Weekly championship",wkS:"overall standings of the week",wkSoon:"from Monday 16 November",wkN:"Championship #{n}",wkPv:"Preview (admin)",
@@ -7828,9 +7839,25 @@ Object.assign(T.en,{wkH:"Overall standings",wkT:"Weekly championship",wkS:"overa
  wkTeaser:"🏅 The championship starts on Monday 16 November!",wkTeaserS:"Every daily game round you play will earn points. The top two of the week will face each other in the Champions' match.",
  wkNone:"Nobody has scored any points this week yet.",wkHowT:"🏅 Scoring",wkDays:"MTWTFSS",wkDet:"{n} pts this week",
  wkHow:"<p>Every daily game round you play earns points:</p><p>• {a}, {b}: <b>1 point</b><br>• {c}: <b>2 points</b></p><p>Podium bonus on each round (with a valid answer): <b>+3</b> for 1st, <b>+2</b> for 2nd, <b>+1</b> for 3rd.</p><p>Tie on points: most 1st places, then 2nd, then 3rd.</p><p>Only rounds played on the day itself count. The championship runs from Monday 00:00 to Sunday 23:59; the top two then face each other in the Champions' match.</p>",
- palT:"🏆 Hall of fame",palS:"weekly and season champions",palMine:"⭐ My record",palMineL:"🏆 {n} title(s) · 🥈 {m} · 🥉 {k}",palRace:"Title race {n}",palChamp:"🏆 Champion {n}",
+ palT:"🏆 Hall of fame",palS:"weekly and Aces' Race champions",palMine:"⭐ My record",palMineL:"🏆 {n} title(s) · 🥈 {m} · 🥉 {k}",palRace:"Title race {n}",palChamp:"🏆 Champion {n}",
  palHist:"📜 History",palNoneC:"No season finished yet.",palNoneD:"No championship finished yet. The first one starts on Monday 16 November.",
  palMatchD:"Each week's champion will be decided by the Champions' match between the top two (first match from Monday 23 November).",palErr:"Couldn't load the hall of fame. Check your internet connection."});
+Object.assign(T.fr,{chmT:"Match des champions",chmLive:"en cours",chmNone:"Personne n'a joué cette semaine : pas de champion.",chmSoloS:"{n}, seul joueur de la semaine, est sacré d'office",
+ chmSoloN:"sacré d'office (seul joueur)",chmBan:"🏆 {n} remporte le {m} !",chmOpens:"🔒 Ouverture le {n}",chmLeft:"⏳ Fin dans {n}",chmPlay:"▶ Jouer cette manche",
+ chmWait:"✅ Manche jouée : le résultat sera dévoilé quand ton adversaire aura joué (ou à la fin du délai).",chmOn:"⚔️ Manche en cours",chmHas:"a joué",chmNot:"n'a pas encore joué",
+ chmForf:"forfait",chmVoid:"Personne n'a joué cette manche : elle ne compte pas.",chmSkip:"Match déjà décidé : manche non jouée.",chmYour:"⚔️ Ta manche du match des champions t'attend !",
+ chmConf:"<p>Une seule tentative, comme pour la partie du jour. Ton adversaire aura exactement le même tirage.</p><p>Prêt ?</p>",chmErr:"Impossible de charger le match. Vérifie ta connexion internet.",
+ chmSent:"⚠️ Résultat pas encore envoyé : vérifie ta connexion internet.",chmFin:"Finale du {n}",chmHowT:"⚔️ Le match des champions",
+ chmHow:"<p>Les deux premiers du championnat de la semaine s'affrontent la semaine suivante, en 5 manches avec le même tirage pour les deux :</p><p>• {a} français : lundi et mardi<br>• {a} anglais : mercredi et jeudi<br>• {b} : vendredi<br>• {c} français : samedi<br>• {c} anglais : dimanche</p><p>Le meilleur résultat gagne la manche ; à égalité, le plus rapide. Le premier à 3 manches gagnées est champion de la semaine.</p><p>Une manche non jouée dans les délais est perdue par forfait. Si personne ne la joue, elle ne compte pas ; en cas d'égalité à la fin, le 1er du championnat l'emporte.</p>",
+ palFin:"🥈 Finaliste : {n}",palThird:"🥉 3e du championnat : {n}"});
+Object.assign(T.en,{chmT:"Champions' match",chmLive:"in progress",chmNone:"Nobody played this week: no champion.",chmSoloS:"{n}, the only player of the week, is crowned automatically",
+ chmSoloN:"crowned automatically (only player)",chmBan:"🏆 {n} wins {m}!",chmOpens:"🔒 Opens on {n}",chmLeft:"⏳ Ends in {n}",chmPlay:"▶ Play this round",
+ chmWait:"✅ Round played: the result will be revealed once your opponent has played (or when time is up).",chmOn:"⚔️ Round in progress",chmHas:"has played",chmNot:"hasn't played yet",
+ chmForf:"forfeit",chmVoid:"Nobody played this round: it doesn't count.",chmSkip:"Match already decided: round not played.",chmYour:"⚔️ Your Champions' match round is waiting!",
+ chmConf:"<p>One attempt only, just like the daily game. Your opponent gets exactly the same draw.</p><p>Ready?</p>",chmErr:"Couldn't load the match. Check your internet connection.",
+ chmSent:"⚠️ Result not sent yet: check your internet connection.",chmFin:"Final of {n}",chmHowT:"⚔️ The Champions' match",
+ chmHow:"<p>The top two of the weekly championship face each other the following week, over 5 rounds with the same draw for both:</p><p>• {a} French: Monday and Tuesday<br>• {a} English: Wednesday and Thursday<br>• {b}: Friday<br>• {c} French: Saturday<br>• {c} English: Sunday</p><p>The best result wins the round; on a tie, the fastest. The first to win 3 rounds is the champion of the week.</p><p>A round not played in time is lost by forfeit. If nobody plays it, it doesn't count; if the match ends level, the championship leader wins.</p>",
+ palFin:"🥈 Finalist: {n}",palThird:"🥉 3rd in the championship: {n}"});
 applyLang();loadSB();
 // --- Sprint final en partie courte (solo, salon, tour par tour) : moitié des lettres arrondie au-dessus (3-3-4-4) ---
 function wCourte(){try{if(party&&party.type==="q")return true;if(mpr&&MP&&MP.R&&MP.R.mo==="o"&&MP.R.ty==="q")return true;if(tbx&&tbx.nt===4)return true}catch(e){}return false}
@@ -7927,4 +7954,96 @@ async function palLoad(){const tok=++palTok,K=palK;palTabs();$("palL").innerHTML
  $("palL").innerHTML=h}
 $("stPal").onclick=()=>{show("palP");palLoad()};$("palBack").onclick=()=>show("statsP");
 all("#palTabs [data-pal]").forEach(b=>b.onclick=()=>{palK=b.dataset.pal;palLoad()});
+
+// ===== Lot 2 : match des champions =====
+const CHG=["lf","le","c","wf","we"],CHO=[[0,2],[2,4],[4,5],[5,6],[6,7]],CHS={};let chmW=null,chmFrom="rank",chmTok=0;try{HBP.add("chmP")}catch(e){}
+const CHMK="nmChamp";
+function chLoc(){try{return JSON.parse(localStorage.getItem(CHMK)||"{}")}catch(e){return{}}}
+function chLocSet(w,i,v){const o=chLoc();o[w+"|"+i]=v;try{localStorage.setItem(CHMK,JSON.stringify(o))}catch(e){}}
+async function chmGet(w,force){const c=CHS[w];if(!force&&c&&Date.now()-c.at<120000)return c.d;if(!sb)return c?c.d:null;
+ try{const r=await sb.rpc("champ_state",{p_week:w});if(r.error)throw r.error;CHS[w]={at:Date.now(),d:r.data};return r.data}catch(e){return c?c.d:null}}
+async function chmSend(w,i){const e=chLoc()[w+"|"+i];if(!e||!e.done||e.sent||!sb||!ME)return;
+ try{const r=await sb.rpc("champ_submit",{p_week:w,p_idx:i,p_result:e.r,p_detail:String(e.x||"").slice(0,20),p_time_cs:Math.max(0,Math.min(12100,Math.round(e.t/10)))});
+  if(r.error&&!/CLOSED|MATCH_DONE|NOT_FINALIST/.test(r.error.message||""))throw r.error;const o=chLoc()[w+"|"+i];if(o){o.sent=1;chLocSet(w,i,o)}delete CHS[w]}catch(e){}}
+async function chmSendAll(){const o=chLoc();for(const k of Object.keys(o)){const[w,i]=k.split("|"),e=o[k];if(!e.done&&!(daily&&daily.champ&&daily.champ.w===w&&daily.champ.i===+i)){e.done=1;chLocSet(w,+i,e)}if(!e.sent)await chmSend(w,+i)}}
+const chmEnd=(w,i)=>addDay(addDay(w,7),CHO[i][1]);
+function chmLeftTo(d){const p=pParts(new Date()),s=cmDays(pToday(),d)*86400-(+p.hour*3600+ +p.minute*60+ +p.second),x=Math.max(60,s),dd=Math.floor(x/86400),h=Math.floor(x%86400/3600);return dd?t("cmDH",dd,h):t("cmHM",h,Math.floor(x%3600/60))}
+function chmWin(w,i){const a=addDay(addDay(w,7),CHO[i][0]),b=addDay(addDay(w,7),CHO[i][1]-1);return a===b?fmtDayS(a,true):fmtDayS(a,true)+" – "+fmtDayS(b,true)}
+const chmVal=(g,r)=>{const m=DGM[g];return rkVal(m,{result:r.result,detail:r.detail},true)+(rkNo(m,r)?"":" · "+fmtT(r.time_cs*10))};
+function chmCard(w,d){let s;
+ if(d.none)s=t("chmNone");else if(d.solo)s="🏆 "+t("chmSoloS",esc(d.p1));
+ else{const sc=esc(d.p1)+" <b>"+d.s1+" – "+d.s2+"</b> "+esc(d.p2);s=d.done?"🏆 "+esc(d.champ===1?d.p1:d.p2)+" · "+sc:sc+" · "+t("chmLive")}
+ return'<button class="btn bl mb ic chmC" data-chw="'+w+'"><i class="mi" style="font-size:20px">⚔️</i><span class="mt"><span>'+t("chmT")+'</span><small class="sub">'+esc(wkLbl(w))+" · "+s+"</small></span>"+'<i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>'}
+async function chmOpen(w,from){chmW=w;chmFrom=from||"rank";const tok=++chmTok;show("chmP");$("chmSub").textContent=t("chmFin",wkLbl(w))+" · "+wkRange(w);
+ $("chmL").innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";if(ME)await chmSendAll();const d=await chmGet(w,true);if(tok!==chmTok)return;
+ if(!d||d.pending){$("chmL").innerHTML='<p class="dnote">'+t("chmErr")+"</p>";return}chmRender(w,d)}
+function chmRender(w,d){let h="";
+ if(d.none){$("chmL").innerHTML='<p class="dnote">'+t("chmNone")+"</p>";return}
+ if(d.solo){$("chmL").innerHTML='<div class="chmBan">🏆 '+t("chmSoloS",esc(d.p1))+"</div>";return}
+ if(d.done)h+='<div class="chmBan">'+t("chmBan",esc(d.champ===1?d.p1:d.p2),esc(wkLbl(w)))+"</div>";
+ h+='<div class="chmSb"><div class="'+(d.me1?"me":"")+'"><span>'+esc(d.p1)+"</span><b>"+d.s1+'</b></div><i>–</i><div class="'+(d.me2?"me":"")+'"><b>'+d.s2+"</b><span>"+esc(d.p2)+"</span></div></div>";
+ const loc=chLoc();
+ (d.m||[]).forEach(x=>{const i=x.i,g=x.g,nm=gNoEm(t("m"+DGM[g].toUpperCase()))+(DGL[g]?" "+(DGL[g]==="fr"?"🇫🇷":"🇬🇧"):"");
+  h+='<div class="palc chmM"><h3>'+(i+1)+". "+esc(nm)+' <small style="color:var(--mut)">· '+esc(chmWin(w,i))+"</small></h3>";
+  const meP=d.me1?1:d.me2?2:0,lk=loc[w+"|"+i];
+  if(x.st==="future")h+='<p class="c">'+t("chmOpens",esc(chmWin(w,i).split(" – ")[0]))+"</p>";
+  else if(x.st==="skip")h+='<p class="c">'+t("chmSkip")+"</p>";
+  else if(x.st==="open"){h+='<p class="c">'+t("chmLeft",chmLeftTo(chmEnd(w,i)))+"</p>";
+   const pl=(n,f,me)=>"<p><span>"+esc(n)+"</span><small>"+(f?"✓ "+t("chmHas"):t("chmNot"))+"</small></p>";
+   h+=pl(d.p1,x.f1)+pl(d.p2,x.f2);
+   if(meP&&!(meP===1?x.f1:x.f2)){if(lk&&lk.done&&!lk.sent)h+='<p class="c">'+t("chmSent")+"</p>";else if(!lk)h+='<button class="btn p mb" data-chp="'+i+'">'+t("chmPlay")+"</button>"}
+   else if(meP)h+='<p class="c">'+t("chmWait")+"</p>"}
+  else{if(x.w===0)h+='<p class="c">'+t("chmVoid")+"</p>";
+   else{const ln=(k,n,r)=>"<p"+(x.w===k?' class="w"':"")+"><span>"+(x.w===k?"🏆 ":"")+esc(n)+"</span><span>"+(r?esc(chmVal(g,r)):t("chmForf"))+"</span></p>";h+=ln(1,d.p1,x.r1)+ln(2,d.p2,x.r2)}}
+  h+="</div>"});
+ $("chmL").innerHTML=h}
+$("chmL").addEventListener("click",e=>{const b=e.target.closest("[data-chp]");if(!b||!chmW)return;const i=+b.dataset.chp,g=CHG[i],w=chmW;
+ modal(t("chmT")+" · "+nameOf(g),t("chmConf"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startChamp(w,i)}])});
+async function startChamp(w,i){if(chLoc()[w+"|"+i]){closeModal();return chmOpen(w,chmFrom)}const g=CHG[i],m=DGM[g];chl=null;chNav=false;dfNav=false;party=null;trn=null;dur={l:30,c:45};mode=m;
+ chLocSet(w,i,{...WORST[m],done:0,sent:0});daily={g,day:"champ|"+w+"|"+i,t0:0,lt:0,done:0,champ:{w,i}};
+ if(m==="c"){closeModal();return startC()}
+ dl=DGL[g];$("mb").innerHTML="<p>"+t("loading")+"</p>";$("mbtn").innerHTML="";dict=await loadDict(dl);if(!daily||daily.g!==g)return;closeModal();m==="w"?startW():startDL()}
+dFinish=(o=>function(){if(daily&&daily.champ){if(daily.done)return;daily.done=1;const c=daily.champ;let v=dResult();if(typeof v.r!=="number"||isNaN(v.r))v={...WORST[DGM[daily.g]]};chLocSet(c.w,c.i,{...v,done:1,sent:0});chmSend(c.w,c.i);return}return o.apply(this,arguments)})(dFinish);
+plMk=(o=>function(){if(daily&&daily.champ)return null;return o.apply(this,arguments)})(plMk);
+setStage=(o=>function(){const r=o.apply(this,arguments);if(daily&&daily.champ){const a=t("pD"),b=gNoEm(t("chmT"));all(".stg").forEach(e=>{if(e.textContent.indexOf(a)>=0)e.textContent=e.textContent.replace(a,b)})}return r})(setStage);
+gMode=(o=>function(){const r=o.apply(this,arguments);if(daily&&daily.champ&&r)r.tx=t("chmT");return r})(gMode);
+{const o=$("drk").onclick;$("drk").onclick=()=>{if(daily&&daily.champ){const w=daily.champ.w;quitGame();return chmOpen(w,"daily")}return o()}}
+$("chmBack").onclick=()=>chmFrom==="pal"?show("palP"):chmFrom==="daily"?openDaily():wkRank();
+$("chmHow").onclick=()=>modal(t("chmHowT"),t("chmHow").split("{a}").join(gNoEm(t("mL"))).replace("{b}",gNoEm(t("mC"))).split("{c}").join(gNoEm(t("mW"))),[{l:t("close"),c:"p",f:closeModal}]);
+// carte du match dans le classement de la semaine
+wkRank=(o=>async function(){const r=await o.apply(this,arguments);try{const L0=wkList();if(!L0.length)return r;const tok=rkTok,mon=L0[wkO],w=wkO?mon:addDay(mon,-7);if(w<WK0)return r;
+ const d=await chmGet(w);if(tok!==rkTok||rkG!=="wk"||!d||d.pending)return r;$("rkL").insertAdjacentHTML("afterbegin",chmCard(w,d))}catch(e){}return r})(wkRank);
+$("rkL").addEventListener("click",e=>{const b=e.target.closest("[data-chw]");if(b)chmOpen(b.dataset.chw,"rank")});
+// menu du jour : rappel quand une manche attend le joueur
+let chmMenuAt=0;
+renderD=(o=>function(){const r=o.apply(this,arguments);try{if(!ME)return r;const w=addDay(wkMon(pToday()),-7);if(w<WK0)return r;
+ if(Date.now()-chmMenuAt>120000){chmMenuAt=Date.now();chmGet(w,true).then(()=>{if(!$("dailyP").classList.contains("hide"))renderD()})}
+ const d=CHS[w]&&CHS[w].d,loc=chLoc();if(!d||d.done||!(d.me1||d.me2)||!d.m)return r;
+ const k=d.me1?"f1":"f2",x=d.m.find(z=>z.st==="open"&&!z[k]&&!loc[w+"|"+z.i]);if(!x)return r;
+ const b=$("dList")&&$("dList").querySelector('[data-rk="wk"] .sub');if(b){b.innerHTML="<b>"+t("chmYour")+"</b>";b.style.color="var(--ac)"}}catch(e){}return r})(renderD);
+$("dList").addEventListener("click",e=>{const b=e.target.closest('[data-rk="wk"]');if(!b)return;const w=addDay(wkMon(pToday()),-7),d=CHS[w]&&CHS[w].d;
+ if(ME&&d&&!d.done&&(d.me1||d.me2)&&b.querySelector(".sub b")){e.stopImmediatePropagation();chmOpen(w,"daily")}},true);
+// palmarès : onglet parties du jour
+palLoad=(o=>async function(){if(palK!=="d")return o.apply(this,arguments);const tok=++palTok;palTabs();$("palL").innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";
+ if(!sb){$("palL").innerHTML='<p class="dnote">'+t("palErr")+"</p>";return}
+ const cur=wkMon(pToday()),ws=[];for(let m=addDay(cur,-7);m>=WK0;m=addDay(m,-7))ws.push(m);
+ if(!ws.length){$("palL").innerHTML='<p class="dnote">'+t("palNoneD")+"</p>";return}
+ const rows=[],cards=[],yNow=pToday().slice(0,4);
+ for(const w of ws){const d=await chmGet(w,true);if(tok!==palTok)return;if(!d){$("palL").innerHTML='<p class="dnote">'+t("palErr")+"</p>";return}if(d.pending)continue;const y=addDay(w,6).slice(0,4);
+  if(d.done&&d.p1){const c=d.solo?1:d.champ;rows.push({y,pos:1,pseudo:c===1?d.p1:d.p2,me:c===1?d.me1:d.me2});if(!d.solo){rows.push({y,pos:2,pseudo:c===1?d.p2:d.p1,me:c===1?d.me2:d.me1});if(d.p3)rows.push({y,pos:3,pseudo:d.p3,me:d.me3})}}
+  cards.push({w,d})}
+ let h=palMine(rows);const ys=[...new Set(rows.map(x=>x.y))].sort().reverse();
+ for(const y of ys)h+='<div class="palc"><h3>'+(y<yNow?t("palChamp",y):t("palRace",y))+"</h3>"+palTable(rows.filter(x=>x.y===y))+"</div>";
+ h+='<h3 class="mph">'+t("palHist")+"</h3>";
+ const B=(n,me)=>me?"<b>"+esc(n)+"</b>":esc(n);
+ for(const{w,d}of cards){h+='<div class="palc" data-chw="'+w+'" style="cursor:pointer"><h3>'+esc(wkLbl(w))+' <small style="color:var(--mut)">· '+esc(wkRange(w))+"</small></h3>";
+  if(d.none)h+="<p><small>"+t("chmNone")+"</small></p>";
+  else if(d.solo)h+="<p>🏆 "+B(d.p1,d.me1)+" <small>· "+t("chmSoloN")+"</small></p>";
+  else{const c=d.champ===1,sc=c?d.s1+"–"+d.s2:d.s2+"–"+d.s1;
+   if(d.done)h+="<p>🏆 "+B(c?d.p1:d.p2,c?d.me1:d.me2)+" <small>· "+sc+"</small></p><p>"+t("palFin",B(c?d.p2:d.p1,c?d.me2:d.me1))+"</p>";
+   else h+="<p>⚔️ "+B(d.p1,d.me1)+" <b>"+d.s1+" – "+d.s2+"</b> "+B(d.p2,d.me2)+" <small>· "+t("chmLive")+"</small></p>";
+   if(d.p3)h+="<p>"+t("palThird",B(d.p3,d.me3))+"</p>"}
+  h+="</div>"}
+ $("palL").innerHTML=h})(palLoad);
+$("palL").addEventListener("click",e=>{const b=e.target.closest("[data-chw]");if(b)chmOpen(b.dataset.chw,"pal")});
 </script></body></html>
