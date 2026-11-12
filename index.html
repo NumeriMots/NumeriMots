@@ -524,6 +524,8 @@ body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4p
 .chmBan{background:var(--ac);color:#1a1300;border-radius:14px;padding:12px;text-align:center;font-weight:900;font-size:17px;margin:0 0 12px}
 .chmM p{display:flex;justify-content:space-between;gap:8px}.chmM p.c{justify-content:center;text-align:center;color:var(--mut)}
 .chmM p.w{font-weight:900;color:var(--ac)}.chmM .btn{margin-top:8px}
+.kbp{font-size:34px;line-height:1;display:block;margin:2px 0 4px}
+body.kb0 #ans{pointer-events:none;caret-color:transparent}
 </style></head><body>
 <section id="vidP" class="pg hide"><video id="vid" playsinline preload="auto"></video><button class="btn" id="vskip" data-t="skip"></button></section>
 <button id="homeB" class="hide" aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button id="topBk" class="hide" aria-label="Retour"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div id="toast" class="hide"></div><div id="mpWarn" class="hide" data-t="mpWarn"></div>
@@ -573,6 +575,7 @@ body.ly1 #slots .tile.e{box-shadow:none}body.ly1 #slots .tile.nw{box-shadow:0 4p
 <section id="setP" class="pg hide"><h2 data-t="setT"></h2>
 <h3 data-t="setLg"></h3><div class="row" id="setLgR"><button class="btn" data-setl="fr">🇫🇷 Français</button><button class="btn" data-setl="en">🇬🇧 English</button></div>
 <h3 data-t="a3LyT" style="margin-top:22px"></h3><div class="lyS" id="setLyR"></div>
+<h3 data-t="kbT" style="margin-top:22px"></h3><div class="lyS" id="setKbR"></div>
 <h3 data-t="nfH" style="margin-top:22px"></h3><div id="nfBox"></div>
 <button class="btn mb" data-back data-t="back" style="margin-top:20px"></button></section>
 <section id="origP" class="pg hide"><h2 data-t="pO"></h2>
@@ -7328,7 +7331,7 @@ Object.assign(T.fr,{nfH:"🔔 Notifications",nfGuest:"Les notifications sont ré
  nfBlk:"Les notifications sont bloquées pour ce jeu. Pour les autoriser : touche le cadenas 🔒 (ou ⓘ) à gauche de l'adresse du site, puis Autorisations › Notifications, et reviens ici.",
  nfOnB:"🔔 Activer les notifications",nfOnH:"Sois prévenu quand un ami t'ajoute, quand on te lance un défi et quand c'est ton tour au tour par tour. Le réglage vaut pour ce téléphone seulement.",
  nfOnS:"✅ Activées sur ce téléphone",nfAmis:"👥 Amis",nfAmisS:"demandes d'ami reçues ou acceptées",nfDefis:"⚔️ Défis",nfDefisS:"duels reçus et invitations à un match",
- nfTours:"🎲 Ton tour",nfToursS:"un nouveau tour t'attend au tour par tour",nfRap:"⏰ Rappels",nfRapS:"24 h et 48 h après le début d'un tour pas encore joué",
+ nfTours:"🎲 Ton tour",nfToursS:"un nouveau tour t'attend au tour par tour ou au match des champions",nfRap:"⏰ Rappels",nfRapS:"avant la fin d'un tour ou d'une manche pas encore joués",
  nfNight:"🌙 Rien entre 22 h et 8 h : les notifications de la nuit arrivent le matin.",nfTest:"Envoyer une notification de test",
  nfTestOk:"C'est parti ! La notification arrive dans la minute (tu peux fermer le jeu pour la voir).",nfOff:"Désactiver sur ce téléphone",nfOffQ:"Ne plus recevoir de notifications sur ce téléphone ?",
  nfOnT:"🔔 Notifications activées !",nfOffT:"Notifications désactivées sur ce téléphone.",nfDen:"Notifications refusées. Tu pourras les autoriser plus tard dans les réglages du navigateur.",
@@ -7341,7 +7344,7 @@ Object.assign(T.en,{nfH:"🔔 Notifications",nfGuest:"Notifications are for play
  nfBlk:"Notifications are blocked for this game. To allow them: tap the padlock 🔒 (or ⓘ) left of the site address, then Permissions › Notifications, and come back here.",
  nfOnB:"🔔 Turn on notifications",nfOnH:"Get notified when a friend adds you, when someone challenges you and when it's your turn in a turn-based match. This setting is for this phone only.",
  nfOnS:"✅ On for this phone",nfAmis:"👥 Friends",nfAmisS:"friend requests received or accepted",nfDefis:"⚔️ Challenges",nfDefisS:"duels received and match invitations",
- nfTours:"🎲 Your turn",nfToursS:"a new round is waiting in a turn-based match",nfRap:"⏰ Reminders",nfRapS:"24 h and 48 h after a round starts if you haven't played it",
+ nfTours:"🎲 Your turn",nfToursS:"a new round is waiting in a turn-based match or the Champions' match",nfRap:"⏰ Reminders",nfRapS:"before a round you haven't played yet ends",
  nfNight:"🌙 Nothing between 10 pm and 8 am: night-time notifications arrive in the morning.",nfTest:"Send a test notification",
  nfTestOk:"Done! The notification arrives within a minute (you can close the game to see it).",nfOff:"Turn off on this phone",nfOffQ:"Stop receiving notifications on this phone?",
  nfOnT:"🔔 Notifications on!",nfOffT:"Notifications turned off on this phone.",nfDen:"Notifications declined. You can allow them later in your browser settings.",
@@ -7352,13 +7355,13 @@ const NFP=[["amis","nfAmis"],["defis","nfDefis"],["tours","nfTours"],["rappels",
 let NF={uid:null,chk:false,ok:false,sub:null,pf:null,busy:false},nfSynced=null;
 var nfIn0=null;
 (()=>{try{const u=new URLSearchParams(location.search);if(!u.has("nf"))return;const k=u.get("nf")||"",m=u.get("m")||"";
- if(/^(tb|fr|da|tn)$/.test(k))nfIn0={k,m:/^[0-9a-f-]{36}$/.test(m)?m:""};u.delete("nf");u.delete("m");const q=u.toString();history.replaceState(null,"",location.pathname+(q?"?"+q:"")+location.hash)}catch(e){}})();
+ if(/^(tb|fr|da|tn|chm)$/.test(k))nfIn0={k,m:/^([0-9a-f-]{36}|\d{4}-\d{2}-\d{2})$/.test(m)?m:""};u.delete("nf");u.delete("m");const q=u.toString();history.replaceState(null,"",location.pathname+(q?"?"+q:"")+location.hash)}catch(e){}})();
 const nfSup=()=>"serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window&&window.isSecureContext;
 const nfIOS=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 const nfU=()=>{try{return localStorage.getItem("fwnfu")||""}catch(e){return""}};
 function nfKey(){const s=VAPID.replace(/-/g,"+").replace(/_/g,"/"),b=atob(s+"===".slice((s.length+3)%4));return Uint8Array.from(b,c=>c.charCodeAt(0))}
-async function nfReg(){if(!nfSup())return null;try{return await Promise.race([navigator.serviceWorker.ready,wait(5000).then(()=>null)])}catch(e){return null}}
-async function nfState(){const id=ME?ME.id:null,r=await nfReg();let s=null;try{s=r?await r.pushManager.getSubscription():null}catch(e){}
+async function nfReg(ms){if(!nfSup())return null;try{return await Promise.race([navigator.serviceWorker.ready,wait(ms||15000).then(()=>null)])}catch(e){return null}}
+async function nfState(){const id=ME?ME.id:null,r=await nfReg();if(!r){NF.chk=false;await wait(3000);return false}let s=null;try{s=await r.pushManager.getSubscription()}catch(e){NF.chk=false;await wait(3000);return false}
  NF.uid=id;NF.sub=s;NF.ok=!!(s&&id&&nfU()===id&&Notification.permission==="granted");NF.chk=true;if(NF.ok&&!NF.pf)await nfPrefs();return NF.ok}
 async function nfPrefs(){try{const r=await sb.rpc("push_prefs_get");if(r.error)throw r.error;NF.pf=r.data||null}catch(e){NF.pf=NF.pf||null}}
 async function nfSave(s){const j=s.toJSON(),k=j.keys||{};const r=await sb.rpc("push_save",{p_endpoint:j.endpoint,p_p256dh:k.p256dh,p_auth:k.auth,p_lang:L});if(r.error)throw r.error;if(r.data!=="ok")throw new Error(r.data)}
@@ -7378,7 +7381,7 @@ async function nfDrop(){let s=NF.sub;try{if(!s){const r=await nfReg();s=r?await 
 async function nfQuit(){if(!nfSup()||!nfU())return;try{await Promise.race([nfDrop(),wait(3000)])}catch(e){}NF.chk=false}
 // à l'ouverture du menu : on redonne l'adresse du téléphone à Supabase (elle peut changer)
 async function nfSync(){if(!ME||!sb||!SESS||!nfSup()||nfSynced===ME.id||nfU()!==ME.id)return;nfSynced=ME.id;
- try{const r=await nfReg(),s=r?await r.pushManager.getSubscription():null;if(s&&Notification.permission==="granted")await nfSave(s);
+ try{const r=await nfReg();if(!r){nfSynced=null;return}const s=await r.pushManager.getSubscription();if(s&&Notification.permission==="granted")await nfSave(s);
   else{if(s)try{await sb.rpc("push_remove",{p_endpoint:s.endpoint})}catch(e){}try{localStorage.removeItem("fwnfu")}catch(e){}}}catch(e){}}
 let nfLT=0;function nfLang(){if(!NF.ok||!NF.sub||!ME||!sb||!SESS)return;clearTimeout(nfLT);nfLT=setTimeout(()=>nfSave(NF.sub).catch(()=>{}),800)}
 function renderNf(){const B=$("nfBox");if(!B)return;const H=x=>'<p class="dnote" style="text-align:left">'+x+"</p>";
@@ -7408,7 +7411,7 @@ async function nfGo(o,n){if(!o)return;if(!sb||!SESS||!ME){if((n|0)<12)setTimeout
 const nfBusyG=()=>!over||!!tbx||!!cmx||!!MP||!!daily||!!chl||$("intro")&&!$("intro").classList.contains("hide");
 if("serviceWorker"in navigator)navigator.serviceWorker.addEventListener("message",e=>{const d=e.data||{};
  if(d.t==="nfin"){if(ME&&sb&&SESS){tbLoad();daLoad();refreshAcc()}const x=d.d||{};if(x.t&&!(!over||tbx||cmx||MP))toast(x.t+(x.b?" · "+x.b:""))}
- else if(d.t==="nfopen"){let o=null;try{const u=new URL(d.u,location.href).searchParams,k=u.get("nf")||"",m=u.get("m")||"";if(/^(tb|fr|da|tn)$/.test(k))o={k,m:/^[0-9a-f-]{36}$/.test(m)?m:""}}catch(e){}
+ else if(d.t==="nfopen"){let o=null;try{const u=new URL(d.u,location.href).searchParams,k=u.get("nf")||"",m=u.get("m")||"";if(/^(tb|fr|da|tn|chm)$/.test(k))o={k,m:/^([0-9a-f-]{36}|\d{4}-\d{2}-\d{2})$/.test(m)?m:""}}catch(e){}
   if(!o)return;if(!ME||$("intro")&&!$("intro").classList.contains("hide")){nfIn0=o;return}if(nfBusyG())return toast(t("nfInGame"));closeModal();nfGo(o)}});
 
 // ===== v21.2 : copier les e-mails des joueurs (écran Admin) =====
@@ -7858,6 +7861,8 @@ Object.assign(T.en,{chmT:"Champions' match",chmLive:"in progress",chmNone:"Nobod
  chmSent:"⚠️ Result not sent yet: check your internet connection.",chmFin:"Final of {n}",chmHowT:"⚔️ The Champions' match",
  chmHow:"<p>The top two of the weekly championship face each other the following week, over 5 rounds with the same draw for both:</p><p>• {a} French: Monday and Tuesday<br>• {a} English: Wednesday and Thursday<br>• {b}: Friday<br>• {c} French: Saturday<br>• {c} English: Sunday</p><p>The best result wins the round; on a tie, the fastest. The first to win 3 rounds is the champion of the week.</p><p>A round not played in time is lost by forfeit. If nobody plays it, it doesn't count; if the match ends level, the championship leader wins.</p>",
  palFin:"🥈 Finalist: {n}",palThird:"🥉 3rd in the championship: {n}"});
+Object.assign(T.fr,{kbT:"Saisie des lettres",kb1:"Avec clavier",kb1S:"toucher la réponse ouvre le clavier",kb0:"Sans clavier",kb0S:"seulement les lettres du jeu"});
+Object.assign(T.en,{kbT:"Letter input",kb1:"With keyboard",kb1S:"tapping the answer opens the keyboard",kb0:"No keyboard",kb0S:"only the game's letter tiles"});
 applyLang();loadSB();
 // --- Sprint final en partie courte (solo, salon, tour par tour) : moitié des lettres arrondie au-dessus (3-3-4-4) ---
 function wCourte(){try{if(party&&party.type==="q")return true;if(mpr&&MP&&MP.R&&MP.R.mo==="o"&&MP.R.ty==="q")return true;if(tbx&&tbx.nt===4)return true}catch(e){}return false}
@@ -8046,4 +8051,15 @@ palLoad=(o=>async function(){if(palK!=="d")return o.apply(this,arguments);const 
   h+="</div>"}
  $("palL").innerHTML=h})(palLoad);
 $("palL").addEventListener("click",e=>{const b=e.target.closest("[data-chw]");if(b)chmOpen(b.dataset.chw,"pal")});
+
+// ===== Lot 3a : saisie des lettres avec ou sans clavier (réglage gardé sur le téléphone) =====
+const KBK="nmKb";
+function kbGet(){try{return localStorage.getItem(KBK)||"1"}catch(e){return"1"}}
+function kbApply(){const off=kbGet()==="0",a=$("ans");document.body.classList.toggle("kb0",off);if(a){a.readOnly=off;a.setAttribute("inputmode",off?"none":"text");if(off&&document.activeElement===a)a.blur()}
+ const R=$("setKbR");if(R)R.innerHTML=["1","0"].map(v=>'<button class="lyc'+(kbGet()===v?" on":"")+'" data-kb="'+v+'"><span class="kbp" aria-hidden="true">'+(v==="1"?"⌨️":"👆")+"</span><b>"+t("kb"+v)+"</b><small>"+t("kb"+v+"S")+"</small></button>").join("")}
+$("setKbR").addEventListener("click",e=>{const b=e.target.closest("[data-kb]");if(!b)return;try{localStorage.setItem(KBK,b.dataset.kb)}catch(x){}kbApply()});
+renderSet=(o=>function(){const r=o.apply(this,arguments);try{kbApply()}catch(e){}return r})(renderSet);
+kbApply();
+
+nfGo=(o=>async function(x,n){if(x&&x.k==="chm"){if(!sb||!SESS||!ME){if((n|0)<12)setTimeout(()=>nfGo(x,(n|0)+1),700);return}return chmOpen(/^\d{4}-\d{2}-\d{2}$/.test(x.m)?x.m:addDay(wkMon(pToday()),-7),"daily")}return o.apply(this,arguments)})(nfGo);
 </script></body></html>
