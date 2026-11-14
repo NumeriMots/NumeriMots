@@ -572,7 +572,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <div class="foot"><p id="ofS" class="hide"></p><p data-t="copy"></p><button class="lnk" data-priv data-t="privL"></button><button class="lnk" data-legal data-t="legL"></button><button class="lnk" id="rldB" data-t="reload" data-net></button></div></section>
 <section id="soloP" class="pg hide"><h2 data-t="pSolo"></h2>
 <button class="btn p mb ic" id="dailyS" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></i><span class="mt"><span data-t="pD"></span><small class="sub" id="dSoloS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
-<div class="mrow"><button class="btn p mb ic" id="cmHome" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></i><span class="mt"><span data-t="cmT"></span><small class="sub"><span data-t="cmS"></span><br><span id="cmSoloS"></span></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="info" data-info="CM">?</button></div>
+<button class="btn p mb ic" id="cmHome" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></i><span class="mt"><span data-t="cmT"></span><small class="sub"><span data-t="cmS"></span><br><span id="cmSoloS"></span></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn p mb ic" id="orig"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></i><span class="mt"><span data-t="pO"></span><small class="sub" data-t="dO"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn p mb ic" id="free"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></i><span class="mt"><span data-t="pF"></span><small class="sub" data-t="dF"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn bl mb ic" id="train"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12M3 9v6M21 9v6M6 7v10M18 7v10"/></svg></i><span class="mt"><span data-t="pT"></span><small class="sub" data-t="dTr"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
@@ -932,7 +932,7 @@ const cState=()=>bv===tgt?msg(t("exact"),"ok","cmsg"):msg("","","cmsg");
 function ap(a,o,b){if((o==="−"||o==="÷")&&items[a].v<items[b].v){const k=a;a=b;b=k}const x=items[a].v,y=items[b].v;let r;if(o==="+")r=x+y;else if(o==="×")r=x*y;else if(o==="−")r=x-y;else r=y?x/y:0;
  if(r<=0||!Number.isInteger(r)){msg(t("opBad"),"ko","cmsg");so=null;rdC();return}
  items[a].u=items[b].u=1;items.push({v:r,u:0});lines.push({a:x,o,b:y,r,i:items.length-1,ia:a,ib:b});sa=sz=so=null;
- if(bv===null||Math.abs(r-tgt)<Math.abs(bv-tgt)){bv=r;RTL=dur.c?Math.min(performance.now()-RT0,dur.c*1000):performance.now()-RT0;if(daily||mpr||chl||tbx||cmx)bt=Math.min(dEl(),dur.c*1000);if(chl&&!chl.opp&&chl.ev.length<60)chl.ev.push([Math.round(bt/100),r])}cState();rdC();if(bv===tgt&&(mpr&&isGP()||cmx))cEnd()}
+ if(bv===null||Math.abs(r-tgt)<Math.abs(bv-tgt)){bv=r;try{bvC=cChain(items.length-1)}catch(e){bvC=""}RTL=dur.c?Math.min(performance.now()-RT0,dur.c*1000):performance.now()-RT0;if(daily||mpr||chl||tbx||cmx)bt=Math.min(dEl(),dur.c*1000);if(chl&&!chl.opp&&chl.ev.length<60)chl.ev.push([Math.round(bt/100),r])}cState();rdC();if(bv===tgt&&(mpr&&isGP()||cmx))cEnd()}
 $("undo").onclick=()=>{if(cl||!lines.length)return;const l=lines.pop();items.pop();items[l.ia].u=0;items[l.ib].u=0;sa=sz=so=null;cState();rdC()};
 $("rst").onclick=()=>{if(cl)return;items=P.map(v=>({v,u:0}));lines=[];sa=sz=so=null;cState();rdC()};
 $("cdone").onclick=()=>{if($("cGame").classList.contains("hide"))return;if(cmx&&!cmx.cf&&!over&&bv!==tgt)return modal(t("quit"),"<p>"+t("cmGiveQ",fmtCM(45000))+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();cmx.cf=1;$("cdone").click()}}]);if(rv){ctok++;rv=false;shown=6;sfxStop();bv=null;setTg(String(tgt).split(""));over=false}else if(chl&&!over&&chl.t0)chl.f=Math.round(Math.min(dEl(),45000)/100);cEnd()};
@@ -1000,11 +1000,11 @@ const dEl=()=>{const k=daily||mpr||chl||tbx||cmx;return k&&k.t0?performance.now(
 function dResult(){const m=DGM[daily.g];
  if(m==="j"){const f=dfx&&dfx.dly===daily?dfx:{},a=String(f.a||"").slice(0,20);return f.ok?{r:1,x:a,t:Math.max(0,Math.min(30000,Math.round(f.t||30000)))}:{r:0,x:a,t:30000}}
  if(m==="l")return best?{r:best.length,x:best,t:Math.round(daily.lt||30000)}:{...WORST.l};
- if(m==="c")return bv===null?{...WORST.c}:{r:Math.abs(tgt-bv),x:String(bv),t:Math.round(bt)};
- const n=rounds.filter(x=>x.done).length;return n?{r:n,x:n+"/8",t:Math.round(daily.lt)}:{...WORST.w}}
+ if(m==="c")return bv===null?{...WORST.c}:{r:Math.abs(tgt-bv),x:cDet(),t:Math.round(bt)};
+ const n=rounds.filter(x=>x.done).length;return n?{r:n,x:wDet(n),t:Math.round(daily.lt)}:{...WORST.w}}
 function dFinish(){if(!daily||daily.done)return;daily.done=1;setMy(daily.day,daily.g,{...dResult(),done:1,sent:0});sendMy(daily.day,daily.g)}
 // classement en ligne (Supabase)
-async function sbSend(day,g,o){if(!sb||!ME)return false;const{error}=await sb.rpc("submit_score",{p_day:day,p_game:g,p_result:o.r,p_detail:String(o.x||"").slice(0,20),p_time_cs:Math.max(0,Math.min(12100,Math.round(o.t/10)))});if(error)throw error;return true}
+async function sbSend(day,g,o){if(!sb||!ME)return false;const q=x=>sb.rpc("submit_score",{p_day:day,p_game:g,p_result:o.r,p_detail:x,p_time_cs:Math.max(0,Math.min(12100,Math.round(o.t/10)))});const x=String(o.x||"").slice(0,20);let{error}=await q(x);if(error&&x.includes("|"))({error}=await q(cV(x)));if(error)throw error;return true}
 async function sendMy(day,g){const o=myD(day,g);if(!o||!o.done||o.sent)return true;let ok=false;try{ok=await sbSend(day,g,o)}catch(e){}if(ok){const n=myD(day,g);if(n){n.sent=1;setMy(day,g,n)}}return ok}
 function syncD(){const d0=pToday();[d0,addDay(d0,-1)].forEach(day=>DG.forEach(g=>{const e=myD(day,g);if(!e)return;if(!e.done&&!(daily&&daily.g===g&&daily.day===day)){e.done=1;setMy(day,g,e)}if(e.done&&!e.sent&&ME)sendMy(day,g)}))}
 // menu du jour
@@ -1029,7 +1029,7 @@ $("drk").onclick=()=>{const g=daily&&daily.g;quitGame();if(g)rank(g,0)};
 // classement
 const rkNo=(m,x)=>m==="c"?x.result>=9999:!x.result;
 function rkVal(m,x,open){if(m==="j"||dfIs(m))return x.result?"✓ "+dfUp(x.detail):x.detail?"✗ "+dfUp(x.detail):t("noAns");if(m==="l")return x.result?(open?esc(String(x.detail).toUpperCase())+" ("+x.result+")":t("lets",x.result)):t("noWord");
- if(m==="c")return x.result>=9999?t("noAns"):(open?esc(x.detail)+" · ":"")+(x.result===0?t("exactS"):t("near",x.result));
+ if(m==="c")return x.result>=9999?t("noAns"):(open?esc(cV(x.detail))+" · ":"")+(x.result===0?t("exactS"):t("near",x.result));
  return t("words",x.result)}
 const RKN=30;
 function rkNav(off){const d0=pToday();$("rkSel").innerHTML=Array.from({length:RKN},(_,i)=>{const ds=fmtDayS(addDay(d0,-i),i<2);return'<option value="'+i+'"'+(i===off?" selected":"")+">"+(i<2?t(i?"yday":"today")+" · "+ds:ds.charAt(0).toUpperCase()+ds.slice(1))+"</option>"}).join("");$("rkPrev").disabled=off>=RKN-1;$("rkNext").disabled=off<=0}
@@ -2181,6 +2181,7 @@ function mpConnect(code,host){return new Promise(res=>{let done=false,synced=fal
  ch.on("broadcast",{event:"pg"},({payload:p})=>{if(MP===M&&!M.host&&p){M.pg=p;mpWaitRefresh()}});
  ch.on("broadcast",{event:"bye"},()=>{if(MP===M&&!M.host)mpQuit("mpClosed")});
  ch.on("broadcast",{event:"kick"},({payload:p})=>{if(MP===M&&!M.host&&p&&p.id===MID)mpQuit("mpKick")});
+ ch.on("broadcast",{event:"hlp"},({payload:p})=>{if(MP===M&&!M.host&&p)try{mpHlpShow(p)}catch(e){}});
  ch.subscribe(async st=>{
   if(st==="SUBSCRIBED"){
    if(M.trk){try{await ch.track(mpMeta(M))}catch(e){}return}// reconnexion après une coupure
@@ -2315,8 +2316,8 @@ function mpAbortLocal(){if(!mpr)return;ctok++;sfxStop();dfStop();clearTimeout(tm
 // fin de la manche pour ce joueur : envoi du résultat à l'hôte
 function mpEnd(why,html){over=true;clearInterval(timer);pending=null;stopM();closeModal();const g=mpr.g;let a;
  if(isGP())a=gpAns(g);else if(g==="l")a={p:score,r:best?best.length:0,x:best||"",t:best?Math.round(mpr.lt||30000):30000};
- else if(g==="c")a=bv===null?{p:0,r:9999,x:"",t:45000}:{p:score,r:Math.abs(tgt-bv),x:String(bv),t:Math.round(bt)};
- else{const n=rounds.filter(x=>x.done).length;a={p:score,r:n,x:n+"/8",t:n?Math.round(mpr.lt):120000}}
+ else if(g==="c")a=bv===null?{p:0,r:9999,x:"",t:45000}:{p:score,r:Math.abs(tgt-bv),x:cDet(),t:Math.round(bt)};
+ else{const n=rounds.filter(x=>x.done).length;a={p:score,r:n,x:wDet(n),t:n?Math.round(mpr.lt):120000}}
  mpr.done=1;MP.mine=a;MP.html[mpr.rid]={why,html};const rid=mpr.rid;
  if(MP.host){MP.ans[MID]=a;mpPgSend();mpWaitShow();mpCheckDone();return}
  const go=()=>{const R=MP&&MP.R;if(!R||R.rid!==rid||R.ph!=="play"||(MP.pg&&MP.pg.rid===rid&&MP.pg.d.includes(MID))){if(MP)clearInterval(MP.rs);return}mpSend("ans",{id:MID,rid,a})};
@@ -2341,7 +2342,7 @@ function mpResShow(){const R=MP.R,Z=R.last;if(!Z)return R.ph==="pick"?mpPickShow
  let w="";if(end){const top=q?Z.rows.filter(x=>x.pos===1&&!mpInv(g,x)):mpStand(1).filter(x=>x.pos===1&&x.tot>0),nm=andJ(top.map(x=>x.n));if(top.length)w=top.length>1?t("mpTie",nm):t(q?"mpWinQ":"mpWin",nm)}
  $("mrW").innerHTML=w?'<div class="win">'+esc(w)+"</div>":"";
  const own=MP.html[Z.rid],row=x=>'<div class="res'+(x.id===MID?" me":"")+'"><span class="rn"><b>'+x.pos+".</b>"+esc(x.n)+(on(x.id)?"":"<small> · "+t("mpOffl")+"</small>")+'</span><span class="rv"><b>'+(x.m?t("mpMiss"):rkVal(g,{result:x.r,detail:x.x},true))+"</b>"+(q?(mpInv(g,x)?"":" · "+fmtT(x.t)):" · +"+x.p+" "+t("pts"))+"</span></div>";
- let b=(own?'<h3 class="ct">'+esc(own.why)+"</h3>"+own.html:'<h3 class="ct">'+t("solT")+"</h3>"+mpSol())+"<h3>"+t("mpRoundRes")+"</h3>"+Z.rows.map(R.mo==="g"?x=>gpRow(x,g):row).join("");
+ let b=(own?'<h3 class="ct">'+esc(own.why)+"</h3>"+own.html:'<h3 class="ct">'+t("solT")+"</h3>"+mpSol())+"<h3>"+t("mpRoundRes")+"</h3>"+Z.rows.map((x,i)=>dtTag(R.mo==="g"?gpRow(x,g):row(x),dtHas(g,x.x,x.m),"mrw",i)).join("")+(Z.rows.some(x=>dtHas(g,x.x,x.m))?'<p class="dnote dtH">'+t("dtHint")+"</p>":"");
  if(!q){const s=mpStand(end);b+="<h3>"+t(end?"mpFinal":"mpProv")+"</h3>"+s.map(x=>'<div class="res'+(x.id===MID?" me":"")+'"><span class="rn"><b>'+x.pos+".</b>"+(R.mo==="g"?gpMv(Z,x.id):"")+esc(x.n)+(x.on?"":"<small> · "+t("mpOffl")+"</small>")+'</span><span class="rv"><b>'+x.tot+" "+t("pts")+"</b></span></div>").join("")}
  if(end&&MP.played[R.gid])b+='<p class="dnote" id="mrSave" style="margin-top:10px">'+(ME?MP.saved[R.gid]==="ok"?"✓ "+t("mpSaved"):"":t("mpNoSave"))+"</p>";
  const nx=R.st[R.i+1];if(R.mo==="o"&&!end&&nx==="w")b+='<div class="sol wpan"><h3>'+t("wPanT")+"</h3>"+t("wIntroM")+"</div>";
@@ -2356,7 +2357,7 @@ $("mrBtn").onclick=e=>{const b=e.target.closest("[data-mr]");if(!b||!MP||!MP.hos
  else modal(t("mpQuitG"),"<p>"+t("mpQuitGQ")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();if(MP&&MP.host)mpToSetup()}}])};
 // sauvegarde du résultat final (comptes uniquement)
 function mpSave(){const R=MP.R,k=R.gid;if(!R.last||!ME||!sb||!SESS||!MP.played[k]||MP.saved[k])return;let rank,players,points,detail="";
- if(R.mo==="q"){const x=R.last.rows.find(y=>y.id===MID);if(!x)return;rank=x.pos;players=R.last.rows.length;points=x.p;detail=x.m?"":String(x.x||"")}
+ if(R.mo==="q"){const x=R.last.rows.find(y=>y.id===MID);if(!x)return;rank=x.pos;players=R.last.rows.length;points=x.p;detail=x.m?"":cV(x.x)}
  else{const s=mpStand(1),x=s.find(y=>y.id===MID);if(!x)return;rank=x.pos;players=s.length;points=x.tot}
  if(R.mo==="p")detail=String(R.i+1);MP.saved[k]="…";const M=MP;
  mpSub({p_gid:k,p_mode:R.mo,p_game:R.ty,p_dict:R.mo==="p"?null:R.dl||null,p_rank:rank,p_players:players,p_points:points,p_detail:detail.slice(0,20)},k).then(r=>{if(r.error)throw r.error;M.saved[k]="ok";const e=$("mrSave");if(e&&MP===M&&MP.R.gid===k)e.textContent="✓ "+t("mpSaved")}).catch(()=>{M.saved[k]="ko";const e=$("mrSave");if(e&&MP===M)e.textContent=t("mpSaveKo")})}
@@ -3779,7 +3780,7 @@ function gpBadW(a){if(!mpr||over)return;mpr.bad=a;lock(true);clearInterval(timer
  results(t("gpBad"),'<p style="text-align:center">'+t("dfYour")+' <b class="ko">'+esc(a.toUpperCase())+"</b></p>"+xW())}
 // réponse envoyée à l'hôte : r = 1 si juste, t = temps en ms
 function gpAns(g){if(g==="a"){const r=rounds&&rounds[0],ok=!!(r&&r.done);return{p:0,r:ok?1:0,x:String(ok?(mpr.wd||r.w):(mpr.bad||"")).slice(0,20),t:ok?Math.round(mpr.lt||30000):30000}}
- if(g==="c"){const ok=bv!==null&&bv===tgt;return{p:0,r:ok?1:0,x:bv===null?"":String(bv),t:ok?Math.round(bt):45000}}
+ if(g==="c"){const ok=bv!==null&&bv===tgt;return{p:0,r:ok?1:0,x:bv===null?"":cDet(),t:ok?Math.round(bt):45000}}
  const x=dfx||{};return{p:0,r:x.ok?1:0,x:String(x.a||"").slice(0,20),t:x.ok?Math.round(x.t):DFMS}}
 // classement de la manche, points F1 et évolution du championnat (côté hôte)
 function gpPublish(){const R=MP.R,g=R.d.g,ok=x=>!x.m&&x.r===1;
@@ -3791,7 +3792,7 @@ function gpPublish(){const R=MP.R,g=R.d.g,ok=x=>!x.m&&x.r===1;
  const mv={};if(R.i>0)mpStand().forEach(s=>{if(before[s.id])mv[s.id]=before[s.id]-s.pos});
  R.last={g,i:R.i,rid:R.rid,rows,mv};R.ph=R.i>=mpN()-1?"end":"res";mpPush()}
 function gpRow(x,g){const R=MP.R,on=R.pl[x.id]&&R.pl[x.id].on,ok=!x.m&&x.r===1,A=s=>esc(String(s||"").toUpperCase());
- const df=dfIs(g),v=x.m||!x.x?t("mpMiss"):ok?(df?"✅":A(x.x))+" · "+fmtT(x.t):"❌ "+(df?t("gpWrong"):A(x.x));
+ const df=dfIs(g),xv=g==="c"?cV(x.x):x.x,v=x.m||!x.x?t("mpMiss"):ok?(df?"✅":A(xv))+" · "+fmtT(x.t):"❌ "+(df?t("gpWrong"):A(xv));
  return'<div class="res'+(x.id===MID?" me":"")+'"><span class="rn"><b>'+(ok?x.pos+".":"–")+"</b>"+esc(x.n)+(on?"":"<small> · "+t("mpOffl")+"</small>")+'</span><span class="rv"><b>'+v+"</b>"+(ok?' · <span class="ok">+'+x.p+" "+t("pts")+"</span>":"")+"</span></div>"}
 function gpMv(Z,id){const d=Z&&Z.mv?Z.mv[id]|0:0;return d>0?'<span class="gpUp">▲'+d+"</span>":d<0?'<span class="gpDn">▼'+(-d)+"</span>":""}
 Object.assign(IT,{G:"gpT",GN:"pN",GQ:"pQ"});
@@ -7793,10 +7794,10 @@ plRecN=(o=>function(pp,pe){o.apply(this,arguments);try{for(const e of[pp,pe]){if
 // --- classements du jour : podium, onglets Top 10 / Amis, flèches entre les jeux, série en bas ---
 const FLM='<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.5 1.2-4 2.5-5 .2 2 1 3 2 3 0-3-.5-6 .5-9z"/></svg>';
 function a3Ser(){const o=serGet(),d=n=>t(n===1?"a3D1":"a3DN",n),c=o.cur||0;return'<div class="serB">'+FLM+"<b>"+t("a3Ser",d(c))+"</b><small>"+t("a3SerR",d(Math.max(o.best||0,c)))+"</small></div>"}
-function a3Rk(list,m,open){const top=list.filter(x=>x.pos<=3).slice(0,3),rest=list.slice(top.length),v=x=>rkVal(m,x,open),tm=x=>rkNo(m,x)?"":fmtT(x.time_cs*10);let h="";
- if(top.length)h='<div class="pod">'+[top[1],top[0],top[2]].map((x,k)=>x?'<div class="p'+[2,1,3][k]+(x.me?" me":"")+'"><span class="pn">'+esc(x.pseudo)+'</span><div class="pb"><b>'+x.pos+"</b><small>"+v(x)+"</small>"+(tm(x)?"<i>"+tm(x)+"</i>":"")+"</div></div>":"<div></div>").join("")+"</div>";
+function a3Rk(list,m,open){const top=list.filter(x=>x.pos<=3).slice(0,3),rest=list.slice(top.length),v=x=>rkVal(m,x,open),tm=x=>rkNo(m,x)?"":fmtT(x.time_cs*10),dk=x=>open&&dtHas(m,x.detail)?' data-rd="'+list.indexOf(x)+'"':"";let h="";
+ if(top.length)h='<div class="pod">'+[top[1],top[0],top[2]].map((x,k)=>x?'<div class="p'+[2,1,3][k]+(x.me?" me":"")+(dk(x)?" dt":"")+'"'+dk(x)+'><span class="pn">'+esc(x.pseudo)+'</span><div class="pb"><b>'+x.pos+"</b><small>"+v(x)+"</small>"+(tm(x)?"<i>"+tm(x)+"</i>":"")+"</div></div>":"<div></div>").join("")+"</div>";
  let prev=top.length?top[top.length-1].pos:0;
- h+=rest.map(x=>{const s=(x.pos>prev+1?'<div class="rksep">⋯</div>':"")+'<div class="rkr'+(x.me?" me":"")+'"><b>'+x.pos+"</b><span>"+esc(x.pseudo)+"</span><small><b>"+v(x)+"</b>"+(tm(x)?" · "+tm(x):"")+"</small></div>";prev=x.pos;return s}).join("");return h}
+ h+=rest.map(x=>{const s=(x.pos>prev+1?'<div class="rksep">⋯</div>':"")+'<div class="rkr'+(x.me?" me":"")+(dk(x)?" dt":"")+'"'+dk(x)+'><b>'+x.pos+"</b><span>"+esc(x.pseudo)+"</span><small><b>"+v(x)+"</b>"+(tm(x)?" · "+tm(x):"")+"</small></div>";prev=x.pos;return s}).join("");return h+(list.some(x=>dk(x))?'<p class="dnote dtH">'+t("dtHint")+"</p>":"")}
 rank=async function(g,off){syncD();off=Math.max(0,Math.min(RKN-1,off|0));rkG=g;rkO=off;const day=addDay(pToday(),-off),m=DGM[g],lg=DGL[g],me=myD(day,g),open=!!(off||(me&&me.done)),tok=++rkTok;
  $("rkT").textContent=gNoEm(t("m"+m.toUpperCase()));$("rkD").textContent=lg?t("gL"+lg)+(m==="j"&&day>=DY0?" · "+dyName(dyType(day,g)):""):"";rkNav(off);
  $("rkL").innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";$("rkSer").innerHTML=a3Ser();
@@ -7809,7 +7810,7 @@ rank=async function(g,off){syncD();off=Math.max(0,Math.min(RKN-1,off|0));rkG=g;r
  if(tok!==rkTok)return;
  if(!list){$("rkL").innerHTML='<p class="dnote">'+t("rkErr")+"</p>";return}
  if(!ME)list=list.filter(x=>x.pos<=10).map(x=>({...x,me:false}));
- let h=list.length?a3Rk(list,m,open):'<p class="dnote">'+t(off?"rkNoneP":"rkNone")+"</p>";
+ RKD={day,g,m,list};let h=list.length?a3Rk(list,m,open):'<p class="dnote">'+t(off?"rkNoneP":"rkNone")+"</p>";
  if(rkScope==="friends"&&list.length<=1)h+='<p class="dnote" style="margin-top:10px">'+t("rkFr0")+"</p>";
  if(!ME&&me&&me.done){const x={result:me.r,detail:me.x,time_cs:Math.round(me.t/10)};h+='<p class="dnote" style="margin-top:10px">'+t("rkGuest",rkVal(m,x,true)+(rkNo(m,x)?"":" · "+fmtT(me.t)))+"</p>"}
  $("rkL").innerHTML=h};
@@ -7981,7 +7982,7 @@ function chLocSet(w,i,v){const o=chLoc();o[w+"|"+i]=v;try{localStorage.setItem(C
 async function chmGet(w,force){const c=CHS[w];if(!force&&c&&Date.now()-c.at<120000)return c.d;if(!sb)return c?c.d:null;
  try{const r=await sb.rpc("champ_state",{p_week:w});if(r.error)throw r.error;CHS[w]={at:Date.now(),d:r.data};return r.data}catch(e){return c?c.d:null}}
 async function chmSend(w,i){const e=chLoc()[w+"|"+i];if(!e||!e.done||e.sent||!sb||!ME)return;
- try{const r=await sb.rpc("champ_submit",{p_week:w,p_idx:i,p_result:e.r,p_detail:String(e.x||"").slice(0,20),p_time_cs:Math.max(0,Math.min(12100,Math.round(e.t/10)))});
+ try{const cq=x=>sb.rpc("champ_submit",{p_week:w,p_idx:i,p_result:e.r,p_detail:x,p_time_cs:Math.max(0,Math.min(12100,Math.round(e.t/10)))}),cx=String(e.x||"").slice(0,20);let r=await cq(cx);if(r.error&&cx.includes("|")&&!/CLOSED|MATCH_DONE|NOT_FINALIST/.test(r.error.message||""))r=await cq(cV(cx));
   if(r.error&&!/CLOSED|MATCH_DONE|NOT_FINALIST/.test(r.error.message||""))throw r.error;const o=chLoc()[w+"|"+i];if(o){o.sent=1;chLocSet(w,i,o)}delete CHS[w]}catch(e){}}
 async function chmSendAll(){const o=chLoc();for(const k of Object.keys(o)){const[w,i]=k.split("|"),e=o[k];if(!e.done&&!(daily&&daily.champ&&daily.champ.w===w&&daily.champ.i===+i)){e.done=1;chLocSet(w,+i,e)}if(!e.sent)await chmSend(w,+i)}}
 const chmEnd=(w,i)=>addDay(addDay(w,7),CHO[i][1]);
@@ -8187,4 +8188,50 @@ Object.assign(T.en,{mJ:"Challenge",dyNt:"Theme",dyNk:"Mental maths",dyNu:"Nested
  wkEp:"{n}/49 rounds",
  wkHow:"<p>Every daily game round you play earns points:</p><p>• {a}, {b}, Challenge FR / EN: <b>1 point</b><br>• {c}: <b>2 points</b></p><p>Podium bonus on each round (with a valid answer): <b>+3</b> for 1st, <b>+2</b> for 2nd, <b>+1</b> for 3rd.</p><p>Tie on points: most 1st places, then 2nd, then 3rd.</p><p>Only rounds played on the day itself count. The championship runs from Monday 00:00 to Sunday 23:59; the top two then face each other in the Champions' match.</p>",
  chmHow:"<p>The top two of the weekly championship face each other the following week, over 7 rounds with the same draw for both:</p><p>• {a} French and {a} English: Monday and Tuesday<br>• {b}: Wednesday<br>• French challenge: Thursday<br>• English challenge: Friday<br>• {c} French: Saturday<br>• {c} English: Sunday</p><p>The best result wins the round; on a tie, the fastest. The first to win 4 rounds is the champion of the week.</p><p>A round not played in time is lost by forfeit. If nobody plays it, it doesn't count; if the match ends level, the championship leader wins.</p>"});
+
+// --- 14/11 : détail des réponses (calculs du Nombre cible, mots du Sprint final), lettre retirée en la touchant, règles de l'hôte montrées à tous ---
+Object.assign(T.fr,{dtHint:"Touche un joueur pour voir le détail de sa réponse.",dtGot:"Résultat : <b>{n}</b> · cible {m}",dtNo:"Détail non disponible pour cette réponse (jouée avec une ancienne version du jeu).",hlpN:"👑 L'hôte affiche les règles pour tout le monde."});
+Object.assign(T.en,{dtHint:"Tap a player to see their answer in detail.",dtGot:"Result: <b>{n}</b> · target {m}",dtNo:"No detail available for this answer (played with an older version of the game).",hlpN:"👑 The host is showing the rules to everyone."});
+(()=>{const st=document.createElement("style");st.textContent=".dt{cursor:pointer}.res.dt .rv::after,.rkr.dt>small::after{content:\" ›\";opacity:.6;font-weight:900}.pod .dt .pb small::after{content:\" ›\"}.dtH{text-align:center;margin:6px 0 0}.dtV{text-align:center;margin:0 0 10px}.dtM{margin-top:0}.ewr.dtx{opacity:.45}.ewr .dtw{flex:1;font-weight:900;letter-spacing:.5px}.ansv{position:relative;z-index:1;pointer-events:none}.ansv i:not(.e){pointer-events:auto;cursor:pointer}";document.head.appendChild(st)})();
+var bvC="",RKD=null;
+const COP={"+":"+","−":"-","×":"*","÷":"/"},COR={"+":"+","-":"−","*":"×","/":"÷"};
+// chaîne d'opérations qui mène à une plaque : plaques 0 à 5, résultats numérotés ensuite (3 caractères par opération)
+function cChain(i){const o=[],seen=new Set(),rec=j=>{if(seen.has(j))return;const l=lines.find(x=>x.i===j);if(!l)return;seen.add(j);rec(l.ia);rec(l.ib);o.push(l)};rec(i);
+ const n0=P.length,map={};for(let k=0;k<n0;k++)map[k]=k;let n=n0,c="";
+ for(const l of o){const a=map[l.ia],b=map[l.ib];if(a===undefined||b===undefined||a>35||b>35||!COP[l.o])return"";c+=a.toString(36)+COP[l.o]+b.toString(36);map[l.i]=n++}return c}
+function cDet(){if(bv===null)return"";const s=String(bv)+(bvC?"|"+bvC:"");return s.length<=20?s:String(bv)}
+function cV(x){return String(x==null?"":x).split("|")[0]}
+function cDec(x,P0){const s=String(x||""),k=s.indexOf("|"),v=k<0?s:s.slice(0,k),c=k<0?"":s.slice(k+1),no={v,st:[]};if(!c||c.length%3||!P0)return no;const V=P0.slice(),st=[];
+ for(let j=0;j<c.length;j+=3){const a=parseInt(c[j],36),o=COR[c[j+1]],b=parseInt(c[j+2],36),x1=V[a],y1=V[b];if(!o||x1==null||y1==null)return no;
+  const r=o==="+"?x1+y1:o==="×"?x1*y1:o==="−"?x1-y1:y1?x1/y1:0;if(r<=0||!Number.isInteger(r))return no;st.push({a:x1,o,b:y1,r});V.push(r)}
+ return st.length&&String(st[st.length-1].r)===v?{v,st}:no}
+function wDet(n){let k=0;if(rounds&&rounds.length<=12)rounds.forEach((r,i)=>{if(r.done)k|=1<<i});return n+"/8"+(k?"|"+k.toString(16):"")}
+function wDec(x){const m=/\|([0-9a-f]{1,3})$/.exec(String(x||""));return m?parseInt(m[1],16):null}
+function dtHas(m,x,miss){if(miss)return false;if(m==="c")return String(x||"").includes("|");if(m==="w")return wDec(x)!==null;return false}
+function dtTag(h,on,k,i){return on?h.replace('<div class="res','<div data-'+k+'="'+i+'" class="res dt'):h}
+function dtShow(m,x,nm,cx){let h;
+ if(m==="c"){const s=cDec(x,cx&&cx.P);h='<div class="sol dtM"><p class="dtV">'+t("dtGot",esc(s.v),cx?cx.tgt:"?")+"</p>"+(s.st.length?solHTML({st:s.st,v:s.v}):'<p class="dnote">'+t("dtNo")+"</p>")+"</div>"}
+ else{const k=wDec(x),R=cx&&cx.rounds;if(k===null||!R)h='<p class="dnote">'+t("dtNo")+"</p>";
+  else{let n=0;const rw=R.map((r,i)=>{const ok=k>>i&1;if(ok)n++;return'<div class="ewr'+(ok?" d":" dtx")+'"><span class="exn'+(ok?" y":"")+'">'+r.w.length+'</span><span class="dtw">'+esc(r.w.toUpperCase())+"</span><small>"+(ok?"✓":"✗")+"</small></div>"}).join("");
+   h='<p class="dtV"><b>'+t("words",n)+'</b></p><div class="ewl">'+rw+"</div>"}}
+ modal(nm,h,[{l:t("close"),c:"p",f:closeModal}])}
+// classement de la partie du jour
+$("rkL").addEventListener("click",e=>{const b=e.target.closest("[data-rd]");if(!b||!RKD)return;const x=RKD.list[+b.dataset.rd];if(!x)return;const m=RKD.m;let cx=null;
+ try{const d=genDaily(RKD.day,RKD.g);cx=m==="c"?{P:d.P,tgt:d.tgt}:{rounds:d.rounds}}catch(er){}
+ dtShow(m,x.detail,x.pseudo+" · "+nameOf(RKD.g),cx)});
+// résultats d'une manche en multijoueur
+$("mrB").addEventListener("click",e=>{const b=e.target.closest("[data-mrw]");if(!b||!MP||!MP.R||!MP.R.last)return;const R=MP.R,Z=R.last,x=Z.rows[+b.dataset.mrw];if(!x)return;
+ const d=R.d&&R.d.g===Z.g?R.d:null,cx=d?(Z.g==="c"?{P:d.P,tgt:d.tgt}:{rounds:d.rounds}):null;
+ dtShow(Z.g,x.x,x.n+" · "+t("m"+Z.g.toUpperCase()),cx)});
+// Chasse aux mots et Sprint final : toucher une lettre du mot la retire et la remet en jeu
+$("ansV").addEventListener("mousedown",e=>{if(e.target.closest("i:not(.e)"))e.preventDefault()});
+$("ansV").addEventListener("click",e=>{const c=e.target.closest("i:not(.e)");if(!c||locked||!rounds||!rounds[queue[cur]])return;e.preventDefault();e.stopPropagation();
+ const a=$("ans"),v=a.value,k=Array.prototype.indexOf.call($("ansV").children,c);if(k<0||k>=v.length)return;a.value=v.slice(0,k)+v.slice(k+1);gPk.splice(k,1);rt()});
+// multijoueur en direct : les explications ouvertes par l'hôte s'affichent aussi chez les invités
+document.addEventListener("click",e=>{if(!MP||!MP.host||!MP.R)return;const i=e.target.closest("#mpBody [data-info]");if(i){mpSend("hlp",{f:"i",k:i.dataset.info});return}
+ const d=e.target.closest("#mpResP [data-dfr]");if(d)mpSend("hlp",{f:"df",k:d.dataset.dfr})},true);
+function mpHlpShow(p){if(!MP||MP.host||(mpr&&!mpr.done))return;const k=String(p.k||"");let ti,h;
+ if(p.f==="i"){if(!/^[A-Z]{1,2}$/.test(k)||!IT[k]||!T[L][IT[k]]||!T[L]["i"+k])return;ti=t(IT[k]);h=t("i"+k)}
+ else if(p.f==="df"){if(!/^[a-z]$/.test(k)||!dfIs(k))return;const g=k.toUpperCase();ti=t("m"+g);h=t("i"+g)+t(isGP()?"gpProc":"dfProc")}else return;
+ modal(ti,'<p class="dnote">'+t("hlpN")+"</p>"+h,[{l:t("close"),c:"p",f:closeModal}])}
 </script></body></html>
