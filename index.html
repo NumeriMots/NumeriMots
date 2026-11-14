@@ -962,8 +962,8 @@ function results(why,html){if(over)return;if(mpr)return mpEnd(why,html);if(tbx)r
 // ↓↓↓ Classement en ligne : colle ici l'URL du projet Supabase et sa clé publique (publishable / anon), voir le guide
 const SB={url:"https://destghbdqigegolliggd.supabase.co",key:"sb_publishable_arAUj7PGF7TMzS1IcHYnVw_1MroacPZ"};
 let daily=null,rkG="lf",rkO=0,rkTok=0,rkScope="top";const CMN={};
-const DG=["lf","le","c","wf","we"],DGM={lf:"l",le:"l",c:"c",wf:"w",we:"w"},DGL={lf:"fr",le:"en",wf:"fr",we:"en"},DUR={l:"s30",c:"s45",w:"s120",t:"s30",k:"s30",u:"s30",s:"s30"};
-const WORST={l:{r:0,x:"",t:30000},c:{r:9999,x:"",t:45000},w:{r:0,x:"",t:120000},t:{r:0,x:"",t:30000},k:{r:0,x:"",t:30000},u:{r:0,x:"",t:30000},s:{r:0,x:"",t:30000}};
+const DG=["lf","le","c","df","de","wf","we"],DGM={lf:"l",le:"l",c:"c",df:"j",de:"j",wf:"w",we:"w"},DGL={lf:"fr",le:"en",df:"fr",de:"en",wf:"fr",we:"en"},DUR={l:"s30",c:"s45",w:"s120",j:"s30",t:"s30",k:"s30",u:"s30",s:"s30"};
+const WORST={j:{r:0,x:"",t:30000},l:{r:0,x:"",t:30000},c:{r:9999,x:"",t:45000},w:{r:0,x:"",t:120000},t:{r:0,x:"",t:30000},k:{r:0,x:"",t:30000},u:{r:0,x:"",t:30000},s:{r:0,x:"",t:30000}};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let DK="fwdaily";
 function getD(){try{return JSON.parse(localStorage.getItem(DK)||"{}")}catch(e){return{}}}
@@ -989,7 +989,7 @@ const fmtT=ms=>(ms/1000).toFixed(2).replace(".",L==="fr"?",":".")+" s";
 // tirage du jour : générateur pseudo-aléatoire dont la graine est la date
 function rngOf(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19}h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);let a=(h^h>>>16)>>>0;
  return()=>{a=a+0x6D2B79F5|0;let x=Math.imul(a^a>>>15,1|a);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296}}
-function genDaily(day,g){const r=rngOf("dcdl|"+day+"|"+g);
+function genDaily(day,g){if(DGM[g]==="j")return dyGen(day,g);const r=rngOf("dcdl|"+day+"|"+g);
  if(g==="c"){const P=sh(PL,r).slice(0,6);return{P,tgt:genT(P,r)}}
  if(DGM[g]==="l"){const pool=(g==="lf"?F:W)[10],w=pool[Math.floor(r()*pool.length)];return{w,l:scr(w,r)}}
  const S=g==="wf"?F:W,rounds=[],pk={};[5,6,7,8].forEach(n=>pk[n]=sh(S[n],r).slice(0,2));[0,1].forEach(k=>[5,6,7,8].forEach(n=>{const w=pk[n][k];rounds.push({w,l:scr(w,r),done:0})}));return{rounds}}
@@ -998,6 +998,7 @@ let RT0=0,RTL=0;
 const dT0=()=>{RT0=performance.now();RTL=0;const k=daily||mpr||chl||tbx||cmx;if(k)k.t0=performance.now()};
 const dEl=()=>{const k=daily||mpr||chl||tbx||cmx;return k&&k.t0?performance.now()-k.t0:0};
 function dResult(){const m=DGM[daily.g];
+ if(m==="j"){const f=dfx&&dfx.dly===daily?dfx:{},a=String(f.a||"").slice(0,20);return f.ok?{r:1,x:a,t:Math.max(0,Math.min(30000,Math.round(f.t||30000)))}:{r:0,x:a,t:30000}}
  if(m==="l")return best?{r:best.length,x:best,t:Math.round(daily.lt||30000)}:{...WORST.l};
  if(m==="c")return bv===null?{...WORST.c}:{r:Math.abs(tgt-bv),x:String(bv),t:Math.round(bt)};
  const n=rounds.filter(x=>x.done).length;return n?{r:n,x:n+"/8",t:Math.round(daily.lt)}:{...WORST.w}}
@@ -1008,16 +1009,17 @@ async function sendMy(day,g){const o=myD(day,g);if(!o||!o.done||o.sent)return tr
 function syncD(){const d0=pToday();[d0,addDay(d0,-1)].forEach(day=>DG.forEach(g=>{const e=myD(day,g);if(!e)return;if(!e.done&&!(daily&&daily.g===g&&daily.day===day)){e.done=1;setMy(day,g,e)}if(e.done&&!e.sent&&ME)sendMy(day,g)}))}
 // menu du jour
 function renderD(){syncD();const day=pToday();{const o=serGet(),e=$("serL");if(e){e.textContent=o.best?"🔥 "+t("serL",o.cur,o.best):"";e.classList.toggle("hide",!o.best)}}$("dInfo").innerHTML=t("dInfo",leftMid());$("dPs").textContent=ME?t("dAcc",ME.pseudo):t("dGst");
- $("dList").innerHTML=DG.map(g=>{const m=DGM[g],o=myD(day,g);return'<div class="mrow"><button class="btn mb '+(o?"done":"p")+'" data-dg="'+g+'"><span>'+nameOf(g)+'</span><small class="sub">'+t(DUR[m])+(o?'<br><span class="ok2">'+t("dPlayed")+"</span>":"")+'</small></button></div>'}).join("")
+ $("dList").innerHTML=dgOn(day).map(g=>{const m=DGM[g],o=myD(day,g);return'<div class="mrow"><button class="btn mb '+(o?"done":"p")+'" data-dg="'+g+'"><span>'+nameOf(g)+'</span><small class="sub">'+(m==="j"?esc(dyName(dyType(day,g)))+" · ":"")+t(DUR[m])+(o?'<br><span class="ok2">'+t("dPlayed")+"</span>":"")+'</small></button></div>'}).join("")
  +'<button class="btn bl mb ic" data-rk="'+(DG.find(g=>myD(day,g))||DG[0])+'"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></i><span class="mt"><span>'+t("dRkAll")+'</span><small class="sub">'+t("dRkAllS")+'</small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>'}
 function openDaily(){renderD();show("dailyP");if(ME)syncAcc()}
 setInterval(()=>{if(!$("dailyP").classList.contains("hide"))renderD()},30000);
 $("daily").onclick=openDaily;$("dPs").onclick=()=>ME?openProf("dailyP"):goAuth("signupP","dailyP");
 $("dList").onclick=e=>{const b=e.target.closest("[data-dg],[data-rk]");if(!b)return;const g=b.dataset.dg||b.dataset.rk;
  if(b.dataset.rk||myD(pToday(),g))return rank(g,0);
- modal(nameOf(g),t("dConf")+(ME?"":"<p><b>"+t("dGuest")+"</b></p>"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startD(g)}])};
+ modal(nameOf(g),dyConfT(g)+(ME?"":"<p><b>"+t("dGuest")+"</b></p>"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startD(g)}])};
 async function startD(g){chl=null;chNav=false;dfNav=false;const day=pToday();if(myD(day,g)){closeModal();return rank(g,0)}
  const m=DGM[g];party=null;trn=null;dur={l:30,c:45};mode=m;setMy(day,g,{...WORST[m],done:0,sent:0});daily={g,day,t0:0,lt:0,done:0};
+ if(m==="j"){const ty=dyType(day,g);mode=ty;dl=DGL[g];closeModal();return startDf(ty)}
  if(m==="c"){closeModal();return startC()}
  dl=DGL[g];$("mb").innerHTML="<p>"+t("loading")+"</p>";$("mbtn").innerHTML="";dict=await loadDict(dl);if(!daily||daily.g!==g)return;closeModal();m==="w"?startW():startDL()}
 function startDL(){clearTimeout(tmo);clearTimeout(dtm);stopM();clearInterval(timer);over=true;best="";tried="";const tok=++ctok,d=genDaily(daily.day,daily.g);ld=[];nv=nc=10;
@@ -1026,7 +1028,7 @@ function startDL(){clearTimeout(tmo);clearTimeout(dtm);stopM();clearInterval(tim
 $("drk").onclick=()=>{const g=daily&&daily.g;quitGame();if(g)rank(g,0)};
 // classement
 const rkNo=(m,x)=>m==="c"?x.result>=9999:!x.result;
-function rkVal(m,x,open){if(dfIs(m))return x.result?"✓ "+dfUp(x.detail):x.detail?"✗ "+dfUp(x.detail):t("noAns");if(m==="l")return x.result?(open?esc(String(x.detail).toUpperCase())+" ("+x.result+")":t("lets",x.result)):t("noWord");
+function rkVal(m,x,open){if(m==="j"||dfIs(m))return x.result?"✓ "+dfUp(x.detail):x.detail?"✗ "+dfUp(x.detail):t("noAns");if(m==="l")return x.result?(open?esc(String(x.detail).toUpperCase())+" ("+x.result+")":t("lets",x.result)):t("noWord");
  if(m==="c")return x.result>=9999?t("noAns"):(open?esc(x.detail)+" · ":"")+(x.result===0?t("exactS"):t("near",x.result));
  return t("words",x.result)}
 const RKN=30;
@@ -1052,7 +1054,7 @@ async function rank(g,off){syncD();off=Math.max(0,Math.min(RKN-1,off|0));rkG=g;r
 all("#rkTabs [data-sc]").forEach(b=>b.onclick=()=>{rkScope=b.dataset.sc;rank(rkG,rkO)});
 $("rkPrev").onclick=()=>rank(rkG,rkO+1);$("rkNext").onclick=()=>rank(rkG,rkO-1);$("rkSel").onchange=e=>rank(rkG,+e.target.value);$("rkBack").onclick=openDaily;
 const rkGo=d=>{const i=DG.indexOf(rkG);rank(DG[(i+d+DG.length)%DG.length],rkO)};$("rkGP").onclick=()=>rkGo(-1);$("rkGN").onclick=()=>rkGo(1);
-function solD(day,g){const d=genDaily(day,g),m=DGM[g];
+function solD(day,g){if(DGM[g]==="j")return dySol(day,g);const d=genDaily(day,g),m=DGM[g];
  if(m==="c")return'<div class="plates">'+d.P.map(v=>'<div class="plate" style="cursor:default">'+v+'</div>').join("")+'</div><div class="tgt">'+String(d.tgt).split("").map(x=>"<b>"+x+"</b>").join("")+"</div><p>"+t("oneSol")+"</p>"+solHTML(solve(d.P,d.tgt));
  if(m==="w")return"<p>"+t("wAns")+"</p>"+d.rounds.map(r=>'<div class="res"><span>'+r.l.join("").toUpperCase()+"</span>"+wdH(r.w,DGL[g])+"</div>").join("")+wdHint();
  return'<div class="tiles">'+d.l.map(c=>'<div class="tile">'+c.toUpperCase()+"</div>").join("")+'</div><div id="lsol"><p>'+t("loading")+"</p></div>"}
@@ -2722,9 +2724,9 @@ document.addEventListener("pointerdown",function f(){document.removeEventListene
 // écran du défi
 function dfStop(){clearInterval(dft);dft=null;if(dfx){clearInterval(dfx.bzI);clearInterval(dfx.baI)}try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}}
 function startDf(g){clearTimeout(tmo);clearTimeout(dtm);stopM();clearInterval(timer);sfxStop();dfStop();mode=g;chArm();
- const d=mpr?MP.R.d:tbx?tbx.d:cmx?cmx.d:chl&&chl.opp?chl.opp.D:dfGen(g,dl);if(chl&&!chl.opp)chl.D=d;
+ const d=mpr?MP.R.d:tbx?tbx.d:cmx?cmx.d:daily&&!party&&DGM[daily.g]==="j"?genDaily(daily.day,daily.g):chl&&chl.opp?chl.opp.D:dfGen(g,dl);if(chl&&!chl.opp)chl.D=d;
  const dsl=!mpr&&!cmx&&!!(tbx||chl&&chl.opp)&&!!DFPRE_S[g];
- dfx={g,d,sl:dsl,p0:performance.now(),pre:dsl?DFPRE_S[g]:g==="s"&&!mpr?8000:DFPRE[g],r0:0,sent:0,end:0,ready:false,shown:0,spk:0,num:"",wd:"",ai:0,st:null,wk:0,fin:0,bzS:0};
+ dfx={dly:daily&&!party?daily:null,g,d,sl:dsl,p0:performance.now(),pre:dsl?DFPRE_S[g]:g==="s"&&!mpr?8000:DFPRE[g],r0:0,sent:0,end:0,ready:false,shown:0,spk:0,num:"",wd:"",ai:0,st:null,wk:0,fin:0,bzS:0};
  score=0;over=false;setStage();dfDraw();show("dfP");ghOn();dft=setInterval(dfTick,100);dfTick();if(dfBzM())dfSync()}
 function dfDraw(){const x=dfx,d=x.d,mp=dfBzM();msg("","","dfmsg");
  $("dfTh").textContent=x.g==="t"?t("dfTheme",dfTitle(d)):t("m"+x.g.toUpperCase());
@@ -7310,9 +7312,9 @@ Object.assign(T.fr,{pSolo:"Solo",dSolo:"partie du jour, Course des as, partie cl
  banAll:"{n} défis à jouer aujourd'hui",banN:"plus que {n} défis à jouer",ban1:"plus qu'un défi à jouer",banDone:"tout est joué · voir les classements"});
 Object.assign(T.en,{pSolo:"Solo",dSolo:"daily game, Aces' Race, classic game…",dTr:"any duration, even endless",setT:"⚙️ Settings",setLg:"Game language",
  banAll:"{n} challenges to play today",banN:"{n} challenges left to play",ban1:"one challenge left to play",banDone:"all played · see the leaderboards"});
-const dLeft=()=>{const day=pToday();return DG.filter(g=>!myD(day,g)).length};
-const dStat=k=>k?t(k===DG.length?"banAll":k>1?"banN":"ban1",k):t("banDone");
-function renderBan(){const k=dLeft(),b=$("daily"),day=pToday();b.classList.toggle("done",!k);$("banS").textContent=dStat(k);{const n=DG.filter(g=>myD(day,g)).length;$("banP").innerHTML=DG.map((g,i)=>"<i"+(i<n?' class="d"':"")+"></i>").join("")}const o=serGet();$("serN").textContent=o.cur?t("serS",o.cur):"";$("serC").classList.toggle("hide",!o.cur)}
+const dLeft=()=>{const day=pToday();return dgOn(day).filter(g=>!myD(day,g)).length};
+const dStat=k=>k?t(k===dgOn(pToday()).length?"banAll":k>1?"banN":"ban1",k):t("banDone");
+function renderBan(){const k=dLeft(),b=$("daily"),day=pToday();b.classList.toggle("done",!k);$("banS").textContent=dStat(k);{const n=dgOn(day).filter(g=>myD(day,g)).length;$("banP").innerHTML=dgOn(day).map((g,i)=>"<i"+(i<n?' class="d"':"")+"></i>").join("")}const o=serGet();$("serN").textContent=o.cur?t("serS",o.cur):"";$("serC").classList.toggle("hide",!o.cur)}
 function renderSolo(){const k=dLeft(),b=$("dailyS");b.classList.toggle("p",!!k);b.classList.toggle("done",!k);
  $("dSoloS").innerHTML=esc(t("dD"))+"<br>"+(k?esc(dStat(k)):'<span class="ok2">✅ '+esc(dStat(k))+"</span>");
  let c="";try{const n=cmCur(),lf=cmLeftS(n);c=t("cmSeason",n)+(lf?" · "+t("cmLeft",lf):"")}catch(e){}$("cmSoloS").textContent=c}
@@ -7796,7 +7798,7 @@ function a3Rk(list,m,open){const top=list.filter(x=>x.pos<=3).slice(0,3),rest=li
  let prev=top.length?top[top.length-1].pos:0;
  h+=rest.map(x=>{const s=(x.pos>prev+1?'<div class="rksep">⋯</div>':"")+'<div class="rkr'+(x.me?" me":"")+'"><b>'+x.pos+"</b><span>"+esc(x.pseudo)+"</span><small><b>"+v(x)+"</b>"+(tm(x)?" · "+tm(x):"")+"</small></div>";prev=x.pos;return s}).join("");return h}
 rank=async function(g,off){syncD();off=Math.max(0,Math.min(RKN-1,off|0));rkG=g;rkO=off;const day=addDay(pToday(),-off),m=DGM[g],lg=DGL[g],me=myD(day,g),open=!!(off||(me&&me.done)),tok=++rkTok;
- $("rkT").textContent=gNoEm(t("m"+m.toUpperCase()));$("rkD").textContent=lg?t("gL"+lg):"";rkNav(off);
+ $("rkT").textContent=gNoEm(t("m"+m.toUpperCase()));$("rkD").textContent=lg?t("gL"+lg)+(m==="j"&&day>=DY0?" · "+dyName(dyType(day,g)):""):"";rkNav(off);
  $("rkL").innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";$("rkSer").innerHTML=a3Ser();
  $("rkS").innerHTML=open?'<div class="sol"><h3>'+t("solT")+"</h3>"+solD(day,g)+"</div>":'<p class="dnote" style="margin-top:14px">'+t("lock")+"</p>";show("rankP");
  if(open&&m==="l")solL(day,g,tok);
@@ -7817,9 +7819,9 @@ solL=async function(day,g,tok){const d=genDaily(day,g),lg=DGL[g],dc=await loadDi
 // --- classement d'une épreuve du jour pas encore jouée : touche pour la jouer directement ---
 Object.assign(T.fr,{dRkAll:"Les classements",dRkAllS:"top 10, amis et 30 derniers jours",rkPlay:"▶ Jouer cette épreuve"});
 Object.assign(T.en,{dRkAll:"Leaderboards",dRkAllS:"top 10, friends and the last 30 days",rkPlay:"▶ Play this round"});
-function rkPlayB(){const b=$("rkPlay");if(!b)return;const g=rkG;if(rkO||!DGM[g]||myD(pToday(),g)){b.innerHTML="";return}
+function rkPlayB(){const b=$("rkPlay");if(!b)return;const g=rkG;if(rkO||!DGM[g]||myD(pToday(),g)||!dgOn(pToday()).includes(g)){b.innerHTML="";return}
  b.innerHTML='<button class="btn p mb" id="rkGo" style="margin-top:14px">'+t("rkPlay")+"</button>";
- $("rkGo").onclick=()=>modal(nameOf(g),t("dConf")+(ME?"":"<p><b>"+t("dGuest")+"</b></p>"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startD(g)}])}
+ $("rkGo").onclick=()=>modal(nameOf(g),dyConfT(g)+(ME?"":"<p><b>"+t("dGuest")+"</b></p>"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startD(g)}])}
 rank=(o=>function(){const r=o.apply(this,arguments);try{rkPlayB()}catch(e){}return r})(rank);
 // --- salon multijoueur : code en tuiles + QR code, joueurs (hôte mis en avant), mode, Lancer la partie ---
 const a3Ini=s=>{s=String(s||"?").trim()||"?";try{if(window.Intl&&Intl.Segmenter){const x=new Intl.Segmenter().segment(s)[Symbol.iterator]().next().value;if(x)return x.segment}}catch(e){}return Array.from(s)[0]};
@@ -7972,7 +7974,7 @@ $("stPal").onclick=()=>{show("palP");palLoad()};$("palBack").onclick=()=>show("s
 all("#palTabs [data-pal]").forEach(b=>b.onclick=()=>{palK=b.dataset.pal;palLoad()});
 
 // ===== Lot 2 : match des champions =====
-const CHG=["lf","le","c","wf","we"],CHO=[[0,2],[2,4],[4,5],[5,6],[6,7]],CHS={};let chmW=null,chmFrom="rank",chmTok=0;try{HBP.add("chmP")}catch(e){}
+const CHG=["lf","le","c","df","de","wf","we"],CHO=[[0,2],[0,2],[2,3],[3,4],[4,5],[5,6],[6,7]],CHS={};let chmW=null,chmFrom="rank",chmTok=0;try{HBP.add("chmP")}catch(e){}
 const CHMK="nmChamp";
 function chLoc(){try{return JSON.parse(localStorage.getItem(CHMK)||"{}")}catch(e){return{}}}
 function chLocSet(w,i,v){const o=chLoc();o[w+"|"+i]=v;try{localStorage.setItem(CHMK,JSON.stringify(o))}catch(e){}}
@@ -7999,7 +8001,7 @@ function chmRender(w,d){let h="";
  if(d.done)h+='<div class="chmBan">'+t("chmBan",esc(d.champ===1?d.p1:d.p2),esc(wkLbl(w)))+"</div>";
  h+='<div class="chmSb"><div class="'+(d.me1?"me":"")+'"><span>'+esc(d.p1)+"</span><b>"+d.s1+'</b></div><i>–</i><div class="'+(d.me2?"me":"")+'"><b>'+d.s2+"</b><span>"+esc(d.p2)+"</span></div></div>";
  const loc=chLoc();
- (d.m||[]).forEach(x=>{const i=x.i,g=x.g,nm=gNoEm(t("m"+DGM[g].toUpperCase()))+(DGL[g]?" "+(DGL[g]==="fr"?"🇫🇷":"🇬🇧"):"");
+ (d.m||[]).forEach(x=>{const i=x.i,g=x.g,nm=gNoEm(t("m"+DGM[g].toUpperCase()))+(DGL[g]?" "+(DGL[g]==="fr"?"🇫🇷":"🇬🇧"):"")+(DGM[g]==="j"?" · "+dyName(dyType("champ|"+w+"|"+i,g)):"");
   h+='<div class="palc chmM"><h3>'+(i+1)+". "+esc(nm)+' <small style="color:var(--mut)">· '+esc(chmWin(w,i))+"</small></h3>";
   const meP=d.me1?1:d.me2?2:0,lk=loc[w+"|"+i];
   if(x.st==="future")h+='<p class="c">'+t("chmOpens",esc(chmWin(w,i).split(" – ")[0]))+"</p>";
@@ -8014,9 +8016,10 @@ function chmRender(w,d){let h="";
   h+="</div>"});
  $("chmL").innerHTML=h}
 $("chmL").addEventListener("click",e=>{const b=e.target.closest("[data-chp]");if(!b||!chmW)return;const i=+b.dataset.chp,g=CHG[i],w=chmW;
- modal(t("chmT")+" · "+nameOf(g),t("chmConf"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startChamp(w,i)}])});
+ modal(t("chmT")+" · "+nameOf(g),(DGM[g]==="j"?dyHelp(dyType("champ|"+w+"|"+i,g),DGL[g]):"")+t("chmConf"),[{l:t("no"),f:closeModal},{l:t("dGo"),c:"p",f:()=>startChamp(w,i)}])});
 async function startChamp(w,i){if(chLoc()[w+"|"+i]){closeModal();return chmOpen(w,chmFrom)}const g=CHG[i],m=DGM[g];chl=null;chNav=false;dfNav=false;party=null;trn=null;dur={l:30,c:45};mode=m;
  chLocSet(w,i,{...WORST[m],done:0,sent:0});daily={g,day:"champ|"+w+"|"+i,t0:0,lt:0,done:0,champ:{w,i}};
+ if(m==="j"){const ty=dyType(daily.day,g);mode=ty;dl=DGL[g];closeModal();return startDf(ty)}
  if(m==="c"){closeModal();return startC()}
  dl=DGL[g];$("mb").innerHTML="<p>"+t("loading")+"</p>";$("mbtn").innerHTML="";dict=await loadDict(dl);if(!daily||daily.g!==g)return;closeModal();m==="w"?startW():startDL()}
 dFinish=(o=>function(){if(daily&&daily.champ){if(daily.done)return;daily.done=1;const c=daily.champ;let v=dResult();if(typeof v.r!=="number"||isNaN(v.r))v={...WORST[DGM[daily.g]]};chLocSet(c.w,c.i,{...v,done:1,sent:0});chmSend(c.w,c.i);return}return o.apply(this,arguments)})(dFinish);
@@ -8143,4 +8146,45 @@ function crMark(root,name){if(!root||!name)return;const tw=document.createTreeWa
  hit.forEach(n=>{const i=document.createElement("i");i.className="crw";i.dataset.cr="1";i.textContent="👑";n.parentNode.insertBefore(i,n)})}
 function crDeco(){try{crMark($("rkL"),CRW.w);if(typeof cmR!=="undefined")crMark($("cmRkL"),CRW.c[cmR.lg])}catch(e){}}
 ["rkL","cmRkL"].forEach(id=>{const el=$(id);if(el)new MutationObserver(()=>{if(Date.now()-Math.min(CRW.wAt,CRW.cAt)>600000)crLoad();crDeco()}).observe(el,{childList:true,subtree:true})});
+
+// ===== v23 : les défis dans la partie du jour (un défi en français, un défi en anglais, dès le lundi 16 novembre) =====
+// Le type du défi est tiré au hasard chaque jour, jamais le même que la veille dans la même langue,
+// et jamais le même en français et en anglais le même jour. Une seule réponse, classement au temps.
+var DY0="2026-11-16",DYT=["t","k","u","s","v"],DYC={};
+function dgOn(day){return DG.filter(g=>DGM[g]!=="j"||day>=DY0||admIs())}
+function dyOne(d,p){const r=rngOf("dcdl|"+d+"|dy"),F=DYT.filter(x=>!p||x!==p.fr),f=F[Math.floor(r()*F.length)],E=DYT.filter(x=>x!==f&&(!p||x!==p.en));return{fr:f,en:E[Math.floor(r()*E.length)]}}
+function dyPair(day){day=String(day);if(DYC[day])return DYC[day];
+ // match des champions : un tirage par semaine (« champ|semaine|manche »)
+ if(!/^\d{4}-\d\d-\d\d$/.test(day)){const b=day.replace(/\|\d+$/,"");return DYC[day]=DYC[b]||(DYC[b]=dyOne(b,null))}
+ if(day<=DY0)return DYC[day]=dyOne(day,null);
+ let d=day;const st=[];while(d>DY0&&!DYC[d]){st.push(d);d=addDay(d,-1)}
+ let p=DYC[d]||(DYC[d]=dyOne(d,null));for(let i=st.length-1;i>=0;i--)p=DYC[st[i]]=dyOne(st[i],p);return p}
+function dyType(day,g){return dyPair(day)[DGL[g]==="en"?"en":"fr"]}
+function dyName(ty){return t("dyN"+ty)}
+function dyGen(day,g){const ty=dyType(day,g),lg=DGL[g]==="en"?"en":"fr",r=rngOf("dcdl|"+day+"|"+g+"|"+ty);
+ if(ty==="t")return dfGenT(lg,r);
+ if(ty==="k")return dfGenK(r);
+ if(ty==="u"){const i=Math.floor(r()*DFU[lg].length);return{g:"u",lg,i,l:scr(dfU10(DFU[lg][i]),r)}}
+ if(ty==="s")return{g:"s",lg,i:Math.floor(r()*DFSP[lg].length)};
+ const A=dvL(lg),i=Math.floor(r()*A.length),e=A[i];return{g:"v",lg,i,w:e[0],h:e[2],a:e[1].slice()}}
+function dyHelp(ty,lg){return"<p><b>"+esc(dyName(ty))+"</b> · "+esc(t(ty==="v"?"dyDv"+lg:"dyD"+ty))+"</p><p><b>"+t("dyOne")+"</b></p>"}
+function dyConf(day,g){return dyHelp(dyType(day,g),DGL[g])+"<p>"+t("dyConf")+"</p>"}
+function dyConfT(g){return DGM[g]==="j"?dyConf(pToday(),g):t("dConf")}
+function dySol(day,g){if(day<DY0)return'<p class="dnote">'+t("dyNone")+"</p>";const d=genDaily(day,g);return'<p class="dfh"><b>'+esc(dyName(d.g))+"</b></p>"+dfSolHTML(d)}
+Object.assign(T.fr,{mJ:"Défi",dyNt:"Thème",dyNk:"Calcul mental",dyNu:"Mots gigognes",dyNs:"Orthographe",dyNv:"Traduction",
+ dyDt:"un thème et 10 lettres : forme deux mots du thème avec toutes les lettres.",dyDk:"un nombre puis cinq opérations, chacune appliquée au résultat précédent : donne le résultat final.",
+ dyDu:"une définition de nom propre, une de nom commun, puis 10 lettres : trouve les deux mots (l'un utilise les 10 lettres, l'autre se cache dedans).",dyDs:"le jeu prononce un mot difficile (monte le son 🔊) : écris-le sans faute.",
+ dyDvfr:"un mot anglais s'affiche : écris sa traduction en français.",dyDven:"un mot français s'affiche : écris sa traduction en anglais.",
+ dyOne:"⏱ 30 secondes, une seule réponse : sois sûr de toi avant de valider !",dyConf:"Le tirage est le même pour tout le monde. Classement : les bonnes réponses, de la plus rapide à la plus lente.<br>Prêt ?",dyNone:"Pas de défi ce jour-là : les défis du jour ont commencé le lundi 16 novembre.",
+ wkEp:"{n}/49 épreuves",
+ wkHow:"<p>Chaque épreuve de la partie du jour jouée rapporte des points :</p><p>• {a}, {b}, Défi FR / EN : <b>1 point</b><br>• {c} : <b>2 points</b></p><p>Bonus pour le podium de chaque épreuve (avec une réponse valable) : <b>+3</b> au 1er, <b>+2</b> au 2e, <b>+1</b> au 3e.</p><p>Égalité de points : le plus de 1res places, puis de 2es, puis de 3es.</p><p>Seules comptent les épreuves jouées le jour même. Le championnat dure du lundi 0 h au dimanche 23 h 59 ; les deux premiers s'affrontent ensuite dans le match des champions.</p>",
+ chmHow:"<p>Les deux premiers du championnat de la semaine s'affrontent la semaine suivante, en 7 manches avec le même tirage pour les deux :</p><p>• {a} français et {a} anglais : lundi et mardi<br>• {b} : mercredi<br>• Défi français : jeudi<br>• Défi anglais : vendredi<br>• {c} français : samedi<br>• {c} anglais : dimanche</p><p>Le meilleur résultat gagne la manche ; à égalité, le plus rapide. Le premier à 4 manches gagnées est champion de la semaine.</p><p>Une manche non jouée dans les délais est perdue par forfait. Si personne ne la joue, elle ne compte pas ; en cas d'égalité à la fin, le 1er du championnat l'emporte.</p>"});
+Object.assign(T.en,{mJ:"Challenge",dyNt:"Theme",dyNk:"Mental maths",dyNu:"Nested words",dyNs:"Spelling",dyNv:"Translation",
+ dyDt:"a theme and 10 letters: make two words from the theme using all the letters.",dyDk:"a number then five operations, each applied to the previous result: give the final result.",
+ dyDu:"a clue for a proper noun, one for a common noun, then 10 letters: find both words (one uses all 10 letters, the other hides in it).",dyDs:"the game says a tricky word (turn the sound up 🔊): spell it correctly.",
+ dyDvfr:"an English word appears: type its French translation.",dyDven:"a French word appears: type its English translation.",
+ dyOne:"⏱ 30 seconds, one answer only: be sure before you submit!",dyConf:"Same draw for everyone. Leaderboard: right answers, from fastest to slowest.<br>Ready?",dyNone:"No challenge that day: daily challenges started on Monday 16 November.",
+ wkEp:"{n}/49 rounds",
+ wkHow:"<p>Every daily game round you play earns points:</p><p>• {a}, {b}, Challenge FR / EN: <b>1 point</b><br>• {c}: <b>2 points</b></p><p>Podium bonus on each round (with a valid answer): <b>+3</b> for 1st, <b>+2</b> for 2nd, <b>+1</b> for 3rd.</p><p>Tie on points: most 1st places, then 2nd, then 3rd.</p><p>Only rounds played on the day itself count. The championship runs from Monday 00:00 to Sunday 23:59; the top two then face each other in the Champions' match.</p>",
+ chmHow:"<p>The top two of the weekly championship face each other the following week, over 7 rounds with the same draw for both:</p><p>• {a} French and {a} English: Monday and Tuesday<br>• {b}: Wednesday<br>• French challenge: Thursday<br>• English challenge: Friday<br>• {c} French: Saturday<br>• {c} English: Sunday</p><p>The best result wins the round; on a tie, the fastest. The first to win 4 rounds is the champion of the week.</p><p>A round not played in time is lost by forfeit. If nobody plays it, it doesn't count; if the match ends level, the championship leader wins.</p>"});
 </script></body></html>
