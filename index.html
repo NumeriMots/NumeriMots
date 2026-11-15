@@ -312,6 +312,10 @@ h1.logo{margin:14px 0 20px;letter-spacing:0;text-transform:none}
 #dmsg{margin:0;min-height:20px;text-align:center;color:var(--mut);font-size:14px;font-weight:600}
 #vcRow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
 #vcRow .btn{height:72px;border-radius:16px;font-size:22px;font-weight:900}
+#vcAuto{display:block;width:100%;margin:12px 0 0;min-height:52px;font-size:17px;font-weight:800}
+#vcAuto.hide{display:none}
+.mpSt{display:flex;justify-content:center;margin:0 0 8px}.mpSt .btn{min-height:40px;padding:6px 16px;font-size:15px;font-weight:800}div.mpSt.hide{display:none}
+.mpo{margin:12px 0 4px}.mpo h4{margin:0 0 6px;font-size:14px;color:var(--mut);text-align:center;font-weight:800}.mpo .row{display:flex;gap:8px}.mpo .row .btn{flex:1;min-width:0;padding-left:4px;padding-right:4px}
 /* Nombre cible */
 .ccard{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0e1a30;border-radius:18px;padding:14px 16px}
 .cct{display:flex;flex-direction:column;gap:6px;min-width:0}.cct .gti{text-align:left}
@@ -626,15 +630,15 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <section id="myStP" class="pg hide"><h2 data-t="stMine"></h2><p class="dnote" id="myN"></p><div id="myS"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section>
 <section id="cmStP" class="pg hide"><h2 data-t="cmT"></h2><p class="dnote" id="cmStN"></p><div id="cmStS"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section> <section id="mpStP" class="pg hide"><h2 data-t="stMulti"></h2><p class="dnote" id="mpN"></p><div id="mpS"></div><div id="rMulti"></div><button class="btn mb" data-st="statsP" data-t="back" style="margin-top:12px"></button></section>
 <section id="dictP" class="pg hide"><h2 data-t="chooseDict"></h2><button class="btn p mb" data-d="fr" data-t="dFr"></button><button class="btn p mb" data-d="en" data-t="dEn"></button><div id="dst" style="min-height:24px;text-align:center;color:var(--mut);margin-bottom:12px"></div><button class="btn mb" id="dback" data-t="back"></button></section>
-<section id="drawP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><span class="gb gbx"></span></div></div><div class="dwc"><span class="gti"></span><h2 id="drawH" data-t="drawT"></h2><div class="tiles" id="slots"></div><div class="vcc" id="vcC"><span><b id="nvC">0</b> <i id="nvL"></i></span><span><b id="ncC">0</b> <i id="ncL"></i></span></div><p id="dmsg" data-t="drawH"></p></div><div class="row" id="vcRow"><button class="btn p" id="vow" data-t="pickV"></button><button class="btn bl" id="con" data-t="pickC"></button></div></section>
-<section id="gm" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div>
+<section id="drawP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><span class="gb gbx"></span></div></div><div class="dwc"><span class="gti"></span><h2 id="drawH" data-t="drawT"></h2><div class="tiles" id="slots"></div><div class="vcc" id="vcC"><span><b id="nvC">0</b> <i id="nvL"></i></span><span><b id="ncC">0</b> <i id="ncL"></i></span></div><p id="dmsg" data-t="drawH"></p></div><div class="row" id="vcRow"><button class="btn p" id="vow" data-t="pickV"></button><button class="btn bl" id="con" data-t="pickC"></button></div><button class="btn hide" id="vcAuto" data-t2="vcAuto"></button></section>
+<section id="gm" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="mpSt hide"><button class="btn" data-mpstop data-t2="mpHStop"></button></div>
 <div class="ghost hide"></div><div class="gtm"><span class="gti"></span><div id="time">2:00</div><span class="tbar"><i></i></span></div>
 <div class="dots" id="dots"></div><p class="dlg hide" id="dotsL"></p>
 <div class="gmid"><div class="acard"><p id="len"></p><div class="ansv" id="ansV"></div><input id="ans" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Mot"></div><div id="msg"></div>
 <div class="tiles" id="tiles"></div></div><span id="score" class="hide"></span>
 <div class="gbt"><button class="btn" id="del" aria-label="⌫"><svg aria-hidden="true" width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h15a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8l-6-9z"/><path d="M13 8l6 6M19 8l-6 6"/></svg></button><button class="btn hide" id="clr" data-t="clrW"></button><button class="btn" id="shuf" data-t="shuffle"></button><button class="btn sk" id="skip" data-t="skipW"></button></div>
 <div class="gbt2"><button class="btn hide" id="lend" data-t="done"></button><button class="btn g" id="ok" data-t="submit"></button></div></section>
-<section id="cGame" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div>
+<section id="cGame" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="mpSt hide"><button class="btn" data-mpstop data-t2="mpHStop"></button></div>
 <div class="ghost hide"></div><div class="ccard"><div class="cct"><span class="gti" data-t="mC"></span><div class="tgt" id="tg"></div></div><div class="gtm sm"><div id="ctime">0:45</div><span class="tbar"><i></i></span></div></div>
 <div id="clog"></div><div id="cpend" class="cpend hide"></div><div id="cmsg"></div><div class="csp"></div>
 <div class="plates" id="pl"></div><div class="ops" id="ops"></div>
@@ -660,7 +664,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <input class="fi" id="mjCode" inputmode="numeric" autocomplete="off" maxlength="7" data-ph="mpCodePh" data-go="mjGo">
 <div class="amsg" id="mjMsg"></div><button class="btn p mb" id="mjGo" data-t="mpJoinGo"></button><button class="btn mb" id="mjBack" data-t="back"></button></section>
 <section id="mpP" class="pg hide"><h2 id="mpT"></h2><div class="mpHead"></div><p id="mpWait" class="mpw hide"></p><div id="mpBody"></div><button class="btn mb" id="mpLeave" style="margin-top:12px"></button></section>
-<section id="mpWaitP" class="pg hide"><h2 id="mwT"></h2><div id="mwS"></div><p class="mpw" id="mwM"></p><button class="btn mb" id="mwLeave" style="margin-top:12px"></button></section>
+<section id="mpWaitP" class="pg hide"><h2 id="mwT"></h2><div id="mwS"></div><p class="mpw" id="mwM"></p><button class="btn p mb mpSt hide" data-mpstop data-t2="mpHStop" style="margin-top:12px"></button><button class="btn mb" id="mwLeave" style="margin-top:12px"></button></section>
 <section id="mpResP" class="pg hide"><h2 id="mrT"></h2><div id="mrW"></div><div id="mrB"></div><div id="mrBtn" style="margin-top:14px"></div><div id="mrInv"></div><button class="btn mb" id="mrLeave" style="margin-top:4px"></button></section>
 <section id="frP" class="pg hide"><h2 data-t="friends"></h2>
 <div class="frc"><small data-t="frCodeT"></small><b id="frCode">…</b><div class="row"><button class="btn" id="frCopy" data-t="frCopy"></button><button class="btn" id="frInv" data-t="frInv"></button></div></div>
@@ -683,7 +687,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <div class="mrow"><button class="btn p mb" data-df="s"><span data-t="mS"></span><small class="sub" data-t="s30"></small></button><button class="info" data-info="S">?</button></div>
 <div class="mrow"><button class="btn p mb" data-df="v"><span data-t="mV"></span><small class="sub" data-t="s30"></small></button><button class="info" data-info="V">?</button></div>
 <button class="btn mb" id="dfBack" data-t="back"></button></section>
-<section id="dfP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="ghost hide"></div>
+<section id="dfP" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="mpSt hide"><button class="btn" data-mpstop data-t2="mpHStop"></button></div><div class="ghost hide"></div>
 <div class="dfban"><span class="dfbi" id="dfBi"></span><span class="dfbt"><small id="dfBl"></small><h2 id="dfTh"></h2></span><div class="gtm xs"><div id="dftime">0:30</div></div><span class="tbar"><i></i></span></div>
 <p class="dfh" id="dfHint"></p><div id="dfArea"></div><div id="dfBzL" class="mpw hide"></div><div id="dfmsg"></div><div id="dfIn"></div></section>
 <section id="defP" class="pg hide"><h2 data-t="pDic"></h2><p class="dnote" data-t="dicH"></p>
@@ -871,7 +875,7 @@ $("ok").onclick=()=>{const r=rounds[queue[cur]],a=$("ans").value.trim().toLowerC
 };
 function tryL(a){tried=a;const c={};rounds[0].l.forEach(x=>c[x]=(c[x]||0)+1);for(const x of a){if(!c[x])return false;c[x]--}
  if(!dict.set.has(a))return false;
- if(a.length>best.length){best=a;score=a.length;RTL=dur.l?Math.min(performance.now()-RT0,dur.l*1000):performance.now()-RT0;{const k=daily||mpr||chl||tbx||cmx;if(k)k.lt=Math.min(dEl(),dur.l*1000)}}return true}
+ if(a.length>best.length){best=a;score=a.length;RTL=dur.l?Math.min(performance.now()-RT0,dur.l*1000):performance.now()-RT0;{const k=daily||mpr||chl||tbx||cmx;if(k)k.lt=dur.l?Math.min(dEl(),dur.l*1000):dEl()}}return true}
 function endL(){if(over)return;clearInterval(timer);lock(true);stopM();pending=null;results(tried?t(best?"wAccT":"wRefT"):t("ended"),xL())}
 const key=w=>w.split("").sort().join("");
 function timeUp(){if(mode==="l"){const a=$("ans").value.trim();if(a)tryL(a)}lock(true);msg(t("timeUp"),"ko");afterMusic(()=>results(t("timeUp"),mode==="w"?xW():xL()))}
@@ -932,7 +936,7 @@ const cState=()=>bv===tgt?msg(t("exact"),"ok","cmsg"):msg("","","cmsg");
 function ap(a,o,b){if((o==="−"||o==="÷")&&items[a].v<items[b].v){const k=a;a=b;b=k}const x=items[a].v,y=items[b].v;let r;if(o==="+")r=x+y;else if(o==="×")r=x*y;else if(o==="−")r=x-y;else r=y?x/y:0;
  if(r<=0||!Number.isInteger(r)){msg(t("opBad"),"ko","cmsg");so=null;rdC();return}
  items[a].u=items[b].u=1;items.push({v:r,u:0});lines.push({a:x,o,b:y,r,i:items.length-1,ia:a,ib:b});sa=sz=so=null;
- if(bv===null||Math.abs(r-tgt)<Math.abs(bv-tgt)){bv=r;try{bvC=cChain(items.length-1)}catch(e){bvC=""}RTL=dur.c?Math.min(performance.now()-RT0,dur.c*1000):performance.now()-RT0;if(daily||mpr||chl||tbx||cmx)bt=Math.min(dEl(),dur.c*1000);if(chl&&!chl.opp&&chl.ev.length<60)chl.ev.push([Math.round(bt/100),r])}cState();rdC();if(bv===tgt&&(mpr&&isGP()||cmx))cEnd()}
+ if(bv===null||Math.abs(r-tgt)<Math.abs(bv-tgt)){bv=r;try{bvC=cChain(items.length-1)}catch(e){bvC=""}RTL=dur.c?Math.min(performance.now()-RT0,dur.c*1000):performance.now()-RT0;if(daily||mpr||chl||tbx||cmx)bt=dur.c?Math.min(dEl(),dur.c*1000):dEl();if(chl&&!chl.opp&&chl.ev.length<60)chl.ev.push([Math.round(bt/100),r])}cState();rdC();if(bv===tgt&&(mpr&&isGP()||cmx))cEnd()}
 $("undo").onclick=()=>{if(cl||!lines.length)return;const l=lines.pop();items.pop();items[l.ia].u=0;items[l.ib].u=0;sa=sz=so=null;cState();rdC()};
 $("rst").onclick=()=>{if(cl)return;items=P.map(v=>({v,u:0}));lines=[];sa=sz=so=null;cState();rdC()};
 $("cdone").onclick=()=>{if($("cGame").classList.contains("hide"))return;if(cmx&&!cmx.cf&&!over&&bv!==tgt)return modal(t("quit"),"<p>"+t("cmGiveQ",fmtCM(45000))+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();cmx.cf=1;$("cdone").click()}}]);if(rv){ctok++;rv=false;shown=6;sfxStop();bv=null;setTg(String(tgt).split(""));over=false}else if(chl&&!over&&chl.t0)chl.f=Math.round(Math.min(dEl(),45000)/100);cEnd()};
@@ -2246,12 +2250,12 @@ function mpPlayers(){const R=MP.R,ids=Object.keys(R.pl).sort((a,b)=>(b===R.hid)-
 function mpRender(prev){if(!MP||!MP.R)return;const R=MP.R,ph=R.ph,pp=prev&&prev.ph;mpHeadRefresh();if(R.dl)preDict(R.dl);
  if(ph==="setup"){const was=!!mpr;mpAbortLocal();if(!MP.host&&(was||LIVE.includes(pp)))modal(t("pM"),"<p>"+t("mpStopped")+"</p>",[{l:t("ok"),c:"p",f:closeModal}]);return mpSetup()}
  if(ph==="draw")return mpDraw();if(ph==="pick")return mpResShow();
- if(ph==="play"){if(MP.rid!==R.rid){if(R.ids.includes(MID))mpStartLocal();else mpWaitShow()}else if(R.d&&dfIs(R.d.g)&&mpr&&mpr.rid===R.rid)dfSync();else if(!mpr||mpr.done||mpr.ld)mpWaitShow();return}
+ if(ph==="play"){if(MP.rid!==R.rid){if(R.ids.includes(MID))mpStartLocal();else mpWaitShow()}else if(R.d&&dfIs(R.d.g)&&mpr&&mpr.rid===R.rid)dfSync();else if(!mpr||mpr.done||mpr.ld)mpWaitShow();mpSpChk();return}
  if(mpr){if(!mpr.done)mpAbortLocal();else mpr=null}
  mpResShow();if(ph==="end")mpSave()}
 // préparation de la partie (les invités voient le même écran, sans pouvoir toucher)
 function mpTitle(){const R=MP.R;return t(R.mo==="o"?"mpO":R.mo==="g"?"gpT":R.mo==="p"?"mpP":"mpQ")}
-function mpSubT(){const R=MP.R;if(R.mo==="p")return t("cuN",R.nr);const a=[R.mo==="o"||R.mo==="g"?t(R.ty==="n"?"pN":"pQ")+" ("+t(R.mo==="g"?(R.ty==="n"?"gpDn":"gpDq"):(R.ty==="n"?"d15":"d5"))+")":t("m"+R.ty.toUpperCase())+" ("+t({l:"s30",c:"s45",w:"s120",t:"s30",k:"s30",u:"s30",s:"s30"}[R.ty])+")"];if(R.dl)a.push(t("dic"+R.dl));return a.join(" · ")}
+function mpSubT(){const R=MP.R;if(R.mo==="p")return t("cuN",R.nr);if(R.mo==="q"&&R.ty){const a=[t("m"+R.ty.toUpperCase())+" ("+(mptK(R.ty)?mptLbl(R.tq,1):t("s120"))+")"];if(R.lq)a.push(R.lq==="r"?t("cuRnd"):t((R.ty==="v"?"dvs":"dic")+R.lq));return a.join(" · ")}const a=[R.mo==="o"||R.mo==="g"?t(R.ty==="n"?"pN":"pQ")+" ("+t(R.mo==="g"?(R.ty==="n"?"gpDn":"gpDq"):(R.ty==="n"?"d15":"d5"))+")":t("m"+R.ty.toUpperCase())+" ("+t({l:"s30",c:"s45",w:"s120",t:"s30",k:"s30",u:"s30",s:"s30"}[R.ty])+")"];if(R.dl)a.push(t("dic"+R.dl));return a.join(" · ")}
 function mpSetup(){const R=MP.R,h=MP.host,dis=h?"":" disabled";show("mpP");$("mpT").textContent=t("mpRoomOf",R.hn);
  $("mpWait").classList.toggle("hide",h);$("mpWait").textContent=t(R.scr==="ready"?"mpWaitGo":"mpHostPrep");
  const B=(k,lab,sub,cls)=>'<button class="btn '+(cls===undefined?"p":cls)+' mb" data-ms="'+k+'"'+dis+">"+(sub?"<span>"+lab+'</span><small class="sub">'+sub+"</small>":lab)+"</button>",
@@ -2260,24 +2264,25 @@ function mpSetup(){const R=MP.R,h=MP.host,dis=h?"":" disabled";show("mpP");$("mp
  if(R.scr==="modes")x="<h3>"+t("mpChoose")+"</h3>"+B("o",t("mpO"),t("mpOS"))+B("q",t("mpQ"),t("mpQS"))+B("p",t("mpP"),t("mpPS"))+I("g",t("gpT"),t("gpS"),"G");
   else if(R.scr==="rounds")x="<h3>"+t("cuRounds")+'</h3><div class="ngrid">'+[2,3,4,5,10,15,20,25,30].map(n=>'<button class="btn p" data-ms="n'+n+'"'+dis+">"+n+"</button>").join("")+"</div>"+back;
  else if(R.scr==="orig")x="<h3>"+t("mpO")+"</h3>"+I("n",t("pN"),t("d15"),"N")+I("q",t("pQ"),t("d5"),"Q")+back;
- else if(R.scr==="quick")x="<h3>"+t("mpQ")+"</h3>"+B("l",t("mL"),t("s30"))+B("c",t("mC"),t("s45"))+I("w",t("mW"),t("s120"),"W")+I("t",t("mT"),t("s30"),"T")+I("k",t("mK"),t("s30"),"K")+I("u",t("mU"),t("s30"),"U")+I("s",t("mS"),t("s30"),"S")+I("v",t("mV"),t("s30"),"V")+back;
+ else if(R.scr==="quick")x="<h3>"+t("mpQ")+"</h3>"+B("l",t("mL"),t("qTl"))+B("c",t("mC"),t("qTc"))+I("w",t("mW"),t("s120"),"W")+I("t",t("mT"),t("qTl"),"T")+I("k",t("mK"),t("qTl"),"K")+I("u",t("mU"),t("qTl"),"U")+I("s",t("mS"),t("qTl"),"S")+I("v",t("mV"),t("qTl"),"V")+back;
  else if(R.scr==="gp")x="<h3>"+t("gpT")+"</h3>"+I("n",t("pN"),t("gpDn"),"GN")+I("q",t("pQ"),t("gpDq"),"GQ")+back;
  else if(R.scr==="dict")x="<h3>"+t(R.mo==="q"&&R.ty==="v"?"dvT":"chooseDict")+"</h3>"+B("fr",t(R.mo==="q"&&R.ty==="v"?"dvFr":"dFr"))+B("en",t(R.mo==="q"&&R.ty==="v"?"dvEn":"dEn"))+back;
- else{const g=mpGuests();x="<h3>"+t("mpReady")+'</h3><div class="pcard"><div class="pn">'+mpTitle()+'</div><div class="pm">'+mpSubT()+'</div><div class="pm">'+t("mpNbP",mpOnIds().length)+"</div></div>"+(h?B("go",t("mpGo"))+(g?"":'<p class="dnote">'+t("mpNeed1")+"</p>"):"")+back}
+ else{const g=mpGuests();x="<h3>"+t("mpReady")+'</h3><div class="pcard"><div class="pn">'+mpTitle()+'</div><div class="pm">'+mpSubT()+'</div><div class="pm">'+t("mpNbP",mpOnIds().length)+"</div></div>"+(R.mo==="q"&&R.ty?mpOptH(R.ty,R.lq,R.tq,"ms",dis):"")+(h?B("go",t("mpGo"))+(g?"":'<p class="dnote">'+t("mpNeed1")+"</p>"):"")+back}
  $("mpBody").innerHTML=x;const go=$("mpBody").querySelector('[data-ms="go"]');if(go)go.disabled=!mpGuests();
  $("mpLeave").textContent=t(h?"mpClose":"mpLeave");$("mpBody").classList.toggle("mir",!h)}
 $("mpBody").onclick=e=>{const i=e.target.closest("[data-info]");if(i){const k=i.dataset.info;return modal(t(IT[k]),t("i"+k),[{l:t("close"),c:"p",f:closeModal}])}
  const b=e.target.closest("[data-ms]");if(!b||b.disabled||!MP||!MP.host)return;const R=MP.R,k=b.dataset.ms;
  if(k==="go")return mpLaunch();
- if(k==="back")R.scr=R.scr==="ready"&&R.mo==="p"?"rounds":R.scr==="ready"?(R.mo==="q"&&(R.ty==="c"||R.ty==="k")?"quick":"dict"):R.scr==="dict"?(R.mo==="o"?"orig":R.mo==="g"?"gp":"quick"):"modes";
+ if(R.scr==="ready"&&R.mo==="q"&&/^(lg|tm)-/.test(k)){const v=k.slice(3);if(k[0]==="l"){R.lq=v;mplSave(v)}else{R.tq=+v;mptSave(R.ty,+v)}return mpPush()}
+ if(k==="back")R.scr=R.scr==="ready"&&R.mo==="p"?"rounds":R.scr==="ready"?(R.mo==="q"?"quick":"dict"):R.scr==="dict"?(R.mo==="o"?"orig":R.mo==="g"?"gp":"quick"):"modes";
  else if(R.scr==="modes"){R.mo=k;R.scr=k==="o"?"orig":k==="g"?"gp":k==="p"?"rounds":"quick"}
   else if(R.scr==="rounds"){R.nr=+k.slice(1)||5;R.ty="p";R.dl=null;R.scr="ready"}
  else if(R.scr==="orig"||R.scr==="gp"){R.ty=k;R.scr="dict"}
- else if(R.scr==="quick"){R.ty=k;if(k==="c"||k==="k"){R.dl=null;R.scr="ready"}else R.scr="dict"}
+ else if(R.scr==="quick"){R.ty=k;R.dl=null;R.lq=mpLgN(k)?mplDef():null;R.tq=mptDef(k);R.scr="ready"}
  else if(R.scr==="dict"){R.dl=k;R.scr="ready"}
  mpPush()};
 // déroulement de la partie (côté hôte)
-function mpLaunch(){const R=MP.R;if(!mpGuests())return;R.gid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);R.st=R.mo==="o"?(R.ty==="n"?mkNS():mkQS()):R.mo==="g"?(R.ty==="n"?mkGPN():mkGPQ()):R.mo==="p"?[]:[R.ty];R.i=0;
+function mpLaunch(){const R=MP.R;if(!mpGuests())return;R.sp=0;if(R.mo==="q"){R.tm=mptK(R.ty)?(MPT[mptK(R.ty)].includes(R.tq)?R.tq:MPT[mptK(R.ty)][0]):null;R.dl=R.lq?(R.lq==="r"?(Math.random()<.5?"fr":"en"):R.lq):null}else R.tm=null;R.gid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);R.st=R.mo==="o"?(R.ty==="n"?mkNS():mkQS()):R.mo==="g"?(R.ty==="n"?mkGPN():mkGPQ()):R.mo==="p"?[]:[R.ty];R.i=0;
  for(const id in R.pl){if(id!==MID&&!R.pl[id].on)delete R.pl[id];else{R.pl[id].tot=0;R.pl[id].np=0}}if(R.mo==="p"){R.ph="pick";R.last=null;R.d=null;R.dl=null;MP.pk=null;return mpPush()}mpRound()}
 function mpRound(){const R=MP.R,g=R.st[R.i];R.last=null;R.bz=null;
  if(R.mo==="g")return mpPlay(gpGen(g,R.dl));
@@ -2288,8 +2293,8 @@ function mpRound(){const R=MP.R,g=R.st[R.i];R.last=null;R.bz=null;
 function mpPick(ty){const R=MP.R;if(R.ph!=="draw"||R.ld.length>=10||(ty==="v"?R.nv:R.nc)>=8)return;R.ld.push(wp(WT[R.dl][ty]));ty==="v"?R.nv++:R.nc++;mpPush();
  if(R.ld.length===10){clearTimeout(MP.dtm);MP.dtm=setTimeout(()=>{if(MP&&MP.R.ph==="draw")mpPlay({g:"l",l:MP.R.ld.slice()})},900)}}
 function mpPlay(d){const R=MP.R;R.d=d;R.ph="play";R.rid++;R.ids=mpOnIds();R.ids.forEach(id=>R.pl[id].np=(R.pl[id].np||0)+1);MP.ans={};MP.pg=null;const rid=R.rid;
- clearTimeout(MP.dlt);if(dfIs(d.g)&&R.mo!=="g")dfHStart();else MP.dlt=setTimeout(()=>{if(MP&&MP.R.ph==="play"&&MP.R.rid===rid)mpPublish()},R.mo==="g"?gpDL(d.g):MPDL[d.g]);mpPush()}
-const mpClean=a=>({p:Math.max(0,Math.min(999,a.p|0)),r:Math.max(0,Math.min(9999,a.r|0)),x:String(a.x||"").slice(0,20),t:Math.max(0,Math.min(999999,a.t|0))});
+ clearTimeout(MP.dlt);if(dfIs(d.g)&&R.mo!=="g")dfHStart();else{const dlv=R.mo==="g"?gpDL(d.g):mpDL(d.g);if(dlv)MP.dlt=setTimeout(()=>{if(MP&&MP.R.ph==="play"&&MP.R.rid===rid)mpPublish()},dlv)}mpPush()}
+const mpClean=a=>({p:Math.max(0,Math.min(999,a.p|0)),r:Math.max(0,Math.min(9999,a.r|0)),x:String(a.x||"").slice(0,20),t:Math.max(0,Math.min(3600000,a.t|0))});
 function mpOnAns(p){const R=MP.R;if(!p||!p.a||R.ph!=="play"||p.rid!==R.rid||!R.ids.includes(p.id))return;if(!MP.ans[p.id])MP.ans[p.id]=mpClean(p.a);mpPgSend();mpCheckDone()}
 function mpPgSend(){const p={rid:MP.R.rid,d:Object.keys(MP.ans)};MP.pg=p;mpSend("pg",p);mpWaitRefresh()}
 function mpCheckDone(){const R=MP.R;if(R.ph!=="play"||(R.d&&dfIs(R.d.g)&&R.mo!=="g"))return;if(R.ids.filter(id=>id===MID||(R.pl[id]&&R.pl[id].on)).every(id=>MP.ans[id]))mpPublish()}
@@ -2307,7 +2312,7 @@ function mpDraw(){const R=MP.R;mpAbortLocal();mode="l";dl=R.dl;ld=R.ld.slice();n
  $("drawH").textContent=t("drawT");$("dmsg").textContent=MP.host?(ld.length<10?t("drawH"):""):t("mpHostPicks");
  if(ld.length>MP.ldn)sfx(A.clic);MP.ldn=ld.length;if($("drawP").classList.contains("hide"))show("drawP")}
 async function mpStartLocal(){const R=MP.R,rid=R.rid,g=R.d.g;MP.rid=rid;MP.played[R.gid]=1;clearInterval(MP.rs);closeModal();
- mpr={rid,g,t0:0,lt:0,done:0,ld:0};party=null;daily=null;trn=null;chl=null;chNav=false;dfNav=false;dur={l:30,c:45};dl=R.dl;mode=g;
+ mpr={rid,g,t0:0,lt:0,done:0,ld:0};party=null;daily=null;trn=null;chl=null;chNav=false;dfNav=false;dur={l:30,c:45};{const tm=mpTm();if(tm!==null){if(g==="l")dur.l=tm;if(g==="c")dur.c=tm}}dl=R.dl;mode=g;
  if(dfIs(g))return startDf(g);if(g==="c")return startC();
  if(!D[dl]){mpr.ld=1;mpWaitShow()}dict=await preDict(dl);
  if(!mpr||mpr.rid!==rid||!MP||MP.R.rid!==rid||MP.R.ph!=="play")return;mpr.ld=0;mode=g;
@@ -2315,8 +2320,8 @@ async function mpStartLocal(){const R=MP.R,rid=R.rid,g=R.d.g;MP.rid=rid;MP.playe
 function mpAbortLocal(){if(!mpr)return;ctok++;sfxStop();dfStop();clearTimeout(tmo);clearTimeout(dtm);clearInterval(timer);pending=null;stopM();over=true;mpr=null;if(MP)clearInterval(MP.rs)}
 // fin de la manche pour ce joueur : envoi du résultat à l'hôte
 function mpEnd(why,html){over=true;clearInterval(timer);pending=null;stopM();closeModal();const g=mpr.g;let a;
- if(isGP())a=gpAns(g);else if(g==="l")a={p:score,r:best?best.length:0,x:best||"",t:best?Math.round(mpr.lt||30000):30000};
- else if(g==="c")a=bv===null?{p:0,r:9999,x:"",t:45000}:{p:score,r:Math.abs(tgt-bv),x:cDet(),t:Math.round(bt)};
+ if(isGP())a=gpAns(g);else if(g==="l")a={p:score,r:best?best.length:0,x:best||"",t:best?Math.round(mpr.lt||(dur.l||3600)*1000):(dur.l||3600)*1000};
+ else if(g==="c")a=bv===null?{p:0,r:9999,x:"",t:(dur.c||3600)*1000}:{p:score,r:Math.abs(tgt-bv),x:cDet(),t:Math.round(bt)};
  else{const n=rounds.filter(x=>x.done).length;a={p:score,r:n,x:wDet(n),t:n?Math.round(mpr.lt):120000}}
  mpr.done=1;MP.mine=a;MP.html[mpr.rid]={why,html};const rid=mpr.rid;
  if(MP.host){MP.ans[MID]=a;mpPgSend();mpWaitShow();mpCheckDone();return}
@@ -2557,8 +2562,8 @@ document.addEventListener("click",ev=>{const b=ev.target.closest("[data-ch]");if
 // ===== partie personnalisée (salon) : nombre de manches choisi, jeu choisi avant chaque manche =====
 const mpN=()=>MP.R.mo==="p"?MP.R.nr:MP.R.st.length;
 function mpPickUI(){const R=MP.R,n=R.ph==="res"?R.i+2:R.i+1,B=(k,l)=>'<button class="btn p mb" data-mr="'+k+'">'+l+"</button>";
- if(MP.pk)return"<h3>"+t("m"+MP.pk.toUpperCase())+" · "+t(MP.pk==="v"?"dvT":"chooseDict")+"</h3>"+B("pd-fr",t(MP.pk==="v"?"dvFr":"dFr"))+B("pd-en",t(MP.pk==="v"?"dvEn":"dEn"))+B("pd-r",t("cuRnd"))+'<button class="btn mb" data-mr="pkback">'+t("back")+"</button>";
- return"<h3>"+t("cuNext",n,mpN())+"</h3>"+B("pk-c",t("mC"))+B("pk-l",t("mL"))+B("pk-w",t("mW"))+B("pk-t",t("mT"))+B("pk-k",t("mK"))+B("pk-u",t("mU"))+B("pk-s",t("mS"))+B("pk-v",t("mV"))+B("pk-r",t("cuRnd"))}
+ if(MP.pk)return"<h3>"+t("round",n,mpN())+" · "+t("m"+MP.pk.toUpperCase())+"</h3>"+mpOptH(MP.pk,MP.pkl,MP.pkt,"mr","",1)+B("pd-go",t("cuGo"))+'<button class="btn mb" data-mr="pkback">'+t("back")+"</button>";
+ return"<h3>"+t("cuNext",n,mpN())+"</h3>"+B("pk-c",t("mC"))+B("pk-l",t("mL"))+B("pk-t",t("mT"))+B("pk-k",t("mK"))+B("pk-u",t("mU"))+B("pk-s",t("mS"))+B("pk-v",t("mV"))+B("pk-w",t("mW"))+B("pk-r",t("cuRnd"))}
 function mpPickShow(){const R=MP.R,h=MP.host;show("mpResP");$("mrT").textContent=mpTitle()+" · "+t("cuN",R.nr);$("mrW").innerHTML="";
  const s=Object.keys(R.pl).filter(id=>R.pl[id].on||id===MID);
  $("mrB").innerHTML="<h3>"+t("mpNbP",s.length)+"</h3>"+s.map(id=>'<div class="res'+(id===MID?" me":"")+'"><span class="rn">'+(id===R.hid?"👑 ":"")+esc(R.pl[id].n)+"</span></div>").join("");
@@ -2569,9 +2574,11 @@ function mpPickAct(k){const R=MP.R;if(R.mo!=="p")return;
  if(k==="endnow")return modal(t("cuEnd"),"<p>"+t("cuEndQ")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();if(MP&&MP.host&&MP.R.ph==="res"){MP.pk=null;MP.R.ph="end";mpPush()}}}]);
  if(R.ph!=="pick"&&R.ph!=="res")return;
  if(k==="pkback"){MP.pk=null;return mpResShow()}
- if(k.startsWith("pk-")){let g=k.slice(3);if(g==="r")g=["c","l","w","t","k","u","s","v"][Math.floor(Math.random()*8)];if(g==="c"||g==="k")return mpPickGo(g);MP.pk=g;return mpResShow()}
- let d=k.slice(3);if(d==="r")d=Math.random()<.5?"fr":"en";if(MP.pk)mpPickGo(MP.pk,d)}
-function mpPickGo(g,d){const R=MP.R;if(R.ph==="res")R.i++;else if(R.ph!=="pick")return;R.st[R.i]=g;if(g!=="c"&&g!=="k")R.dl=d;MP.pk=null;mpRound()}
+ if(k.startsWith("pk-")){let g=k.slice(3);if(g==="r")g=["c","l","w","t","k","u","s","v"][Math.floor(Math.random()*8)];MP.pk=g;MP.pkl=mpLgN(g)?mplDef():null;MP.pkt=mptDef(g);return mpResShow()}
+ if(!MP.pk)return;const d=k.slice(3);
+ if(/^(lg|tm)-/.test(d)){const v=d.slice(3);if(d[0]==="l"){MP.pkl=v;mplSave(v)}else{MP.pkt=+v;mptSave(MP.pk,+v)}return mpResShow()}
+ if(d==="go"){let lg=MP.pkl;if(lg==="r")lg=Math.random()<.5?"fr":"en";mpPickGo(MP.pk,lg,MP.pkt)}}
+function mpPickGo(g,d,tm){const R=MP.R;if(R.ph==="res")R.i++;else if(R.ph!=="pick")return;R.st[R.i]=g;if(g!=="c"&&g!=="k")R.dl=d;R.tm=mptK(g)&&typeof tm==="number"?tm:null;R.sp=0;MP.pk=null;mpRound()}
 
 // ===== Les défis : défi thème et défi calcul mental (solo, Partie classique et multijoueur avec buzzer) =====
 Object.assign(T.fr,{pX:"Les défis",dX:"30 secondes par défi",dfH:"Les défis : 30 secondes, une seule réponse, 7 points si c'est juste.",mT:"Défi thème",mK:"Défi calcul mental",nT:"Défi thème",nK:"Défi calcul mental",
@@ -2759,7 +2766,7 @@ function dfReveal(el,f){const x=dfx;if(!x)return;const T=(x.sl?DFTM_S:DFTM)[x.g]
   if(x.ready)return dfRT();$("dfTiles").innerHTML=x.l.map((c,i)=>i<k?'<div class="tile'+(i===k-1&&n>old?" pop":"")+'" style="cursor:default">'+c.toUpperCase()+"</div>":'<div class="tile" style="cursor:default;opacity:.3">?</div>').join("")}}
 function dfReady(){const x=dfx;if(!x||x.ready)return;x.ready=true;x.r0=performance.now();if(chl&&!mpr&&!tbx)chl.t0=x.r0;dfReveal(Infinity,1);
  if(x.g==="k")dfNum();if(x.g==="s"||x.g==="v")dfWd();
- if(!mpr||!MP||!MP.R||!MP.R.bz||MP.R.bz.st!=="done")playM(A.defis);dfCtl()}
+ if(!mpr||!MP||!MP.R||!MP.R.bz||MP.R.bz.st!=="done"){playM(A.defis);if(mpr&&MP&&MP.R&&MP.R.bz&&(MP.R.bz.ms||DFMS)!==DFMS&&music===A.defis)music.loop=true}dfCtl()}
 function dfRT(){const x=dfx;if(!x||(x.g!=="t"&&x.g!=="u")||!x.ready)return;if(!x.pk)x.pk=[[],[]];const U=new Set();  if(x.g==="u")x.pk[x.ai]=pkSync(x.l,$("dfA"+x.ai).value,x.pk[x.ai],U);else [0,1].forEach(i=>{x.pk[i]=pkSync(x.l,$("dfA"+i).value,x.pk[i],U)});
  $("dfTiles").innerHTML=x.l.map((c,i)=>{const u=U.has(i);return'<button class="tile" data-ti="'+i+'"'+(u?' data-u="1" style="opacity:.3"':"")+">"+c.toUpperCase()+"</button>"}).join("");
  [0,1].forEach(i=>$("dfA"+i).classList.toggle("on",x.ai===i))}
@@ -2781,11 +2788,11 @@ function dfCtl(){const x=dfx;if(!x)return;let inp,line="",bz=false;const pre=x.r
  $("dfBzL").innerHTML=line;$("dfBzL").classList.toggle("hide",!line)}
 function dfTick(){const x=dfx;if(!x||over||$("dfP").classList.contains("hide"))return;const now=performance.now();let rem,ar=null;
  if(dfBzM()){const b=MP&&MP.R&&MP.R.bz;if(!b)return;
-  if(b.st==="pre"){dfReveal(DFPRE[x.g]-(b.prem-(now-MP.rt)));rem=DFMS}
+  dfTot(b.ms||DFMS);if(b.st==="pre"){dfReveal(DFPRE[x.g]-(b.prem-(now-MP.rt)));rem=b.ms||DFMS}
   else{if(!x.ready)dfReady();rem=b.st==="run"?b.rem-(now-MP.rt):b.rem;if(b.st==="ans")ar=b.arem-(now-MP.rt)}
   if(b.st==="ans"&&music===A.defis&&!music.paused)music.pause()}
- else{const el=now-x.p0;if(!x.ready){dfReveal(el);if(el>=x.pre)dfReady()}rem=x.ready?DFMS-(now-x.r0):DFMS}
- rem=Math.max(0,rem);$("dftime").textContent=fmt(Math.ceil(rem/1000));$("dftime").classList.toggle("low",x.ready&&rem<=10000);
+ else{dfTot(DFMS);const el=now-x.p0;if(!x.ready){dfReveal(el);if(el>=x.pre)dfReady()}rem=x.ready?DFMS-(now-x.r0):DFMS}
+ rem=Math.max(0,rem);const inf=dfBzM()&&MP&&MP.R&&MP.R.bz&&MP.R.bz.inf;$("dftime").textContent=inf?"∞":fmt(Math.ceil(rem/1000));$("dftime").classList.toggle("low",!inf&&x.ready&&rem<=10000);
  if(ar!==null&&MP.R.bz.who===MID&&!x.sent){$("dfBzL").innerHTML=t("dfBzMe",Math.max(0,Math.ceil(ar/1000)));if(ar<=0)dfSubmit(true)}
  if(!dfBzM()&&x.ready&&rem<=0&&!x.end)dfTimeUp()}
 function dfTimeUp(){const x=dfx;x.end=1;dfCtl();msg(t("timeUp"),"ko","dfmsg");afterMusic(()=>results(t("timeUp"),dfSolHTML(x.d,null,false)))}
@@ -2823,10 +2830,10 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-dfr]");if(
 // ----- multijoueur : buzzer (l'hôte fait foi) -----
 function dfSync(){const x=dfx,R=MP&&MP.R;if(!x||!R||!R.bz||!mpr||mpr.rid!==R.rid)return;const b=R.bz;
  if(b.st!=="pre"&&!x.ready)dfReady();
- if(b.st==="ans"&&b.who===MID&&!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,DFMS-(b.rem||0))}
+ if(b.st==="ans"&&b.who===MID&&!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,(b.ms||DFMS)===DFMS?DFMS-(b.rem||0):null)}
  if(b.st!==x.st){if(b.st==="run"&&x.st==="ans"&&music===A.defis&&hasS(music)&&musicOn&&!x.fin)music.play().catch(()=>{});if(b.st!=="run"||b.who){x.bzS=0;clearInterval(x.bzI)}x.st=b.st}
  if(b.wk!==x.wk){x.wk=b.wk;if(b.w)msg(b.w.id===MID?t("dfOutMe"):t("dfWrong",b.w.n,b.w.a?dfUp(b.w.a):"—"),"ko","dfmsg")}
- if(b.st==="done"&&!x.fin){x.fin=1;stopM();if(b.ok){if(b.ok.id===MID){score=7;if(!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,null)}bzAdd(R.gid,1)}ding();msg(t("dfRight",b.ok.n,dfUp(b.ok.a)),"ok","dfmsg")}else msg(t(b.to?"timeUp":"dfNoOne"),"ko","dfmsg")}
+ if(b.st==="done"&&!x.fin){x.fin=1;stopM();if(b.ok){if(b.ok.id===MID){score=7;if(!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,null)}bzAdd(R.gid,1)}ding();msg(t("dfRight",b.ok.n,dfUp(b.ok.a)),"ok","dfmsg")}else msg(t(b.hs?"mpHStopd":b.to?"timeUp":"dfNoOne"),"ko","dfmsg")}
  dfCtl();dfTick()}
 function dfBuzz(){const x=dfx,R=MP&&MP.R;if(!x||!mpr||!R||!R.bz||R.bz.st!=="run"||x.bzS||!x.ready||R.bz.out.includes(MID))return;x.bzS=1;dfCtl();
  if(MP.host)return dfHBuzz(MID,R.rid);const rid=R.rid;let n=0;
@@ -2837,20 +2844,20 @@ function dfSendAns(a){const R=MP.R,rid=R.rid,x=dfx;if(MP.host)return dfHAns(MID,
  go();x.baI=setInterval(go,1000)}
 const dfHOk=rid=>MP&&MP.host&&MP.R&&MP.R.ph==="play"&&MP.R.rid===rid&&MP.R.bz&&MP.R.d&&dfIs(MP.R.d.g);
 function dfHClr(){if(!MP)return;clearTimeout(MP.bzTo);clearTimeout(MP.baTo);clearTimeout(MP.pubTo);clearTimeout(MP.preTo)}
-function dfHStart(){const R=MP.R,g=R.d.g,rid=R.rid;dfHClr();R.bz={st:"pre",prem:DFPRE[g],rem:DFMS,arem:0,who:null,wn:"",out:[],w:null,wk:0,ok:null,to:0};MP.preT=performance.now();MP.dfW={};MP.dfWin=null;MP.preTo=setTimeout(()=>dfHRun(rid),DFPRE[g])}
-function dfHRun(rid){if(!dfHOk(rid))return;const b=MP.R.bz;if(b.st!=="pre")return;b.st="run";b.prem=0;b.rem=DFMS;MP.bzL=DFMS;MP.bzT=performance.now();MP.bzTo=setTimeout(dfHTime,DFMS+300);mpPush()}
+function dfHStart(){const R=MP.R,g=R.d.g,rid=R.rid;dfHClr();const ms=mpDfMs();R.bz={st:"pre",prem:DFPRE[g],rem:ms,ms,inf:mpTm()===0?1:0,hs:0,arem:0,who:null,wn:"",out:[],w:null,wk:0,ok:null,to:0};MP.preT=performance.now();MP.dfW={};MP.dfWin=null;MP.preTo=setTimeout(()=>dfHRun(rid),DFPRE[g])}
+function dfHRun(rid){if(!dfHOk(rid))return;const b=MP.R.bz;if(b.st!=="pre")return;b.st="run";b.prem=0;b.rem=b.ms||DFMS;MP.bzL=b.rem;MP.bzT=performance.now();MP.bzTo=setTimeout(dfHTime,MP.bzL+300);mpPush()}
 function dfFresh(R){const b=R.bz,now=performance.now();if(b.st==="pre")b.prem=Math.max(0,Math.round(DFPRE[R.d.g]-(now-MP.preT)));else if(b.st==="run")b.rem=Math.max(0,Math.round(MP.bzL-(now-MP.bzT)));else if(b.st==="ans")b.arem=Math.max(0,Math.round(DFANS[R.d.g]-(now-MP.baT)))}
 function dfHBuzz(id,rid){if(!dfHOk(rid))return;const R=MP.R,b=R.bz;if(b.st!=="run"||b.out.includes(id)||!R.ids.includes(id))return;
  const now=performance.now();MP.bzL=Math.max(0,MP.bzL-(now-MP.bzT));if(MP.bzL<=0)return;clearTimeout(MP.bzTo);
  b.st="ans";b.who=id;b.wn=R.pl[id]?R.pl[id].n:"?";b.rem=Math.round(MP.bzL);MP.baT=now;b.arem=DFANS[R.d.g];
  MP.baTo=setTimeout(()=>dfHAns(id,"",rid),DFANS[R.d.g]+2500);mpPush()}
 function dfHAns(id,a,rid){if(!dfHOk(rid))return;const R=MP.R,b=R.bz;if(b.st!=="ans"||b.who!==id)return;clearTimeout(MP.baTo);a=String(a||"").slice(0,24);
- if(a&&dfCheck(R.d,a)){b.st="done";b.ok={id,n:b.wn,a};MP.dfWin={id,a,t:Math.round(DFMS-MP.bzL)};mpPush();MP.pubTo=setTimeout(()=>dfHPub(rid),2000);return}
+ if(a&&dfCheck(R.d,a)){b.st="done";b.ok={id,n:b.wn,a};MP.dfWin={id,a,t:Math.round((b.ms||DFMS)-MP.bzL)};mpPush();MP.pubTo=setTimeout(()=>dfHPub(rid),2000);return}
  b.out.push(id);MP.dfW[id]=a;b.wk++;b.w={id,n:b.wn,a};b.who=null;b.wn="";
  const left=R.ids.filter(i=>(i===MID||(R.pl[i]&&R.pl[i].on))&&!b.out.includes(i));
  if(!left.length){b.st="done";mpPush();MP.pubTo=setTimeout(()=>dfHPub(rid),2000);return}
- b.st="run";MP.bzT=performance.now();MP.bzTo=setTimeout(dfHTime,MP.bzL+300);mpPush()}
-function dfHTime(){const R=MP&&MP.R;if(!R||!R.bz||R.ph!=="play"||R.bz.st!=="run"||!R.d||!dfIs(R.d.g))return;const rid=R.rid;MP.bzL=0;R.bz.st="done";R.bz.to=1;R.bz.rem=0;mpPush();MP.pubTo=setTimeout(()=>dfHPub(rid),1500)}
+ b.st="run";MP.bzT=performance.now();MP.bzTo=setTimeout(dfHTime,MP.bzL+300);if(MP.hsp===rid)return dfHTime();mpPush()}
+function dfHTime(){const R=MP&&MP.R;if(!R||!R.bz||R.ph!=="play"||R.bz.st!=="run"||!R.d||!dfIs(R.d.g))return;const rid=R.rid;MP.bzL=0;R.bz.st="done";R.bz.to=1;R.bz.rem=0;if(MP.hsp===rid)R.bz.hs=1;mpPush();MP.pubTo=setTimeout(()=>dfHPub(rid),1500)}
 function dfHPub(rid){if(!dfHOk(rid))return;MP.ans={};for(const id in MP.dfW)MP.ans[id]={p:0,r:0,x:MP.dfW[id],t:0};const w=MP.dfWin;if(w)MP.ans[w.id]={p:7,r:1,x:w.a,t:w.t};mpPublish()}
 // ===== v12 : dictionnaire (définitions en direct depuis le Wiktionnaire) =====
 Object.assign(T.fr,{pDic:"📖 Dictionnaire",dicH:"Choisis la langue, tape un mot et découvre sa définition.",dicPh:"Tape un mot",dicGo:"Chercher",dicLd:"Recherche de la définition…",dicNo:"Aucune définition trouvée pour ce mot sur le Wiktionnaire.",dicNet:"Définition non disponible : il faut une connexion internet.",dicBase:"Définition de « {n} »",dicSrcfr:"Source : Wiktionnaire",dicSrcen:"Source : Wiktionary (en anglais)",dicSee:"voir la page",wdHint:"📖 Touche un mot pour voir sa définition"});
@@ -6902,7 +6909,7 @@ Object.assign(T.en,{mV:"Translation challenge",nV:"Translation challenge",dfVHfr
 // IMPORTANT pour les prochaines versions : si un fichier de assets/ est ajouté ou modifié,
 // mettre à jour sa ligne ici (empreinte = 8 premiers caractères du sha1 du fichier).
 // sw.js, lui, n'a pas besoin d'être modifié.
-const OFFL=[["assets/son-bonne-reponse.mp3","56bfb1a8",16345],["assets/son-cible.mp3","091f2f31",32018],["assets/son-tirage.mp3","4c852725",2552],["assets/dict-en.txt","0dc5d07b",1705245],["assets/dict-fr.txt","f2f93a55",741722]];
+const OFFL=[["assets/son-bonne-reponse.mp3","56bfb1a8",16345],["assets/son-cible.mp3","091f2f31",32018],["assets/son-tirage.mp3","4c852725",2552],["assets/dict-en.txt","0dc5d07b",1705245],["assets/dict-fr.txt","1362b637",741735]];
 const OFFX=["https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"];
 Object.assign(T.fr,{offNet:"📴 Connexion internet requise",netOff:"📴 Hors connexion : les modes solo restent jouables.",netQ1:"⏳ 1 partie en attente d'envoi",netQn:"⏳ {n} parties en attente d'envoi",netQh:"(envoi automatique au retour d'internet)",netSent:"✅ Parties hors connexion envoyées",
  ofProg:"⬇️ Préparation du mode hors connexion… {n} %",ofOk:"✅ Jouable hors connexion",ofKo:"⚠️ Mode hors connexion incomplet (nouvel essai à la prochaine ouverture)",copy:"© 2026 NumériMots – Tous droits réservés",reload:"🔄 Recharger le jeu",reloadGo:"Recharger",
@@ -7834,7 +7841,7 @@ mpHead=function(pl){const c=String(MP.code).replace(/\D/g,"");
  return'<div class="room2"><div class="rl"><small>'+t("mpCode")+'</small><div class="ctl" aria-label="'+esc(fmtCode(MP.code))+'">'+c.split("").map((d,i)=>(i===3&&c.length>4?'<i class="sp"></i>':"")+"<i>"+d+"</i>").join("")+"</div><small>"+t("a3QrS")+'</small><button class="btn" data-mpa="share">'+SHI+t("mpShare")+'</button></div><button class="qrb" data-mpa="qr" aria-label="'+esc(t("mpQR"))+'">'+qrSvg(mpUrl())+"</button></div>"+(pl?a3Pl():"")};
 mpHeadRefresh=function(){all(".mpHead").forEach(e=>e.innerHTML=MP&&MP.R?mpHead(!!e.closest("#mpP")):"")};
 mpSetup=(o=>function(){o.apply(this,arguments);mpHeadRefresh();const R=MP.R,h=MP.host;if(["modes","rounds","orig","quick","gp","dict"].includes(R.scr))return;const g=mpGuests();
- $("mpBody").innerHTML='<div class="mdc"><span><small>'+t("a3Mode")+"</small><b>"+mpTitle()+"</b><i>"+mpSubT()+"</i></span>"+(h?'<button class="btn" data-ms="back">'+t("a3Edit")+"</button>":"")+"</div>"+(h?'<button class="btn go" data-ms="go"'+(g?"":" disabled")+">"+t("a3Go")+"</button>"+(g?"":'<p class="dnote" style="margin-top:12px">'+t("mpNeed1")+"</p>"):"")})(mpSetup);
+ $("mpBody").innerHTML='<div class="mdc"><span><small>'+t("a3Mode")+"</small><b>"+mpTitle()+"</b><i>"+mpSubT()+"</i></span>"+(h?'<button class="btn" data-ms="back">'+t("a3Edit")+"</button>":"")+"</div>"+(R.mo==="q"&&R.ty?mpOptH(R.ty,R.lq,R.tq,"ms",h?"":" disabled"):"")+(h?'<button class="btn go" data-ms="go"'+(g?"":" disabled")+">"+t("a3Go")+"</button>"+(g?"":'<p class="dnote" style="margin-top:12px">'+t("mpNeed1")+"</p>"):"")})(mpSetup);
 lyApply();
 
 Object.assign(T.fr,{wkH:"Classement général",wkT:"Championnat de la semaine",wkS:"classement général de la semaine",wkSoon:"dès le lundi 16 novembre",wkN:"Championnat n°{n}",wkPv:"Aperçu (admin)",
@@ -8234,4 +8241,65 @@ function mpHlpShow(p){if(!MP||MP.host||(mpr&&!mpr.done))return;const k=String(p.
  if(p.f==="i"){if(!/^[A-Z]{1,2}$/.test(k)||!IT[k]||!T[L][IT[k]]||!T[L]["i"+k])return;ti=t(IT[k]);h=t("i"+k)}
  else if(p.f==="df"){if(!/^[a-z]$/.test(k)||!dfIs(k))return;const g=k.toUpperCase();ti=t("m"+g);h=t("i"+g)+t(isGP()?"gpProc":"dfProc")}else return;
  modal(ti,'<p class="dnote">'+t("hlpN")+"</p>"+h,[{l:t("close"),c:"p",f:closeModal}])}
+// ===== v23 : choix du temps en multijoueur (Partie rapide et Partie personnalisée), arrêt par l'hôte, « Laisser le jeu décider » =====
+Object.assign(T.fr,{qTl:"30 s, 60 s ou ∞",qTc:"45 s, 90 s ou ∞",mpoLg:"Langue",mpoSens:"Sens de la traduction",mpoTm:"Temps",mpoFr:"🇫🇷 Français",mpoEn:"🇬🇧 Anglais",mpoVfr:"EN → FR",mpoVen:"FR → EN",mpoRnd:"🎲 Au hasard",
+ cuGo:"▶ Lancer la manche",mpHStop:"⏹ Arrêter l'épreuve",mpHStopQ:"Arrêter l'épreuve pour tous les joueurs ? Chacun termine avec sa réponse en cours.",mpHStopd:"⏹ Épreuve arrêtée par l'hôte",vcAuto:"🎲 Laisser le jeu décider",
+ rM:T.fr.rM+"<p><b>⏱️ Choix du temps</b> : en Partie rapide et en Partie personnalisée, l'hôte choisit le temps de chaque manche (Chasse aux mots et défis : 30 secondes, 60 secondes ou infini ; Nombre cible : 45 secondes, 90 secondes ou infini). En temps infini, la manche s'arrête dès que tout le monde a répondu, ou quand l'hôte touche « Arrêter l'épreuve ». Le Sprint final reste à 2 minutes.</p>"});
+Object.assign(T.en,{qTl:"30 s, 60 s or ∞",qTc:"45 s, 90 s or ∞",mpoLg:"Language",mpoSens:"Translation direction",mpoTm:"Time",mpoFr:"🇫🇷 French",mpoEn:"🇬🇧 English",mpoVfr:"EN → FR",mpoVen:"FR → EN",mpoRnd:"🎲 Random",
+ cuGo:"▶ Start the round",mpHStop:"⏹ Stop the round",mpHStopQ:"Stop the round for all players? Everyone finishes with their current answer.",mpHStopd:"⏹ Round stopped by the host",vcAuto:"🎲 Let the game decide",
+ rM:T.en.rM+"<p><b>⏱️ Choosing the time</b>: in Quick play and Custom game, the host chooses the time for each round (Word Hunt and challenges: 30 seconds, 60 seconds or endless; Target Number: 45 seconds, 90 seconds or endless). In endless mode, the round ends as soon as everyone has answered, or when the host taps “Stop the round”. Final Sprint stays at 2 minutes.</p>"});
+const MPT={l:[30,60,0],c:[45,90,0],d:[30,60,0]},DFINF=3600000;
+const mptK=g=>g==="l"?"l":g==="c"?"c":dfIs(g)?"d":null;
+const mpLgN=g=>"lwtusv".includes(g||"x");
+function mptGet(){try{return JSON.parse(localStorage.getItem("fwmpt")||"{}")||{}}catch(e){return{}}}
+function mptDef(g){const k=mptK(g);if(!k)return null;const v=mptGet()[k];return MPT[k].includes(v)?v:MPT[k][0]}
+function mptSave(g,v){const k=mptK(g);if(!k||!MPT[k].includes(v))return;const o=mptGet();o[k]=v;try{localStorage.setItem("fwmpt",JSON.stringify(o))}catch(e){}}
+function mplDef(){let v="";try{v=localStorage.getItem("fwmpl")||""}catch(e){}return["fr","en","r"].includes(v)?v:(L==="en"?"en":"fr")}
+function mplSave(v){if(["fr","en","r"].includes(v))try{localStorage.setItem("fwmpl",v)}catch(e){}}
+const mptLbl=(v,long)=>v?(long?t("secs",v):v+" s"):(long?t("inf"):"∞");
+// temps de la manche en cours (secondes, 0 = infini), null = durée habituelle (Partie classique, Grand Prix…)
+function mpTm(){const R=MP&&MP.R;return R&&(R.mo==="q"||R.mo==="p")&&typeof R.tm==="number"?R.tm:null}
+function mpDL(g){const tm=mpTm();if(tm===null||(g!=="l"&&g!=="c"))return MPDL[g];return tm?tm*1000+(g==="l"?20000:30000):0}
+function mpDfMs(){const tm=mpTm();return tm===null?DFMS:tm?tm*1000:DFINF}
+function dfTot(ms){const e=$("dftime"),v=String(Math.round(ms/1000));if(e&&e.dataset.tot!==v){e.dataset.tot=v;e._s=null}}
+// réglages de la manche : langue (ou sens de la traduction) puis temps, sur un seul écran
+function mpOptH(g,lg,tm,at,dis,cls){const pre=at==="mr"?"pd-":"",C=(k,lab,on)=>'<button class="btn'+(on?" p":"")+'" data-'+at+'="'+pre+k+'"'+(dis||"")+">"+lab+"</button>";let h="";
+ if(mpLgN(g)){const v=g==="v";h+='<div class="mpo"><h4>'+t(v?"mpoSens":"mpoLg")+'</h4><div class="row">'+C("lg-fr",t(v?"mpoVfr":"mpoFr"),lg==="fr")+C("lg-en",t(v?"mpoVen":"mpoEn"),lg==="en")+C("lg-r",t("mpoRnd"),lg==="r")+"</div></div>"}
+ const k=mptK(g);if(k)h+='<div class="mpo"><h4>'+t("mpoTm")+'</h4><div class="row">'+MPT[k].map(v=>C("tm-"+v,mptLbl(v),tm===v)).join("")+"</div></div>";
+ return h}
+// arrêt de l'épreuve par l'hôte (temps infini)
+function mpHStopOk(){const R=MP&&MP.R;return!!(MP&&MP.host&&R&&R.ph==="play"&&mpTm()===0&&R.d&&mptK(R.d.g)&&R.sp!==R.rid&&MP.hsp!==R.rid)}
+function mpStopUI(){const v=mpHStopOk();all(".mpSt").forEach(e=>e.classList.toggle("hide",!v))}
+function mpHStopAsk(){if(!mpHStopOk())return;modal(t("mpHStop"),"<p>"+t("mpHStopQ")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();mpHStop()}}])}
+function mpHStop(){if(!mpHStopOk())return;const R=MP.R,rid=R.rid;
+ if(dfIs(R.d.g)){MP.hsp=rid;const b=R.bz;if(b&&b.st==="pre"){clearTimeout(MP.preTo);b.st="run"}if(b&&b.st==="run"){clearTimeout(MP.bzTo);dfHTime()}mpStopUI();return}
+ R.sp=rid;mpPush();mpForceLocal();clearTimeout(MP.dlt);MP.dlt=setTimeout(()=>{if(MP&&MP.R.ph==="play"&&MP.R.rid===rid)mpPublish()},6000);mpStopUI()}
+function mpForceLocal(){if(!mpr||mpr.done||over||!MP||!MP.R||MP.R.rid!==mpr.rid)return;
+ if(mpr.g==="l"&&!$("gm").classList.contains("hide")){const a=$("ans").value.trim();if(a)tryL(a);clearInterval(timer);lock(true);stopM();pending=null;results(t("mpHStopd"),xL())}
+ else if(mpr.g==="c"&&!$("cGame").classList.contains("hide")){clearInterval(timer);stopM();pending=null;cEnd()}}
+function mpSpChk(){const R=MP&&MP.R;if(!MP.host&&R&&R.sp&&R.sp===R.rid&&mpr&&mpr.rid===R.rid&&!mpr.done)mpForceLocal();mpStopUI()}
+document.addEventListener("click",e=>{if(e.target.closest("[data-mpstop]"))mpHStopAsk()});
+mpWaitShow=(o=>function(){const r=o.apply(this,arguments);mpStopUI();return r})(mpWaitShow);
+mpRender=(o=>function(){const r=o.apply(this,arguments);mpStopUI();return r})(mpRender);
+// le temps choisi s'affiche avec le mode et la langue en haut de l'écran de jeu
+setStage=(o=>function(){const r=o.apply(this,arguments);const g=gG(),tm=MP&&MP.R?mpTm():null;
+ if(tm!==null&&mptK(g)){const h='<span class="chp"><span>⏱️ '+mptLbl(tm)+"</span></span>";all(".gh .stg").forEach(e=>e.insertAdjacentHTML("beforeend",h))}
+ mpStopUI();return r})(setStage);
+// « Laisser le jeu décider » : le jeu complète le tirage (au moins 2 voyelles et 2 consonnes)
+let vcaRun=0;
+function vcaShow(){const b=$("vcAuto");if(!b)return;const mp=!!(MP&&MP.R&&MP.R.ph==="draw"),hid=$("vcRow").classList.contains("hide")||(mp&&!MP.host);b.classList.toggle("hide",hid);b.disabled=!!vcaRun||ld.length>=10;if(vcaRun){$("vow").disabled=$("con").disabled=true}}
+rdS=(o=>function(){const r=o.apply(this,arguments);vcaShow();return r})(rdS);
+function vcAuto(){if(vcaRun)return;const mp=!!(MP&&MP.R&&MP.R.ph==="draw");if(mp&&!MP.host)return;
+ const n0=mp?MP.R.ld.length:ld.length,v0=mp?MP.R.nv:nv,c0=mp?MP.R.nc:nc,rem=10-n0;if(rem<=0)return;
+ const lo=Math.max(2,v0),hi=Math.min(8,v0+rem,10-c0),x=Math.random();let V=x<.3?3:x<.75?4:5;V=Math.max(lo,Math.min(hi,V));
+ const ty=[];for(let i=0;i<V-v0;i++)ty.push("v");while(ty.length<rem)ty.push("c");const seq=sh(ty),tok=ctok,rid=mp?MP.R.rid:0,M=MP;
+ vcaRun=1;vcaShow();let i=0;
+ const step=()=>{const ok=mp?(MP===M&&MP&&MP.R&&MP.R.ph==="draw"&&MP.R.rid===rid):(tok===ctok&&!$("drawP").classList.contains("hide"));
+  if(!ok||i>=seq.length){vcaRun=0;if(ok||!mp)rdS();return}
+  const k=seq[i++];if(mp)mpPick(k);else dr(k);
+  if(i>=seq.length){vcaRun=0;rdS();return}setTimeout(step,420)};
+ step()}
+$("vcAuto").onclick=vcAuto;
+function v23Txt(){all("[data-t2]").forEach(e=>e.textContent=t(e.dataset.t2))}
+applyLang=(o=>function(){const r=o.apply(this,arguments);v23Txt();return r})(applyLang);v23Txt();
 </script></body></html>
