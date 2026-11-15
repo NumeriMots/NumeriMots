@@ -6945,7 +6945,7 @@ if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname
  navigator.serviceWorker.addEventListener("message",e=>{const d=e.data||{};if(d.t==="prog")ofS=Math.min(99,d.p|0);else if(d.t==="ready")ofS=101;else if(d.t==="fail")ofS=-1;netUI()});
  window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(()=>setTimeout(swPre,4000)).catch(()=>{})})}
 $("rldB").onclick=()=>modal(t("reload").replace("🔄 ",""),t("reloadQ"),[{l:t("cancel"),f:closeModal},{l:t("reloadGo"),c:"p",f:async()=>{closeModal();
- try{const r=await navigator.serviceWorker.getRegistration();if(r){const sc=r.scope;await r.unregister();for(const k of await caches.keys())if(k.endsWith("|"+sc))await caches.delete(k)}}catch(e){}location.reload()}}]);
+ try{const r=await navigator.serviceWorker.getRegistration();if(r){const sc=r.scope;for(const k of await caches.keys())if(k.endsWith("|"+sc))await caches.delete(k);try{await Promise.race([r.update(),wait(5000)])}catch(e){}}}catch(e){}location.reload()}}]);
 netOn=true;netProbe();
 
 // ===================== ÉCRAN ADMIN (visible seulement pour l'administrateur) =====================
@@ -7373,10 +7373,17 @@ var nfIn0=null;
  if(/^(tb|fr|da|tn|chm|ss)$/.test(k))nfIn0={k,m:/^([0-9a-f-]{36}|\d{4}-\d{2}-\d{2}|fr|en)$/.test(m)?m:""};u.delete("nf");u.delete("m");const q=u.toString();history.replaceState(null,"",location.pathname+(q?"?"+q:"")+location.hash)}catch(e){}})();
 const nfSup=()=>"serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window&&window.isSecureContext;
 const nfIOS=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-const nfU=()=>{try{return localStorage.getItem("fwnfu")||""}catch(e){return""}};
+// v22.1 : la clé dépend de l'adresse du jeu (même site pour NumeriMots et NumeriMots-test : ils se l'écrasaient)
+const NFK="fwnfu|"+location.pathname.replace(/[^/]*$/,"");
+const nfU=()=>{try{let v=localStorage.getItem(NFK);if(v===null){v=localStorage.getItem("fwnfu")||"";if(v)localStorage.setItem(NFK,v)}return v||""}catch(e){return""}};
+const nfUset=v=>{try{if(v)localStorage.setItem(NFK,v);else localStorage.setItem(NFK,"")}catch(e){}};
+// v22.1 : si le téléphone a perdu son abonnement alors que l'autorisation est toujours là, on le refait sans rien demander
+async function nfHeal(r){if(!ME||!sb||!SESS||Notification.permission!=="granted"||nfU()!==ME.id)return null;
+ try{const s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:nfKey()});await nfSave(s);return s}catch(e){return null}}
 function nfKey(){const s=VAPID.replace(/-/g,"+").replace(/_/g,"/"),b=atob(s+"===".slice((s.length+3)%4));return Uint8Array.from(b,c=>c.charCodeAt(0))}
 async function nfReg(ms){if(!nfSup())return null;try{return await Promise.race([navigator.serviceWorker.ready,wait(ms||15000).then(()=>null)])}catch(e){return null}}
 async function nfState(){const id=ME?ME.id:null,r=await nfReg();if(!r){NF.chk=false;await wait(3000);return false}let s=null;try{s=await r.pushManager.getSubscription()}catch(e){NF.chk=false;await wait(3000);return false}
+ if(!s&&id&&nfU()===id&&Notification.permission==="granted")s=await nfHeal(r);
  NF.uid=id;NF.sub=s;NF.ok=!!(s&&id&&nfU()===id&&Notification.permission==="granted");NF.chk=true;if(NF.ok&&!NF.pf)await nfPrefs();return NF.ok}
 async function nfPrefs(){try{const r=await sb.rpc("push_prefs_get");if(r.error)throw r.error;NF.pf=r.data||null}catch(e){NF.pf=NF.pf||null}}
 async function nfSave(s){const j=s.toJSON(),k=j.keys||{};const r=await sb.rpc("push_save",{p_endpoint:j.endpoint,p_p256dh:k.p256dh,p_auth:k.auth,p_lang:L});if(r.error)throw r.error;if(r.data!=="ok")throw new Error(r.data)}
@@ -7386,18 +7393,19 @@ async function nfOn(){if(NF.busy||!ME||!needSb()||!nfSup())return;NF.busy=true;r
   const r=await nfReg();if(!r)throw new Error("sw");let s=await r.pushManager.getSubscription();
   if(!s){try{s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:nfKey()})}
    catch(e){const o=await r.pushManager.getSubscription();if(o)await o.unsubscribe();s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:nfKey()})}}
-  await nfSave(s);try{localStorage.setItem("fwnfu",ME.id)}catch(e){}NF.uid=ME.id;NF.sub=s;NF.ok=true;NF.chk=true;NF.pf=null;await nfPrefs();toast(t("nfOnT"))}
+  await nfSave(s);nfUset(ME.id);NF.uid=ME.id;NF.sub=s;NF.ok=true;NF.chk=true;NF.pf=null;await nfPrefs();toast(t("nfOnT"))}
  catch(e){toast(t("nfErr"))}finally{NF.busy=false;renderNf()}}
 async function nfOff(){if(NF.busy)return;NF.busy=true;renderNf();try{await nfDrop()}finally{NF.busy=false;renderNf()}toast(t("nfOffT"))}
 async function nfDrop(){let s=NF.sub;try{if(!s){const r=await nfReg();s=r?await r.pushManager.getSubscription():null}}catch(e){}
  if(s){try{if(sb&&SESS&&ME)await sb.rpc("push_remove",{p_endpoint:s.endpoint})}catch(e){}try{await s.unsubscribe()}catch(e){}}
- try{localStorage.removeItem("fwnfu")}catch(e){}NF.sub=null;NF.ok=false;NF.pf=null}
+ nfUset("");NF.sub=null;NF.ok=false;NF.pf=null}
 // déconnexion : ce téléphone ne doit plus recevoir les notifications du compte
 async function nfQuit(){if(!nfSup()||!nfU())return;try{await Promise.race([nfDrop(),wait(3000)])}catch(e){}NF.chk=false}
 // à l'ouverture du menu : on redonne l'adresse du téléphone à Supabase (elle peut changer)
 async function nfSync(){if(!ME||!sb||!SESS||!nfSup()||nfSynced===ME.id||nfU()!==ME.id)return;nfSynced=ME.id;
- try{const r=await nfReg();if(!r){nfSynced=null;return}const s=await r.pushManager.getSubscription();if(s&&Notification.permission==="granted")await nfSave(s);
-  else{if(s)try{await sb.rpc("push_remove",{p_endpoint:s.endpoint})}catch(e){}try{localStorage.removeItem("fwnfu")}catch(e){}}}catch(e){}}
+ try{const r=await nfReg();if(!r){nfSynced=null;return}let s=await r.pushManager.getSubscription();if(!s&&Notification.permission==="granted"){s=await nfHeal(r);if(s){NF.sub=s;return}}
+  if(s&&Notification.permission==="granted")await nfSave(s);
+  else if(Notification.permission!=="granted"){if(s)try{await sb.rpc("push_remove",{p_endpoint:s.endpoint})}catch(e){}nfUset("")}}catch(e){nfSynced=null}}
 let nfLT=0;function nfLang(){if(!NF.ok||!NF.sub||!ME||!sb||!SESS)return;clearTimeout(nfLT);nfLT=setTimeout(()=>nfSave(NF.sub).catch(()=>{}),800)}
 function renderNf(){const B=$("nfBox");if(!B)return;const H=x=>'<p class="dnote" style="text-align:left">'+x+"</p>";
  if(!ME){B.innerHTML=H(esc(t("nfGuest")));return}
