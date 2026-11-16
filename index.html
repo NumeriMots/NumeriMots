@@ -297,7 +297,8 @@ h1.logo{margin:14px 0 20px;letter-spacing:0;text-transform:none}
 #gm.w #tiles{gap:8px}#gm.w #tiles .tile{height:56px;font-size:26px}
 .gbt{display:flex;gap:10px;margin-top:16px}
 .gbt .btn{flex:1;min-width:0;height:52px;padding:0 6px;font-size:16px;font-weight:900;white-space:nowrap}
-.gbt #del{flex:0 0 64px;display:flex;align-items:center;justify-content:center}
+.gbt #del,.gbt #clr{flex:0 0 64px;display:flex;align-items:center;justify-content:center}
+.lw #clr{flex:0 0 56px}
 .btn.sk{color:#ff9f43}
 .gbt2{display:flex;gap:10px;margin-top:10px}.gbt2 .btn{flex:1;height:56px;font-size:18px;font-weight:900}
 .btn.g{background:var(--ok);color:#0e1a30;box-shadow:0 5px 0 #2f9a5f}
@@ -637,7 +638,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <div class="dots" id="dots"></div><p class="dlg hide" id="dotsL"></p>
 <div class="gmid"><div class="acard"><p id="len"></p><div class="ansv" id="ansV"></div><input id="ans" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Mot"></div><div id="msg"></div>
 <div class="tiles" id="tiles"></div></div><span id="score" class="hide"></span>
-<div class="gbt"><button class="btn" id="del" aria-label="⌫"><svg aria-hidden="true" width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h15a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8l-6-9z"/><path d="M13 8l6 6M19 8l-6 6"/></svg></button><button class="btn hide" id="clr" data-t="clrW"></button><button class="btn" id="shuf" data-t="shuffle"></button><button class="btn sk" id="skip" data-t="skipW"></button></div>
+<div class="gbt"><button class="btn" id="del" aria-label="⌫"><svg aria-hidden="true" width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h15a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8l-6-9z"/><path d="M13 8l6 6M19 8l-6 6"/></svg></button><button class="btn hide" id="clr" aria-label="Effacer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></button><button class="btn" id="shuf" data-t="shuffle"></button><button class="btn sk" id="skip" data-t="skipW"></button></div>
 <div class="gbt2"><button class="btn hide" id="lend" data-t="done"></button><button class="btn g" id="ok" data-t="submit"></button></div></section>
 <section id="cGame" class="pg hide gs"><div class="gh"><div class="stg hide"></div><div class="ghr"><button class="gb" data-quit aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><div class="ghm"></div><button class="gb mute" aria-label="Son"></button></div></div><div class="mpSt hide"><button class="btn" data-mpstop data-t2="mpHStop"></button></div>
 <div class="ghost hide"></div><div class="ccard"><div class="cct"><span class="gti" data-t="mC"></span><div class="tgt" id="tg"></div></div><div class="gtm sm"><div id="ctime">0:45</div><span class="tbar"><i></i></span></div></div>
@@ -852,7 +853,7 @@ async function goDict(l){dl=l;if(dfIs(mode)&&!party)return startDf(mode);$("dst"
 // jeu de lettres commun
 function lock(b){["ok","del","clr","shuf","skip","ans"].forEach(id=>$(id).disabled=b);locked=b}
 const mx=()=>mode==="w"?rounds[queue[cur]].w.length:10;
-function gameUI(){lock(false);msg("");ghOn();$("skip").classList.toggle("hide",mode==="l"||!!(mpr&&mpr.g==="a")||!!cmx);$("clr").classList.toggle("hide",mode!=="l");$("clr").parentNode.classList.toggle("lw",mode==="l");if(mode!=="l")$("lend").classList.add("hide");show("gm");draw()}
+function gameUI(){lock(false);msg("");ghOn();$("skip").classList.toggle("hide",mode==="l"||!!(mpr&&mpr.g==="a")||!!cmx);$("clr").classList.toggle("hide",mode!=="l"&&mode!=="w");$("clr").parentNode.classList.toggle("lw",mode==="l");if(mode!=="l")$("lend").classList.add("hide");show("gm");draw()}
 function draw(){$("dots").innerHTML=mode==="w"?rounds.map((r,i)=>'<i class="'+(r.done?"d ":"")+(i===queue[cur]?"c":"")+'"></i>').join(""):"";
  if(mode==="w"&&!queue.length){results(t(mpr&&mpr.g==="a"||cmx?"gpGood":"allFound"),xW());return}
  const r=rounds[queue[cur]];$("len").textContent=mode==="w"?t("nLetters",r.w.length):t("longH");gPk=[];$("ans").value="";$("ans").maxLength=mx();$("score").textContent=cmx?"":score+" "+t("pts");msg("");rt()}
@@ -8351,4 +8352,17 @@ window.addEventListener("popstate",e=>{if(e.state&&e.state.nmg)return;clearTimeo
  // menu général : un 2e appui sur retour dans les 2,5 secondes quitte le jeu
  toast(t("bkExit"));bkExitTo=setTimeout(bkPush,2500)});
 document.addEventListener("pointerdown",()=>{clearTimeout(bkExitTo);bkPush()},true);
+// ===== v26 : touche gomme (effacer le mot) et bonus du jour provisoires dans le championnat =====
+Object.assign(T.fr,{wkProv:"⏳ = points d'aujourd'hui : les bonus de podium peuvent encore changer jusqu'à minuit.",wkProvD:"⏳ provisoire jusqu'à minuit"});
+Object.assign(T.en,{wkProv:"⏳ = today's points: podium bonuses can still change until midnight.",wkProvD:"⏳ provisional until midnight"});
+applyLang=(o=>function(){const r=o.apply(this,arguments);const c=$("clr");if(c)c.setAttribute("aria-label",t("clrW"));return r})(applyLang);
+{const c=$("clr");if(c)c.setAttribute("aria-label",t("clrW"))}
+const wkTi=()=>WKL&&WKL.cur?cmDays(WKL.mon,pToday()):-1;
+function wkProv(){const L=$("rkL"),ti=wkTi();if(rkG!=="wk"||!L||!WKL||ti<0||ti>6||!L.querySelector(".wkr")||L.querySelector(".wkpv"))return;
+ const h=L.querySelector(".wkh");if(h)h.insertAdjacentHTML("afterend",'<p class="dnote wkpv">'+t("wkProv")+"</p>");
+ L.querySelectorAll("[data-wi]").forEach(r=>{const x=WKL.list[+r.dataset.wi],b=r.querySelector("small b");if(x&&b&&((x.days||[])[ti]|0)>0)b.insertAdjacentText("beforeend"," ⏳")})}
+wkRank=(o=>async function(){const r=await o.apply(this,arguments);try{wkProv()}catch(e){}return r})(wkRank);
+$("rkL").addEventListener("click",e=>{const r=e.target.closest("[data-wi]"),ti=wkTi();if(!r||ti<0||ti>6)return;const x=WKL.list[+r.dataset.wi];if(!x||!((x.days||[])[ti]|0))return;
+ const c=document.querySelectorAll("#mb .wkd>div")[ti],b=c&&c.querySelector("b");if(!b)return;b.insertAdjacentText("beforeend"," ⏳");
+ const d=$("mb").querySelector(".wkd");if(d)d.insertAdjacentHTML("afterend",'<p class="dnote" style="text-align:center;margin-top:6px">'+t("wkProvD")+"</p>")});
 </script></body></html>
