@@ -238,6 +238,7 @@ h1.logo{margin:14px 0 20px;letter-spacing:0;text-transform:none}
 .ban .bp{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
 .ban .bp i{height:8px;border-radius:4px;background:var(--card)}.ban .bp i.d{background:var(--ok)}
 .ban.done .bi{background:var(--card);color:var(--ok);box-shadow:none}
+#instB{font-size:16px;padding:12px;font-weight:800}
 .h3t{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 14px}
 .h3t .btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;font-size:13px;font-weight:800;min-width:0}
 .h3t .btn:not(.bl) svg{color:var(--ac)}
@@ -572,7 +573,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <button class="btn p mb ic" id="soloB"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></i><span class="mt"><span data-t="pSolo"></span><small class="sub" data-t="dSolo"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <button class="btn p mb ic" id="multi" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="18" cy="7" r="3"/><path d="M17 13.2c3.5-.4 7 1.8 7 5.8"/></svg></i><span class="mt"><span data-t="pM"></span><span class="bdg hide" id="tbB0"></span><small class="sub" data-t="dM"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
 <div class="h3t"><button class="btn bl" id="dicB" data-net><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span data-t="hDic"></span></button><button class="btn" id="rules"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg><span data-t="rules"></span></button><button class="btn" id="records"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-t="stats"></span></button></div>
-<button class="btn mb hide" id="admB" style="font-size:16px;padding:12px" data-net data-t="admT"></button>
+<button class="btn mb hide" id="instB" data-t2="instB"></button><button class="btn mb hide" id="admB" style="font-size:16px;padding:12px" data-net data-t="admT"></button>
 <div class="foot"><p id="ofS" class="hide"></p><p data-t="copy"></p><button class="lnk" data-priv data-t="privL"></button><button class="lnk" data-legal data-t="legL"></button><button class="lnk" id="rldB" data-t="reload" data-net></button></div></section>
 <section id="soloP" class="pg hide"><h2 data-t="pSolo"></h2>
 <button class="btn p mb ic" id="dailyS" data-net><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></i><span class="mt"><span data-t="pD"></span><small class="sub" id="dSoloS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
@@ -8308,6 +8309,46 @@ function vcAuto(){if(vcaRun)return;const mp=!!(MP&&MP.R&&MP.R.ph==="draw");if(mp
   if(i>=seq.length){vcaRun=0;rdS();return}setTimeout(step,420)};
  step()}
 $("vcAuto").onclick=vcAuto;
-function v23Txt(){all("[data-t2]").forEach(e=>e.textContent=t(e.dataset.t2))}
+function v23Txt(){all("[data-t2]").forEach(e=>{try{e.textContent=t(e.dataset.t2)}catch(x){}})}
 applyLang=(o=>function(){const r=o.apply(this,arguments);v23Txt();return r})(applyLang);v23Txt();
+// ===== v24 : touche « Installer le jeu » (menu général) =====
+Object.assign(T.fr,{instB:"📲 Installer le jeu sur mon téléphone",instT:"📲 Installer NumériMots",instOk:"✅ NumériMots est installé ! Retrouve-le sur ton écran d'accueil.",
+ instIOS:"<p>Sur iPhone, l'installation se fait en 2 gestes :</p><p><b>1.</b> Touche le bouton ⬆️ <b>Partager</b> (en bas de Safari).<br><b>2.</b> Choisis « <b>Sur l'écran d'accueil</b> », puis « <b>Ajouter</b> ».</p><p>Ouvre ensuite le jeu depuis sa nouvelle icône : il s'affiche en plein écran et les notifications fonctionnent.</p><p class=\"dnote\">Si tu as ouvert le jeu depuis WhatsApp, Messenger ou un e-mail, ouvre-le d'abord dans Safari.</p>",
+ instAnd:"<p>Ouvre le menu de ton navigateur :</p><p>• <b>Chrome</b> : ⋮ en haut à droite, puis « <b>Installer l'application</b> » ou « <b>Ajouter à l'écran d'accueil</b> ».<br>• <b>Samsung Internet</b> : ☰ en bas, puis « <b>Ajouter la page à</b> », puis « <b>Écran d'accueil</b> ».</p><p>Le jeu aura sa propre icône et s'ouvrira en plein écran.</p><p class=\"dnote\">Si tu as ouvert le jeu depuis WhatsApp, Messenger ou un e-mail, ouvre-le d'abord dans Chrome.</p>"});
+Object.assign(T.en,{instB:"📲 Install the game on my phone",instT:"📲 Install NumériMots",instOk:"✅ NumériMots is installed! Find it on your home screen.",
+ instIOS:"<p>On iPhone, it only takes 2 steps:</p><p><b>1.</b> Tap the ⬆️ <b>Share</b> button (at the bottom of Safari).<br><b>2.</b> Choose “<b>Add to Home Screen</b>”, then “<b>Add</b>”.</p><p>Then open the game from its new icon: it runs full screen and notifications work.</p><p class=\"dnote\">If you opened the game from WhatsApp, Messenger or an e-mail, open it in Safari first.</p>",
+ instAnd:"<p>Open your browser menu:</p><p>• <b>Chrome</b>: ⋮ at the top right, then “<b>Install app</b>” or “<b>Add to Home screen</b>”.<br>• <b>Samsung Internet</b>: ☰ at the bottom, then “<b>Add page to</b>”, then “<b>Home screen</b>”.</p><p>The game will get its own icon and open full screen.</p><p class=\"dnote\">If you opened the game from WhatsApp, Messenger or an e-mail, open it in Chrome first.</p>"});
+let instEv=null;
+const instDone=()=>{try{return matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches||navigator.standalone===true}catch(e){return false}};
+function instUI(){const b=$("instB");if(b)b.classList.toggle("hide",instDone())}
+function instHelp(){modal(t("instT"),nfIOS()?t("instIOS"):t("instAnd"),[{l:t("close"),c:"p",f:closeModal}])}
+window.addEventListener("beforeinstallprompt",e=>{instEv=e;instUI()});
+window.addEventListener("appinstalled",()=>{instEv=null;toast(t("instOk"))});
+$("instB").onclick=async()=>{const e=instEv;if(!e)return instHelp();instEv=null;try{await e.prompt();const r=await e.userChoice;if(r&&r.outcome!=="accepted")instEv=e}catch(x){instHelp()}};
+try{matchMedia("(display-mode: standalone)").addEventListener("change",instUI)}catch(e){}
+v23Txt();instUI();
+// ===== v25 : la touche retour d'Android (ou le geste retour) agit comme la touche Retour du jeu =====
+Object.assign(T.fr,{bkExit:"Appuie encore sur retour pour quitter NumériMots"});
+Object.assign(T.en,{bkExit:"Press back again to leave NumériMots"});
+let bkExitTo=0;
+const bkG=()=>!!(history.state&&history.state.nmg);
+function bkPush(){if(!bkG())try{history.pushState({nmg:1},"")}catch(e){}}
+const bkVis=e=>!!(e&&!e.disabled&&e.offsetParent);
+function bkModal(){const bs=[...$("mbtn").querySelectorAll("button")].filter(b=>!b.disabled);if(!bs.length)return closeModal();(bs.length===1?bs[0]:bs.find(x=>!x.classList.contains("p"))||bs[0]).click()}
+function bkHandle(){
+ if(!$("modal").classList.contains("hide")){bkModal();return true}
+ const pg=document.querySelector("main>.pg:not(.hide)"),id=pg?pg.id:"";
+ const b=bkFind();if(b){b.click();return true}
+ const q=pg&&[...pg.querySelectorAll("[data-quit]")].find(bkVis);
+ if(q){const asks=tbx||cmx||MP||(chl&&chl.opp&&!chl.fin)||(daily&&!daily.done)||party;
+  if(asks||over)q.click();else modal(t("quit"),"<p>"+t("quitQ")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();q.click()}}]);return true}
+ const tm=$("tomenu");if(bkVis(tm)){tm.click();return true}
+ const hb=$("homeB");if(bkVis(hb)){hb.click();return true}
+ if(!id||id==="home"||id==="intro")return false;
+ if(!MP)toHome();return true}
+window.addEventListener("popstate",e=>{if(e.state&&e.state.nmg)return;clearTimeout(bkExitTo);
+ if(bkHandle())return bkPush();
+ // menu général : un 2e appui sur retour dans les 2,5 secondes quitte le jeu
+ toast(t("bkExit"));bkExitTo=setTimeout(bkPush,2500)});
+document.addEventListener("pointerdown",()=>{clearTimeout(bkExitTo);bkPush()},true);
 </script></body></html>
