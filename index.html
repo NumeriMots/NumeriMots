@@ -1034,7 +1034,7 @@ function startDL(){clearTimeout(tmo);clearTimeout(dtm);stopM();clearInterval(tim
 $("drk").onclick=()=>{const g=daily&&daily.g;quitGame();if(g)rank(g,0)};
 // classement
 const rkNo=(m,x)=>m==="c"?x.result>=9999:!x.result;
-function rkVal(m,x,open){if(m==="j"||dfIs(m))return x.result?"✓ "+dfUp(x.detail):x.detail?"✗ "+dfUp(x.detail):t("noAns");if(m==="l")return x.result?(open?esc(String(x.detail).toUpperCase())+" ("+x.result+")":t("lets",x.result)):t("noWord");
+function rkVal(m,x,open){if(m==="j"||dfIs(m))return x.result?(open===false?"✓":"✓ "+dfUp(x.detail)):x.detail?(open===false?"✗":"✗ "+dfUp(x.detail)):t("noAns");if(m==="l")return x.result?(open?esc(String(x.detail).toUpperCase())+" ("+x.result+")":t("lets",x.result)):t("noWord");
  if(m==="c")return x.result>=9999?t("noAns"):(open?esc(cV(x.detail))+" · ":"")+(x.result===0?t("exactS"):t("near",x.result));
  return t("words",x.result)}
 const RKN=30;
