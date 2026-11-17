@@ -537,6 +537,85 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 .sprC{background:linear-gradient(135deg,#3b2a00,#0e1a30);border:2px solid var(--ac);border-radius:16px;padding:12px;margin:0 0 12px;text-align:center}
 .sprC h3{margin:2px 0 6px;color:var(--ac)}.sprC p{margin:4px 0;font-size:14px;line-height:1.45}.sprC .btn{margin-top:8px}
 .crw{margin-right:5px;font-style:normal}
+/* ===== v27 : écran Règles (catégories, icônes, cartes compactes) ===== */
+#rulesP .rCat{margin:20px 0 10px;padding-left:4px;text-align:left;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+#rulesP .btn.mb.ic{padding:10px 14px;gap:12px;font-size:18px;line-height:1.2;margin-bottom:10px}
+#rulesP .mb.ic .mi{flex:0 0 40px;height:40px;border-radius:10px}
+#rulesP .mb.ic .sub{font-size:13px;font-weight:700;color:var(--mut);opacity:1;margin-top:3px}
+#rwB{margin:-4px auto 0;font-size:15px;font-weight:700;color:var(--ac)}
+/* ===== v28 : fin de semaine et fin de saison (suspense, révélation, résultat) ===== */
+#revP{position:relative;overflow:hidden;margin:-16px -16px -24px;padding:16px 16px 24px;min-height:calc(100dvh - 40px)}
+#revP .rvL{display:flex;flex-direction:column;align-items:center;text-align:center;min-height:calc(100dvh - 56px)}
+#revP .chip2{display:inline-flex;align-items:center;gap:6px;background:#0e1a30;border:1.5px solid #2a4675;border-radius:20px;padding:5px 14px;color:var(--ac);font-size:13px;font-weight:800;margin-top:4px}
+#revP .cwk{color:var(--mut);font-size:13px;font-weight:800;margin:6px 0 0}
+#revP .rays{position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;background:repeating-conic-gradient(rgba(255,210,74,.16) 0 10deg,transparent 10deg 20deg);-webkit-mask:radial-gradient(circle,#000 20%,transparent 68%);mask:radial-gradient(circle,#000 20%,transparent 68%);animation:rvSpin 24s linear infinite}
+/* suspense */
+#rvA{cursor:pointer;-webkit-user-select:none;user-select:none}
+#rvA .bigc{position:relative;width:150px;height:150px;margin:84px 0 34px;display:flex;align-items:center;justify-content:center}
+#rvA .disc{position:absolute;inset:0;border-radius:50%;background:var(--card);box-shadow:0 7px 0 #0e1a30}
+#rvA .bigc span{position:relative;font-size:76px;animation:rvPulse 1.6s ease-in-out infinite}
+#rvA h2{font-size:23px;line-height:1.3;color:#fff;margin:0 10px}#rvA h2 em{font-style:normal;color:var(--ac);display:block;margin-top:6px}
+#rvA .tap{margin:auto 0 40px;font-size:16px;font-weight:900;color:var(--mut);animation:rvBlink 1.4s ease-in-out infinite}
+/* classement qui défile */
+#rvB{justify-content:flex-start}
+#rvB h3{color:var(--ac);font-size:22px;margin:56px 0 18px;animation:rvFade .3s ease-out both}
+#rvB .r{width:100%;box-sizing:border-box;display:flex;align-items:center;gap:12px;background:var(--card);border-radius:14px;padding:12px 14px;margin:0 0 9px;font-weight:800;font-size:16px;text-align:left;box-shadow:0 4px 0 #0e1a30;animation:rvIn .32s cubic-bezier(.2,.8,.3,1) both}
+#rvB .r b{flex:0 0 30px;height:30px;border-radius:8px;background:#0e1a30;color:var(--mut);display:flex;align-items:center;justify-content:center;font-weight:900}
+#rvB .r span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#rvB .r small{color:var(--mut);font-weight:800;white-space:nowrap}
+#rvB .r.me{background:var(--ac);color:#14233f;box-shadow:0 5px 0 #c99a1e;animation:rvPop .5s cubic-bezier(.34,1.56,.64,1) both,rvGlow 1s ease-in-out .5s infinite}
+#rvB .r.me b{background:#14233f;color:var(--ac)}#rvB .r.me small{color:#14233f}
+#rvB .sep{color:var(--mut);font-weight:900;margin:-4px 0 4px;animation:rvFade .3s both}
+/* écran du résultat */
+#rvF .mw{position:relative;margin:26px 0 14px}
+#rvF .mw.cr{margin-top:42px}
+#rvF .med{position:relative;width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#14233f;animation:rvMed .65s cubic-bezier(.34,1.56,.64,1) both}
+#rvF .med b{font-size:54px;line-height:1}#rvF .med sup{font-size:20px;margin-left:1px;vertical-align:top;position:relative;top:-14px}
+#rvF .med.m1{background:var(--ac);box-shadow:0 6px 0 #c99a1e,0 0 0 10px rgba(255,210,74,.14)}
+#rvF .med.m2{background:#c9d6ee;box-shadow:0 6px 0 #8a9cc0,0 0 0 10px rgba(201,214,238,.12)}
+#rvF .med.m3{background:#e0a066;box-shadow:0 6px 0 #a8683a,0 0 0 10px rgba(224,160,102,.14)}
+#rvF .med.mn{background:var(--card);color:#fff;box-shadow:0 6px 0 #0e1a30}
+#rvF .med .crw{position:absolute;top:-28px;font-size:34px}
+#rvF .rays{animation:rvSpin 24s linear infinite,rvFade .5s ease-out both}
+#rvF .chip2,#rvF .cwk{animation:rvFade .4s ease-out 1.3s both}
+#rvF h2.ct{font-size:30px;margin:6px 0 4px;animation:rvZoom .45s cubic-bezier(.34,1.56,.64,1) .4s both}
+#rvF .cpl{font-size:17px;font-weight:800;margin:0;animation:rvUp .4s ease-out .7s both}#rvF .cpl b{color:var(--ac)}
+#rvF .cpt{font-size:14px;font-weight:700;color:var(--mut);margin:4px 0 18px;animation:rvUp .4s ease-out .8s both}
+#rvF .cbox{width:100%;box-sizing:border-box;display:flex;gap:12px;align-items:flex-start;text-align:left;background:#0e1a30;border-radius:16px;padding:14px;margin:0 0 14px;animation:rvUp .4s ease-out .95s both}
+#rvF .cbox.one{align-items:center}#rvF .cbox.one b{margin:0}
+#rvF .cbox.gold{box-shadow:0 0 0 2px var(--ac)}
+#rvF .cbox .ci{flex:0 0 40px;height:40px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:22px}
+#rvF .cbox b{display:block;font-size:16px;font-weight:900;margin-bottom:2px}#rvF .cbox p{margin:0;font-size:14px;font-weight:700;color:var(--mut);line-height:1.4}#rvF .cbox p em{font-style:normal;color:#fff;font-weight:900}
+#rvF .pod{width:100%;margin-top:4px}
+#rvF .pod .pb{transform-origin:bottom;animation:rvBar .45s cubic-bezier(.34,1.56,.64,1) both}#rvF .pod .pn{animation:rvFade .3s ease-out both}
+#rvF .pod .p2 .pb{animation-delay:1.1s}#rvF .pod .p1 .pb{animation-delay:1s}#rvF .pod .p3 .pb{animation-delay:1.2s}
+#rvF .pod .p2 .pn{animation-delay:1.35s}#rvF .pod .p1 .pn{animation-delay:1.25s}#rvF .pod .p3 .pn{animation-delay:1.45s}
+#rvF .rkr{width:100%;box-sizing:border-box;text-align:left;animation:rvUp .4s ease-out 1.35s both}
+#rvF .crs{width:100%;box-sizing:border-box;background:var(--card);border-radius:16px;padding:12px 14px;margin:0 0 12px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;text-align:left;animation:rvUp .4s ease-out .95s both}
+#rvF .crs+.crs{animation-delay:1.1s}
+#rvF .crs.win{box-shadow:0 0 0 2px var(--ac)}#rvF .crs .fl{grid-row:1/3;font-size:30px}
+#rvF .crs b{font-size:16px;font-weight:900}#rvF .crs.win>b{color:var(--ac)}#rvF .crs small{font-size:13px;font-weight:700;color:var(--mut)}
+#rvF .crs .rk{grid-row:1/3;grid-column:3;font-size:28px;font-weight:900;color:var(--ac);text-align:right;line-height:1}#rvF .crs .rk sup{font-size:13px}
+#rvF .crs .tm{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800}
+#rvF .crs .tm:first-of-type{border-top:1.5px solid #2a4675;margin-top:8px;padding-top:8px}
+#rvF .crs .tm span{color:var(--mut)}#rvF .crs .tm i{font-style:normal;font-variant-numeric:tabular-nums}#rvF .crs.win .tm i{color:var(--ac)}
+#rvF .crs .ttl{grid-column:1/-1;font-size:13px;font-weight:900;color:var(--ac);margin-top:2px}
+#rvF .crs+.cbox{animation-delay:1.25s}
+#rvF .rvBt{width:100%;margin:auto 0 0;padding-top:14px;gap:10px;display:flex;animation:rvUp .4s ease-out 1.5s both}
+#rvF .rvBt .btn{flex:1;height:56px;padding:0 8px;font-size:16px;font-weight:900}
+#rvFl{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:85}#rvFl.on{animation:rvFlash .45s ease-out both}
+@keyframes rvSpin{to{transform:rotate(360deg)}}
+@keyframes rvPulse{50%{transform:scale(1.07) rotate(3deg)}}
+@keyframes rvBlink{50%{opacity:.35}}
+@keyframes rvFade{from{opacity:0}to{opacity:1}}
+@keyframes rvIn{from{opacity:0;transform:translateX(110%)}to{opacity:1;transform:none}}
+@keyframes rvPop{0%{opacity:0;transform:scale(.3)}60%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:none}}
+@keyframes rvGlow{50%{box-shadow:0 5px 0 #c99a1e,0 0 26px rgba(255,210,74,.85)}}
+@keyframes rvMed{0%{opacity:0;transform:scale(.2) rotate(-25deg)}55%{opacity:1;transform:scale(1.18) rotate(4deg)}100%{opacity:1;transform:none}}
+@keyframes rvZoom{0%{opacity:0;transform:scale(.5)}60%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:none}}
+@keyframes rvUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes rvBar{from{transform:scaleY(0)}to{transform:none}}
+@keyframes rvFlash{from{opacity:.85}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){#revP *,#rvFl{animation:none!important}}
 </style></head><body>
 <section id="vidP" class="pg hide"><video id="vid" playsinline preload="auto"></video><button class="btn" id="vskip" data-t="skip"></button></section>
 <button id="homeB" class="hide" aria-label="Menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button id="topBk" class="hide" aria-label="Retour"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div id="toast" class="hide"></div><div id="mpWarn" class="hide" data-t="mpWarn"></div>
@@ -613,7 +692,8 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <div class="mrow"><button class="btn p mb" data-m="w"><span data-t="mW"></span><small class="sub" data-t="s120"></small></button><button class="info" data-info="W">?</button></div>
 
 <button class="btn mb" data-back data-t="back"></button></section>
-<section id="rulesP" class="pg hide"><h2 data-t="rules"></h2><button class="btn mb" data-r="L" data-t="mL"></button><button class="btn mb" data-r="C" data-t="mC"></button><button class="btn mb" data-r="W" data-t="mW"></button><button class="btn mb" data-r="T" data-t="mT"></button><button class="btn mb" data-r="K" data-t="mK"></button><button class="btn mb" data-r="U" data-t="mU"></button><button class="btn mb" data-r="S" data-t="mS"></button><button class="btn mb" data-r="V" data-t="mV"></button><button class="btn mb" data-r="D" data-t="pD"></button><button class="btn mb" data-r="CM" data-t="mCM"></button><button class="btn mb" data-r="M" data-t="pM"></button><button class="btn mb" data-back data-t="back"></button></section>
+<section id="rulesP" class="pg hide"><h2 data-t="rules"></h2><button class="lnk" id="rwB" data-t="rwB"></button><h3 class="rCat" data-t="rcE"></h3><button class="btn mb ic" data-r="L"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></i><span class="mt"><span data-t="mL"></span><small class="sub" data-t="rsL"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="C"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></i><span class="mt"><span data-t="mC"></span><small class="sub" data-t="rsC"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="W"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></i><span class="mt"><span data-t="mW"></span><small class="sub" data-t="rsW"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><h3 class="rCat" data-t="rcD"></h3><button class="btn mb ic" data-r="T"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></i><span class="mt"><span data-t="mT"></span><small class="sub" data-t="rsT"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="K"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18.5h8"/></svg></i><span class="mt"><span data-t="mK"></span><small class="sub" data-t="rsK"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="U"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><rect x="8" y="9" width="8" height="6" rx="1.5"/></svg></i><span class="mt"><span data-t="mU"></span><small class="sub" data-t="rsU"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="S"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></i><span class="mt"><span data-t="mS"></span><small class="sub" data-t="rsS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="V"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></i><span class="mt"><span data-t="mV"></span><small class="sub" data-t="rsV"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><h3 class="rCat" data-t="rcM"></h3><button class="btn mb ic" data-r="D"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></i><span class="mt"><span data-t="pD"></span><small class="sub" data-t="rsD"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="CM"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></i><span class="mt"><span data-t="mCM"></span><small class="sub" data-t="rsCM"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb ic" data-r="M"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="18" cy="7" r="3"/><path d="M17 13.2c3.5-.4 7 1.8 7 5.8"/></svg></i><span class="mt"><span data-t="pM"></span><small class="sub" data-t="rsM"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button><button class="btn mb" data-back data-t="back" style="margin-top:8px"></button></section>
+<section id="revP" class="pg hide"></section><div id="rvFl"></div>
 <section id="ruleT" class="pg hide"><h2 id="rt"></h2><div id="rtext" class="rt"></div><button class="btn mb" id="rback" data-t="back"></button></section>
 <section id="statsP" class="pg hide"><h2 data-t="stats"></h2>
 <button class="btn p mb ic" id="stRec"><i class="mi"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></i><span class="mt"><span data-t="stRec"></span><small class="sub" data-t="stRecS"></small></span><i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></button>
@@ -7894,6 +7974,40 @@ Object.assign(T.fr,{sprT:"⚡ Super Sprint final",sprChamp:"Champion de la saiso
 Object.assign(T.en,{sprT:"⚡ Super Sprint final",sprChamp:"Season {n} champion in {m}!",sprH:"Your special challenge: 8 words of 7 to 10 letters, always 10 letters drawn (so some are decoys), no Shuffle button, in 2 minutes. One attempt only, to play before the season ends. Find all 8 words to become a ⭐ Legend!",
  sprGo:"▶ Play the Super Sprint final",sprConf:"<p>One attempt only: 8 words of 7 to 10 letters, 10 letters drawn including decoys, no Shuffle button, 2 minutes.</p><p>Ready?</p>",sprRes:"Your Super Sprint final: {n}/8",sprLeg:"⭐ Legend! All 8 words found",
  sprSent:"⚠️ Result not sent yet: check your internet connection.",sprFr:"French",sprEn:"English",sprPal:"⚡ Super Sprint: {n} · {m}/8",sprPalL:"⭐ Legend: {n} (8/8)",sprPal0:"⚡ Super Sprint: {n} · to be played"});
+// v27 : textes de l'écran Règles (avant le premier applyLang, sinon t() plante sur une clé absente)
+Object.assign(T.fr,{rcE:"Épreuves",rcD:"Défis",rcM:"Modes de jeu",rwB:"❓ Revoir l'introduction",
+ rsL:"le mot le plus long avec 10 lettres",rsC:"atteins un nombre avec 6 plaques",rsW:"8 mots mélangés en 2 minutes",
+ rsT:"2 mots d'un même thème",rsK:"5 opérations à enchaîner de tête",rsU:"2 mots cachés dans 10 lettres",rsS:"écris le mot que tu entends",rsV:"traduis le mot affiché",
+ rsD:"le même tirage pour tous",rsCM:"10 épreuves au chrono",rsM:"en direct ou à ton rythme"});
+Object.assign(T.en,{rcE:"Main games",rcD:"Challenges",rcM:"Game modes",rwB:"❓ See the introduction again",
+ rsL:"the longest word from 10 letters",rsC:"6 tiles to reach a number",rsW:"8 scrambled words in 2 minutes",
+ rsT:"2 words on the same theme",rsK:"5 operations, all in your head",rsU:"2 words hidden in 10 letters",rsS:"spell the word you hear",rsV:"translate the word shown",
+ rsD:"the same draw for everyone",rsCM:"10 timed rounds",rsM:"live or at your own pace"});
+// v28 : règles de la partie du jour et de la Course des as, textes des écrans de fin de semaine et de fin de saison
+Object.assign(T.fr,{rD:`<p>📅 Chaque jour à minuit (heure française), <b>7 nouvelles épreuves</b> : Chasse aux mots en français et en anglais (30 secondes), Nombre cible (45 secondes), un défi en français et un défi en anglais (30 secondes, une seule réponse), Sprint final en français et en anglais (2 minutes). Le type de chaque défi est tiré au hasard.</p><p>Le tirage est le même pour tous les joueurs et chaque épreuve ne se joue qu'une seule fois. Pour la Chasse aux mots, le tirage contient toujours au moins un mot de 10 lettres.</p><p>🏅 Classements du jour : Chasse aux mots au mot le plus long trouvé, Nombre cible au résultat le plus proche de la cible, défis à la bonne réponse, Sprint final au nombre de mots trouvés. En cas d'égalité, le plus rapide passe devant, au centième de seconde près.</p><p>Après avoir joué, tu découvres sous le classement le tirage du jour et les solutions. Si tu n'as pas encore joué, seul le classement est visible. Le tirage et les solutions de la veille sont visibles par tous dans l'onglet Hier.</p><h3>🏆 Le championnat de la semaine</h3><p>Du lundi 0 h au dimanche 23 h 59, chaque épreuve jouée le jour même rapporte des points : <b>1 point</b> par épreuve, <b>2 points</b> pour chaque Sprint final. Bonus pour le podium de chaque épreuve : <b>+3</b> au 1er, <b>+2</b> au 2e, <b>+1</b> au 3e. À égalité de points, le plus de 1res places l'emporte, puis de 2es, puis de 3es.</p><p>La semaine suivante, à ta première visite dans La partie du jour, tu découvres ton classement de la semaine.</p><h3>⚔️ Le match des champions</h3><p>Les deux premiers de la semaine s'affrontent la semaine suivante en 7 manches, avec le même tirage pour les deux : Chasse aux mots FR et EN lundi et mardi, Nombre cible mercredi, défi FR jeudi, défi EN vendredi, Sprint final FR samedi, Sprint final EN dimanche. Le premier à 4 manches gagnées est champion de la semaine. Une manche non jouée dans les délais est perdue par forfait.</p><p>👥 Classements : le top 10 de tous les joueurs qui ont un compte, et le classement entre amis. En invité, tu peux jouer mais ton résultat n'est pas classé et ne compte pas pour le championnat.</p>`,
+ rvTap:"👆 Touche l'écran",rvWkC:"🏆 Championnat de la semaine",rvWk1:"Le championnat de la semaine est terminé,",rvGo:"il est temps de découvrir ton classement !",
+ rvCmC:"🏁 La Course des as · Saison {n}",rvCm1:"La saison {n} de la Course des as est terminée,",rvWkL:"Classement de la semaine",
+ rvCong:"Félicitations !",rvPod:"Sur le podium !",rvWell:"Bien joué !",rvPl:"Tu termines à la <b>{n} place</b>",rvOf:"sur {n} joueurs · {m}",rvOf1:"seul joueur de la semaine · {m}",
+ rvPt1:"1 pt",rvPtN:"{n} pts",rvMT:"Match des champions",rvMx:"Tu joueras le match des champions contre <em>{n}</em> ({m}). 7 manches, cette semaine.",
+ rvBrT:"Médaille de bronze",rvBr:"Il t'a manqué <em>{n}</em> pour jouer le match des champions. Nouvelle semaine, nouvelle chance !",rvBr0:"Départagé de justesse pour le match des champions. Nouvelle semaine, nouvelle chance !",
+ rvNew:"Nouvelle semaine, nouvelle chance !",rvRk:"🏆 Classement",rvCont:"Continuer ▶",rvEnd:"terminée le {n}",
+ rvRfr:"course en français",rvRen:"course en anglais",rvRFr:"Course en français",rvREn:"Course en anglais",
+ rvWin1:"Tu remportes la <b>{n}</b>",rvWin2:"Tu remportes <b>les deux courses</b>",rvTit1:"Le titre de la saison {n} est à toi",rvTit2:"Les deux titres de la saison {n} sont à toi",rvIn:"de la {n}",rvOfP:"sur {n} joueurs",
+ rvTot:"Temps total",rvGap:"Écart avec le vainqueur",rvChamp:"👑 Champion de la saison {n}",rvSurT:"Une surprise t'attend…",rvSur:"Découvre-la dans le menu de La Course des as."});
+Object.assign(T.en,{rD:`<p>📅 Every day at midnight (French time), <b>7 new rounds</b>: Word Hunt in French and in English (30 seconds), Target Number (45 seconds), a French challenge and an English challenge (30 seconds, one answer only), Final Sprint in French and in English (2 minutes). The type of each challenge is drawn at random.</p><p>The draw is the same for every player and each round can be played only once. For Word Hunt, the draw always contains at least one 10-letter word.</p><p>🏅 Daily leaderboards: Word Hunt by the longest word found, Target Number by the result closest to the target, challenges by the right answer, Final Sprint by the number of words found. Ties are broken by time, to the hundredth of a second.</p><p>Once you have played, the draw and the solutions appear below the leaderboard. If you haven't played yet, only the leaderboard is shown. Yesterday's draw and solutions are visible to everyone in the Yesterday tab.</p><h3>🏆 The weekly championship</h3><p>From Monday 00:00 to Sunday 23:59, every round played on the day itself earns points: <b>1 point</b> per round, <b>2 points</b> for each Final Sprint. Podium bonus on each round: <b>+3</b> for 1st, <b>+2</b> for 2nd, <b>+1</b> for 3rd. On a tie, most 1st places wins, then 2nd, then 3rd.</p><p>The following week, on your first visit to the Daily game, you find out your ranking for the week.</p><h3>⚔️ The Champions' match</h3><p>The top two of the week face each other the following week over 7 rounds, with the same draw for both: Word Hunt FR and EN on Monday and Tuesday, Target Number on Wednesday, French challenge on Thursday, English challenge on Friday, Final Sprint FR on Saturday, Final Sprint EN on Sunday. The first to win 4 rounds is the champion of the week. A round not played in time is lost by forfeit.</p><p>👥 Leaderboards: the top 10 of all players with an account, and the ranking among friends. As a guest, you can play but your result is not ranked and doesn't count for the championship.</p>`,
+ rvTap:"👆 Tap the screen",rvWkC:"🏆 Weekly championship",rvWk1:"The weekly championship is over,",rvGo:"time to find out your ranking!",
+ rvCmC:"🏁 Aces' Race · Season {n}",rvCm1:"Season {n} of the Aces' Race is over,",rvWkL:"Weekly standings",
+ rvCong:"Congratulations!",rvPod:"On the podium!",rvWell:"Well played!",rvPl:"You finish <b>{n}</b>",rvOf:"out of {n} players · {m}",rvOf1:"only player of the week · {m}",
+ rvPt1:"1 pt",rvPtN:"{n} pts",rvMT:"Champions' match",rvMx:"You'll face <em>{n}</em> ({m}) in the Champions' match. 7 rounds, this week.",
+ rvBrT:"Bronze medal",rvBr:"You were <em>{n}</em> short of the Champions' match. New week, new chance!",rvBr0:"You just missed the Champions' match on the tie-break. New week, new chance!",
+ rvNew:"New week, new chance!",rvRk:"🏆 Leaderboard",rvCont:"Continue ▶",rvEnd:"ended {n}",
+ rvRfr:"French race",rvRen:"English race",rvRFr:"French race",rvREn:"English race",
+ rvWin1:"You win the <b>{n}</b>",rvWin2:"You win <b>both races</b>",rvTit1:"The season {n} title is yours",rvTit2:"Both season {n} titles are yours",rvIn:"in the {n}",rvOfP:"out of {n} players",
+ rvTot:"Total time",rvGap:"Gap to the winner",rvChamp:"👑 Season {n} champion",rvSurT:"A surprise awaits you…",rvSur:"Find it in the Aces' Race menu."});
+{const A="<p>👑 Le plus petit temps total de chaque course est sacré champion de la saison : un champion pour la course en français, un pour la course en anglais. Et une surprise attend le vainqueur de chaque course…</p>",
+ B="<p>👑 The fastest total time in each race is crowned season champion: one champion for the French race, one for the English race. And a surprise awaits the winner of each race…</p>",
+ f=(s,k,a)=>{const m=k==="fr"?"Les solutions sont dévoilées à la saison suivante.</p>":"Solutions are revealed during the following season.</p>";return s&&s.indexOf(a)<0&&s.indexOf(m)>=0?s.replace(m,m+a):s};
+ T.fr.iCM=f(T.fr.iCM,"fr",A);T.en.iCM=f(T.en.iCM,"en",B);T.fr.rCM=T.fr.iCM;T.en.rCM=T.en.iCM}
 applyLang();loadSB();
 // --- Sprint final en partie courte (solo, salon, tour par tour) : moitié des lettres arrondie au-dessus (3-3-4-4) ---
 function wCourte(){try{if(party&&party.type==="q")return true;if(mpr&&MP&&MP.R&&MP.R.mo==="o"&&MP.R.ty==="q")return true;if(tbx&&tbx.nt===4)return true}catch(e){}return false}
@@ -8365,4 +8479,85 @@ wkRank=(o=>async function(){const r=await o.apply(this,arguments);try{wkProv()}c
 $("rkL").addEventListener("click",e=>{const r=e.target.closest("[data-wi]"),ti=wkTi();if(!r||ti<0||ti>6)return;const x=WKL.list[+r.dataset.wi];if(!x||!((x.days||[])[ti]|0))return;
  const c=document.querySelectorAll("#mb .wkd>div")[ti],b=c&&c.querySelector("b");if(!b)return;b.insertAdjacentText("beforeend"," ⏳");
  const d=$("mb").querySelector(".wkd");if(d)d.insertAdjacentHTML("afterend",'<p class="dnote" style="text-align:center;margin-top:6px">'+t("wkProvD")+"</p>")});
+// ===== v27 : écran Règles (catégories, icônes, sous-titres, lien vers l'introduction) =====
+// « Revoir l'introduction » ouvre « C'est quoi NumériMots ? » ; Retour ramène aux règles
+let whatFrom=null;
+{const oBack=$("whatBack").onclick,oB=$("whatB").onclick,go=$("whatGo");
+ const done=()=>{const p=whatFrom;whatFrom=null;go.classList.remove("hide");return p};
+ $("whatBack").onclick=e=>{const p=done();if(p){show(p);window.scrollTo(0,0)}else oBack(e)};
+ $("whatB").onclick=e=>{done();oB(e)};
+ $("rwB").onclick=()=>{whatFrom="rulesP";go.classList.add("hide");renderWhat();show("whatP");window.scrollTo(0,0)}}
+// ===== v28 : écrans de fin de semaine (parties du jour) et de fin de saison (Course des as) : suspense, révélation, résultat =====
+// Montrés une seule fois par compte (mémorisé sur le téléphone) : à la 1re ouverture de La partie du jour de la semaine
+// et à la 1re ouverture de La Course des as après la fin d'une saison (à partir de la saison 2).
+// Le compte admin voit aussi la semaine d'avant le championnat (9–15 novembre 2026), pour tester.
+const RVK="nmReveal";let rvBusy=false,rvTm=[];
+function rvSeen(k){try{return!!JSON.parse(localStorage.getItem(RVK)||"{}")[k]}catch(e){return false}}
+function rvMark(k){try{const o=JSON.parse(localStorage.getItem(RVK)||"{}");o[k]=1;localStorage.setItem(RVK,JSON.stringify(o))}catch(e){}}
+const rvTO=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(null),ms))]);
+const rvSuf=n=>L==="fr"?(n===1?"re":"e"):(n%100>10&&n%100<14?"th":["th","st","nd","rd"][n%10]||"th");
+const rvOrd=n=>n+"<sup>"+rvSuf(n)+"</sup>",rvOrdT=n=>n+rvSuf(n);
+const rvPts=n=>n===1?t("rvPt1"):t("rvPtN",n);
+const rvNoMo=()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}};
+function rvClr(){rvTm.forEach(clearTimeout);rvTm=[]}
+function rvFlash(){const f=$("rvFl");if(!f||rvNoMo())return;f.classList.remove("on");void f.offsetWidth;f.classList.add("on")}
+// --- données ---
+async function rvWeekGet(){if(!ME||!sb||!NET)return null;const w=addDay(wkMon(pToday()),-7);if(w<WK0&&!admIs())return null;const k="w|"+ME.id+"|"+w;if(rvSeen(k))return null;
+ let r=null;try{r=await rvTO(sb.rpc("week_rank",{p_week:w,p_scope:"top"}),4000)}catch(e){}
+ if(!r||r.error||!Array.isArray(r.data))return null;const list=r.data,me=list.find(x=>x.me);if(!me){rvMark(k);return null}
+ let opp=null;const top2=list.slice(0,2);
+ if(list.length>1&&top2.indexOf(me)>=0){let d=null;if(w>=WK0)try{d=await rvTO(chmGet(w),3000)}catch(e){}
+  if(d&&d.p1&&d.p2&&!d.solo&&(d.me1||d.me2))opp={n:d.me1?d.p2:d.p1,p:d.me1?2:1};
+  else{const o=top2.find(x=>x!==me);if(o)opp={n:o.pseudo,p:o.pos}}}
+ return{k,w,list,me,opp}}
+async function rvCmGet(){if(!ME||!sb||!NET)return null;const s=cmCur()-1;if(s<2)return null;const k="c|"+ME.id+"|"+s;if(rvSeen(k))return null;
+ let a=null;try{a=await rvTO(Promise.all(["fr","en"].map(lg=>sb.rpc("cm_rank",{p_season:s,p_lang:lg,p_scope:"top"}))),5000)}catch(e){}
+ if(!a||a.some(r=>!r||r.error))return null;
+ const R=["fr","en"].map((lg,i)=>{const all0=a[i].data||[],fin=all0.filter(x=>x.pos).sort((x,y)=>x.pos-y.pos),me=fin.find(x=>x.me);return me?{lg,fin,me,win:fin[0],n:(all0[0]&&all0[0].nfin)|0||fin.length}:null}).filter(Boolean);
+ if(!R.length){rvMark(k);return null}return{k,s,R}}
+// --- écran de suspense, puis classement qui défile, puis résultat ---
+function rvRows(list,val){const me=list.find(x=>x.me);let L0=list.length<=8?list.slice():list.slice(0,7);if(L0.indexOf(me)<0)L0.push(me);return L0.map((x,i)=>({x,gap:i&&x.pos>L0[i-1].pos+1}))}
+function rvRun(o){rvClr();const P=$("revP");
+ P.innerHTML='<div class="rvL" id="rvA"><span class="chip2">'+o.chip+'</span><div class="bigc"><div class="rays"></div><div class="disc"></div><span>'+o.icon+"</span></div><h2>"+o.l1+"<em>"+t("rvGo")+'</em></h2><div class="tap">'+t("rvTap")+"</div></div>";
+ show("revP");window.scrollTo(0,0);let st=0;
+ const fin=()=>{if(st===2)return;st=2;rvClr();rvFlash();P.innerHTML='<div class="rvL" id="rvF">'+o.fin+"</div>";window.scrollTo(0,0);
+  if(o.conf)rvTm.push(setTimeout(a3Conf,250));
+  $("rvRk").onclick=()=>{rvClr();o.rank()};$("rvGo").onclick=()=>{rvClr();o.next()}};
+ $("rvA").onclick=()=>{if(st)return;st=1;rvMark(o.k);rvFlash();if(rvNoMo())return fin();
+  const R=o.rows,n=R.length;let h='<h3>'+o.lt+"</h3>",d=250,k=0;
+  // les autres lignes arrivent de bas en haut, ta ligne en dernier
+  const others=R.filter(z=>!z.x.me).length;
+  R.forEach(z=>{const me=z.x.me;let dl;if(me)dl=250+others*130+450;else{dl=250+(others-1-k)*130;k++}
+   h+=(z.gap?'<div class="sep" style="animation-delay:'+dl+'ms">⋯</div>':"")+'<div class="r'+(me?" me":"")+'" style="animation-delay:'+dl+(me?"ms,"+(dl+500)+"ms":"ms")+'"><b>'+z.x.pos+"</b><span>"+esc(z.x.pseudo)+"</span><small>"+o.val(z.x)+"</small></div>"});
+  P.innerHTML='<div class="rvL" id="rvB">'+h+"</div>";$("rvB").onclick=fin;
+  rvTm.push(setTimeout(fin,250+others*130+450+1300))}}
+// --- fin de semaine ---
+function rvWeek(x,next){const{w,list,me,opp}=x,p=me.pos,n=list.length,top=list.filter(z=>z.pos<=3).slice(0,3);
+ let box="";
+ if(p<=2&&opp)box='<div class="cbox gold"><span class="ci">⚔️</span><div><b>'+t("rvMT")+"</b><p>"+t("rvMx",esc(opp.n),rvOrdT(opp.p))+"</p></div></div>";
+ else if(p===3){const g=list[1]?list[1].pts-me.pts:0;box='<div class="cbox"><span class="ci">🥉</span><div><b>'+t("rvBrT")+"</b><p>"+(g>0?t("rvBr",rvPts(g)):t("rvBr0"))+"</p></div></div>"}
+ else if(p>3)box='<div class="cbox one"><span class="ci">💪</span><div><b>'+t("rvNew")+"</b></div></div>";
+ let pod="";if(top.length)pod='<div class="pod">'+[top[1],top[0],top[2]].map((z,j)=>z?'<div class="p'+[2,1,3][j]+(z.me?" me":"")+'"><span class="pn">'+esc(z.pseudo)+'</span><div class="pb"><b>'+z.pos+"</b><small>"+rvPts(z.pts)+"</small></div></div>":"<div></div>").join("")+"</div>";
+ if(top.indexOf(me)<0)pod+='<div class="rkr me"><b>'+p+"</b><span>"+esc(me.pseudo)+"</span><small><b>"+rvPts(me.pts)+"</b></small></div>";
+ const fin='<div class="rays" style="top:220px"></div><span class="chip2">'+t("rvWkC")+'</span><p class="cwk">'+esc(wkRange(w))+'</p><div class="mw"><div class="med '+(p<4?"m"+p:"mn")+'"><b>'+p+"</b><sup>"+rvSuf(p)+'</sup></div></div><h2 class="ct">'+t(p<=2?"rvCong":p===3?"rvPod":"rvWell")+'</h2><p class="cpl">'+t("rvPl",rvOrdT(p))+'</p><p class="cpt">'+(n>1?t("rvOf",n,rvPts(me.pts)):t("rvOf1",rvPts(me.pts)))+"</p>"+box+pod+
+  '<div class="rvBt"><button class="btn" id="rvRk">'+t("rvRk")+'</button><button class="btn p" id="rvGo">'+t("rvCont")+"</button></div>";
+ rvRun({k:x.k,chip:t("rvWkC"),icon:"🏆",l1:t("rvWk1"),lt:t("rvWkL"),rows:rvRows(list),val:z=>rvPts(z.pts),fin,conf:p<=2,
+  rank:()=>{rkG="wk";const i=wkList().indexOf(w);wkO=i<0?0:i;wkRank()},next})}
+// --- fin de saison de la Course des as ---
+function rvCm(x){const{s,R}=x,wins=R.filter(r=>r.me.pos===1),best=R.slice().sort((a,b)=>a.me.pos-b.me.pos)[0],p=best.me.pos,win=wins.length>0;
+ const nm=lg=>t(lg==="fr"?"rvRfr":"rvRen"),NM=lg=>t(lg==="fr"?"rvRFr":"rvREn"),fl=lg=>lg==="fr"?"🇫🇷":"🇬🇧";
+ const blk=r=>{const w=r.me.pos===1;return'<div class="crs'+(w?" win":"")+'"><span class="fl">'+fl(r.lg)+"</span><b>"+NM(r.lg)+'</b><span class="rk">'+rvOrd(r.me.pos)+"</span><small>"+t("rvOfP",r.n)+'</small><div class="tm"><span>'+t("rvTot")+"</span><i>"+fmtCM(r.me.total_ms)+"</i></div>"+
+  (w?'<div class="ttl">'+t("rvChamp",s)+"</div>":'<div class="tm"><span>'+t("rvGap")+"</span><i>+"+fmtCM(Math.max(0,r.me.total_ms-r.win.total_ms))+"</i></div>")+"</div>"};
+ const head='<span class="chip2">'+t("rvCmC",s)+'</span><p class="cwk">'+esc(t("rvEnd",fmtDayS(cmLast(s))))+"</p>";
+ const med=win?'<div class="mw cr"><div class="med m1"><span class="crw">👑</span><b>1</b><sup>'+rvSuf(1)+"</sup></div></div>":'<div class="mw"><div class="med '+(p<4?"m"+p:"mn")+'"><b>'+p+"</b><sup>"+rvSuf(p)+"</sup></div></div>";
+ const txt=win?'<h2 class="ct">'+t("rvCong")+'</h2><p class="cpl">'+(wins.length>1?t("rvWin2"):t("rvWin1",nm(wins[0].lg)))+'</p><p class="cpt">'+t(wins.length>1?"rvTit2":"rvTit1",s)+"</p>"
+  :'<h2 class="ct">'+t("rvWell")+'</h2><p class="cpl">'+t("rvPl",rvOrdT(p))+'</p><p class="cpt">'+t("rvIn",nm(best.lg))+"</p>";
+ const sur=win?'<div class="cbox gold"><span class="ci">🎁</span><div><b>'+t("rvSurT")+"</b><p>"+t("rvSur")+"</p></div></div>":"";
+ const fin='<div class="rays" style="top:220px"></div>'+head+med+txt+R.map(blk).join("")+sur+'<div class="rvBt"><button class="btn" id="rvRk">'+t("rvRk")+'</button><button class="btn p" id="rvGo">'+t("rvCont")+"</button></div>";
+ rvRun({k:x.k,chip:t("rvCmC",s),icon:"🏁",l1:t("rvCm1",s),lt:fl(best.lg)+" "+NM(best.lg),rows:rvRows(best.fin),val:z=>fmtCM(z.total_ms),fin,conf:win,
+  rank:()=>cmRank(s,best.lg),next:openCm})}
+// --- branchement sur les touches La partie du jour et La Course des as ---
+{const wrap=(id,get,go)=>{const b=$(id);if(!b)return;const o=b.onclick;b.onclick=async function(e){if(rvBusy)return;rvBusy=true;let x=null;try{x=await get()}catch(err){}rvBusy=false;
+  if(x){try{return go(x,()=>o&&o.call(b,e))}catch(err){}}return o&&o.call(b,e)}};
+ wrap("daily",rvWeekGet,rvWeek);wrap("dailyS",rvWeekGet,rvWeek);wrap("cmHome",rvCmGet,x=>rvCm(x))}
 </script></body></html>
