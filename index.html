@@ -677,7 +677,7 @@ body.kb0 #ans{pointer-events:none;caret-color:transparent}
 <section id="trainP" class="pg hide"><h2 data-t="pT"></h2>
 <div class="mrow"><button class="btn p mb" data-tm="l" data-t="mL"></button><button class="info" data-info="L">?</button></div>
 <div class="mrow"><button class="btn p mb" data-tm="c" data-t="mC"></button><button class="info" data-info="C">?</button></div>
-<button class="btn p mb dfOpen" data-from="trainP"><span data-t="pX"></span><small class="sub" data-t="dX"></small></button>
+<button class="btn p mb dfOpen" data-from="trainP"><span data-t="pX"></span><small class="sub" data-t="dXT"></small></button>
 <div class="mrow"><button class="btn p mb" data-tm="w" data-t="mW"></button><button class="info" data-info="W">?</button></div>
 
 <button class="btn mb" data-back data-t="back"></button></section>
@@ -849,7 +849,7 @@ applyLang=(f=>function(){f.apply(this,arguments);icClean()})(applyLang);
 var pgL=null;function pgFx(id){if(id===pgL)return;pgL=id;const e=document.getElementById(id);if(!e)return;e.classList.remove("pin");void e.offsetWidth;e.classList.add("pin")}
 const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const A={theme:new Audio(),ding:new Audio("assets/son-bonne-reponse.mp3"),chiffres:new Audio(),lettres:new Audio(),l60:new Audio(),linf:new Audio(),c90:new Audio(),cinf:new Audio(),clic:new Audio("assets/son-tirage.mp3"),cible:new Audio("assets/son-cible.mp3"),defis:new Audio()};
+const A={theme:new Audio(),ding:new Audio("assets/son-bonne-reponse.mp3"),chiffres:new Audio(),lettres:new Audio(),l60:new Audio(),linf:new Audio(),c90:new Audio(),cinf:new Audio(),clic:new Audio("assets/son-tirage.mp3"),cible:new Audio("assets/son-cible.mp3"),defis:new Audio(),d60:new Audio(),dinf:new Audio()};
 const hasS=a=>!!(a&&a.getAttribute("src"));
 let MP=null,mpr=null,mpJoin0=null,frIn0=null,wlk=null,mrTok=0;
 let music=null,musicOn=true,pending=null,timer,tmo,dtm,mode,dl,dict,rounds,queue,cur,score,best,tried="",locked,over=true,ld,nv,nc,rk="W",party=null,rc=null,rs=0;
@@ -862,7 +862,7 @@ function sfx(a){if(!musicOn)return;const k=a===A.clic?"clic":a===A.cible?"cible"
 function sfxStop(){src.forEach(s=>{try{s.stop()}catch(e){}});src=[];A.clic.pause();A.cible.pause()}
 document.addEventListener("pointerdown",initAC,true);
 let trn=null,dur={l:30,c:45};const DM={l:{30:"lettres",60:"l60",0:"linf"},c:{45:"chiffres",90:"c90",0:"cinf"}};
-function playM(a){stopM();music=a;if(!hasS(a))return;a.loop=(a===A.linf||a===A.cinf);a.currentTime=0;if(musicOn)a.play().catch(()=>{})}
+function playM(a){stopM();music=a;if(!hasS(a))return;a.loop=(a===A.linf||a===A.cinf||a===A.dinf);a.currentTime=0;if(musicOn)a.play().catch(()=>{})}
 function stopM(){if(music){music.loop=false;music.pause();music.onended=null}}
 function ding(){if(musicOn){A.ding.currentTime=0;A.ding.play().catch(()=>{})}}
 function afterMusic(fn){clearTimeout(tmo);const a=music;let d=0;const go=()=>{if(d)return;d=1;clearTimeout(tmo);pending=null;fn()};
@@ -899,10 +899,10 @@ function showRule(k){rk=k;$("rt").textContent=t("m"+k);$("rtext").innerHTML=t("r
 all("[data-r]").forEach(b=>b.onclick=()=>showRule(b.dataset.r));$("rback").onclick=()=>show("rulesP");
 all("[data-p]").forEach(b=>b.onclick=()=>{const ty=b.dataset.p;{const go=()=>{closeModal();trn=null;chNav=false;dfNav=false;dur={l:30,c:45};party={type:ty,steps:ty==="n"?mkNS():mkQS(),i:0,total:0};clrS(ty);$("dst").textContent="";show("dictP")};getS()[ty]?modal(t("pO"),"<p>"+t("over")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:go}]):go()}});
 all("[data-m]").forEach(b=>b.onclick=()=>{party=null;trn=null;chNav=false;dfNav=false;dur={l:30,c:45};mode=b.dataset.m;if(mode==="c")startC();else{$("dst").textContent="";show("dictP")}});
-all("[data-tm]").forEach(b=>b.onclick=()=>{const g=b.dataset.tm;party=null;trn=g;chNav=false;dfNav=false;$("durT").textContent=t("m"+g.toUpperCase());if(g==="w"){dur={l:30,c:45};mode="w";$("dst").textContent="";show("dictP");return}
+all("[data-tm]").forEach(b=>b.onclick=()=>{const g=b.dataset.tm;durDf=false;party=null;trn=g;chNav=false;dfNav=false;$("durT").textContent=t("m"+g.toUpperCase());if(g==="w"){dur={l:30,c:45};mode="w";$("dst").textContent="";show("dictP");return}
  const o=g==="l"?[30,60,0]:[45,90,0];$("durB").innerHTML=o.map(v=>'<button class="btn p mb" data-du="'+v+'">'+(v?t("secs",v):t("inf"))+"</button>").join("");
  all("[data-du]").forEach(x=>x.onclick=()=>{dur[g]=+x.dataset.du;mode=g;if(g==="c")startC();else{$("dst").textContent="";show("dictP")}});show("durP")});
-$("durBack").onclick=()=>show("trainP");
+$("durBack").onclick=()=>show(durDf?"dfMenu":"trainP");
 // sauvegarde
 const SK="fwsave3";
 function getS(){try{return JSON.parse(localStorage.getItem(SK)||"{}")}catch(e){return{}}}
@@ -2816,7 +2816,8 @@ function dfStop(){clearInterval(dft);dft=null;if(dfx){clearInterval(dfx.bzI);cle
 function startDf(g){clearTimeout(tmo);clearTimeout(dtm);stopM();clearInterval(timer);sfxStop();dfStop();mode=g;chArm();
  const d=mpr?MP.R.d:tbx?tbx.d:cmx?cmx.d:daily&&!party&&DGM[daily.g]==="j"?genDaily(daily.day,daily.g):chl&&chl.opp?chl.opp.D:dfGen(g,dl);if(chl&&!chl.opp)chl.D=d;
  const dsl=!mpr&&!cmx&&!!(tbx||chl&&chl.opp)&&!!DFPRE_S[g];
- dfx={dly:daily&&!party?daily:null,g,d,sl:dsl,p0:performance.now(),pre:dsl?DFPRE_S[g]:g==="s"&&!mpr?8000:DFPRE[g],r0:0,sent:0,end:0,ready:false,shown:0,spk:0,num:"",wd:"",ai:0,st:null,wk:0,fin:0,bzS:0};
+ const tms=!mpr&&!party&&!daily&&!tbx&&!cmx&&!(chl&&chl.opp)&&dfNav&&dfFrom==="trainP"&&dfDu!==30?(dfDu?dfDu*1000:DFINF):DFMS;if(tms!==DFMS)chl=null;
+ dfx={ms:tms,inf:tms>=DFINF,dly:daily&&!party?daily:null,g,d,sl:dsl,p0:performance.now(),pre:dsl?DFPRE_S[g]:g==="s"&&!mpr?8000:DFPRE[g],r0:0,sent:0,end:0,ready:false,shown:0,spk:0,num:"",wd:"",ai:0,st:null,wk:0,fin:0,bzS:0};
  score=0;over=false;setStage();dfDraw();show("dfP");ghOn();dft=setInterval(dfTick,100);dfTick();if(dfBzM())dfSync()}
 function dfDraw(){const x=dfx,d=x.d,mp=dfBzM();msg("","","dfmsg");
  $("dfTh").textContent=x.g==="t"?t("dfTheme",dfTitle(d)):t("m"+x.g.toUpperCase());
@@ -2835,7 +2836,9 @@ function dfDraw(){const x=dfx,d=x.d,mp=dfBzM();msg("","","dfmsg");
  else{const R=d.lg==="en"?["qwertyuiop","asdfghjkl","zxcvbnm"]:["azertyuiop","qsdfghjklm","wxcvbn"];
   $("dfArea").innerHTML=x.g==="v"?dvArea(d,1):'<button class="dfsp" id="dfSp" aria-label="'+esc(t("dfRe"))+'">🔊</button><p class="dfre" id="dfReH">'+esc(t("dfRe"))+(IOS?" · "+esc(t("dfIos")):"")+'</p><p class="dfh hid" id="dfDef">'+esc(dfS(d)[1])+"</p>";
   $("dfIn").innerHTML=bz+'<div id="dfNum" class="dfsw"></div><div class="kb">'+R.map((r,j)=>"<div>"+r.split("").map(c=>'<button class="btn" data-kb="'+c+'">'+c.toUpperCase()+"</button>").join("")+(j===2?'<button class="btn w" data-kb="⌫">⌫</button>':"")+"</div>").join("")+'</div><div class="row"><button class="btn p" data-kb="✓">'+t("submit")+"</button></div>"}
+ if(x.inf&&!mp)$("dfIn").insertAdjacentHTML("beforeend",'<div class="row"><button class="btn" id="dfGive">'+t("dfGive")+"</button></div>");
  dfReveal(-1,1);dfCtl()}
+function dfGiveUp(){const x=dfx;if(!x||!x.ready||x.end||x.sent||over)return;x.end=1;dfStop();stopM();pending=null;results(t("dfGiven"),dfSolHTML(x.d,null,false))}
 // dévoilement progressif (lettres, calculs, définitions, voix), avec le petit son du tirage
 function dfReveal(el,f){const x=dfx;if(!x)return;const T=(x.sl?DFTM_S:DFTM)[x.g],n=el===Infinity?T.length:T.filter(v=>v<=el).length,old=x.shown;
  if(n<old||(n===old&&!f))return;x.shown=n;const d=x.d;
@@ -2848,7 +2851,9 @@ function dfReveal(el,f){const x=dfx;if(!x)return;const T=(x.sl?DFTM_S:DFTM)[x.g]
   if(x.ready)return dfRT();$("dfTiles").innerHTML=x.l.map((c,i)=>i<k?'<div class="tile'+(i===k-1&&n>old?" pop":"")+'" style="cursor:default">'+c.toUpperCase()+"</div>":'<div class="tile" style="cursor:default;opacity:.3">?</div>').join("")}}
 function dfReady(){const x=dfx;if(!x||x.ready)return;x.ready=true;x.r0=performance.now();if(chl&&!mpr&&!tbx)chl.t0=x.r0;dfReveal(Infinity,1);
  if(x.g==="k")dfNum();if(x.g==="s"||x.g==="v")dfWd();
- if(!mpr||!MP||!MP.R||!MP.R.bz||MP.R.bz.st!=="done"){playM(A.defis);if(mpr&&MP&&MP.R&&MP.R.bz&&(MP.R.bz.ms||DFMS)!==DFMS&&music===A.defis)music.loop=true}dfCtl()}
+ if(!mpr||!MP||!MP.R||!MP.R.bz||MP.R.bz.st!=="done"){const ms=mpr&&MP&&MP.R&&MP.R.bz?(MP.R.bz.ms||DFMS):x.ms;x.mus=dfMus(ms);playM(x.mus);if(ms!==DFMS&&music===A.defis)music.loop=true}dfCtl()}
+// musique du défi : 30 s = musique des défis ; 60 s = defis-60 sinon Lettres 60 s ; infini = defis-infini sinon Lettres infini (en boucle)
+function dfMus(ms){if(!ms||ms===DFMS)return A.defis;if(ms>=DFINF)return hasS(A.dinf)?A.dinf:hasS(A.linf)?A.linf:A.defis;return hasS(A.d60)?A.d60:hasS(A.l60)?A.l60:A.defis}
 function dfRT(){const x=dfx;if(!x||(x.g!=="t"&&x.g!=="u")||!x.ready)return;if(!x.pk)x.pk=[[],[]];const U=new Set();  if(x.g==="u")x.pk[x.ai]=pkSync(x.l,$("dfA"+x.ai).value,x.pk[x.ai],U);else [0,1].forEach(i=>{x.pk[i]=pkSync(x.l,$("dfA"+i).value,x.pk[i],U)});
  $("dfTiles").innerHTML=x.l.map((c,i)=>{const u=U.has(i);return'<button class="tile" data-ti="'+i+'"'+(u?' data-u="1" style="opacity:.3"':"")+">"+c.toUpperCase()+"</button>"}).join("");
  [0,1].forEach(i=>$("dfA"+i).classList.toggle("on",x.ai===i))}
@@ -2872,9 +2877,9 @@ function dfTick(){const x=dfx;if(!x||over||$("dfP").classList.contains("hide"))r
  if(dfBzM()){const b=MP&&MP.R&&MP.R.bz;if(!b)return;
   dfTot(b.ms||DFMS);if(b.st==="pre"){dfReveal(DFPRE[x.g]-(b.prem-(now-MP.rt)));rem=b.ms||DFMS}
   else{if(!x.ready)dfReady();rem=b.st==="run"?b.rem-(now-MP.rt):b.rem;if(b.st==="ans")ar=b.arem-(now-MP.rt)}
-  if(b.st==="ans"&&music===A.defis&&!music.paused)music.pause()}
- else{dfTot(DFMS);const el=now-x.p0;if(!x.ready){dfReveal(el);if(el>=x.pre)dfReady()}rem=x.ready?DFMS-(now-x.r0):DFMS}
- rem=Math.max(0,rem);const inf=dfBzM()&&MP&&MP.R&&MP.R.bz&&MP.R.bz.inf;$("dftime").textContent=inf?"∞":fmt(Math.ceil(rem/1000));$("dftime").classList.toggle("low",!inf&&x.ready&&rem<=10000);
+  if(b.st==="ans"&&music===(x.mus||A.defis)&&!music.paused)music.pause()}
+ else{const ms=x.ms||DFMS;dfTot(ms);const el=now-x.p0;if(!x.ready){dfReveal(el);if(el>=x.pre)dfReady()}rem=x.ready?ms-(now-x.r0):ms}
+ rem=Math.max(0,rem);const inf=dfBzM()?!!(MP&&MP.R&&MP.R.bz&&MP.R.bz.inf):!!x.inf;$("dftime").textContent=inf?"∞":fmt(Math.ceil(rem/1000));$("dftime").classList.toggle("low",!inf&&x.ready&&rem<=10000);
  if(ar!==null&&MP.R.bz.who===MID&&!x.sent){$("dfBzL").innerHTML=t("dfBzMe",Math.max(0,Math.ceil(ar/1000)));if(ar<=0)dfSubmit(true)}
  if(!dfBzM()&&x.ready&&rem<=0&&!x.end)dfTimeUp()}
 function dfTimeUp(){const x=dfx;x.end=1;dfCtl();msg(t("timeUp"),"ko","dfmsg");afterMusic(()=>results(t("timeUp"),dfSolHTML(x.d,null,false)))}
@@ -2895,6 +2900,7 @@ document.addEventListener("click",e=>{if(!dfx||$("dfP").classList.contains("hide
  else if(id==="dfShuf"){const o=x.l,T=new Set();x.l=sh(x.l);if(x.pk)x.pk=x.pk.map(p=>pkMap(o,x.l,p,x.g==="t"?T:null));dfRT()}
  else if(id==="dfSp"){if(x.g==="s"&&x.spk&&!x.end){const y=x;$("dfSp").classList.add("on");dfSpeak(dfS(x.d)[0],x.d.lg,ok=>{if(dfx!==y)return;$("dfSp").classList.remove("on");if(!ok)msg(t("dfNoVoice"),"ko","dfmsg")})}}
  else if(id==="dfOk")dfSubmit();
+ else if(id==="dfGive")dfGiveUp();
  else if(id==="dfBz")dfBuzz()});
 document.addEventListener("keydown",e=>{const x=dfx;if(!x||(x.g!=="k"&&x.g!=="s"&&x.g!=="v")||$("dfP").classList.contains("hide")||!$("modal").classList.contains("hide"))return;
  const s=x.g==="s"||x.g==="v",k=s?norm(e.key):e.key;
@@ -2903,17 +2909,25 @@ document.addEventListener("keydown",e=>{const x=dfx;if(!x||(x.g!=="k"&&x.g!=="s"
  else if(e.key==="Backspace"){if(x.inp){if(s){x.wd=x.wd.slice(0,-1);dfWd()}else{x.num=x.num.slice(0,-1);dfNum()}}}
  else if(e.key==="Enter")dfSubmit();else if(e.key===" "&&mpr)dfBuzz();else return;e.preventDefault()});
 // menu des défis (rangé dans Partie rapide et dans Entraînement)
-all(".dfOpen").forEach(b=>b.onclick=()=>{dfFrom=b.dataset.from;show("dfMenu")});
-$("chDf").onclick=()=>{dfFrom="chMenu";show("dfMenu")};
+Object.assign(T.fr,{dXT:"5 défis · 30 s, 60 s ou infini",dfHT:"Les défis : une seule réponse, 7 points si c'est juste. En Entraînement, tu choisis la durée : 30 s, 60 s ou infini.",dfDurS:"30 s, 60 s ou infini",dfGive:"🏳️ Voir la solution",dfGiven:"Solution dévoilée"});
+Object.assign(T.en,{dXT:"5 challenges · 30 s, 60 s or endless",dfHT:"The challenges: one answer only, 7 points if you're right. In Training, you choose the duration: 30 s, 60 s or endless.",dfDurS:"30 s, 60 s or endless",dfGive:"🏳️ Show the solution",dfGiven:"Solution revealed"});
+let dfDu=30,durDf=false;
+function dfSubs(){const k=dfFrom==="trainP"?"dfDurS":"s30",h=document.querySelector("#dfMenu .dnote");if(h){h.dataset.t=dfFrom==="trainP"?"dfHT":"dfH";h.textContent=t(h.dataset.t)}all("#dfMenu [data-df] .sub").forEach(s=>{s.dataset.t=k;s.textContent=t(k)})}
+all(".dfOpen").forEach(b=>b.onclick=()=>{dfFrom=b.dataset.from;dfSubs();show("dfMenu")});
+$("chDf").onclick=()=>{dfFrom="chMenu";dfSubs();show("dfMenu")};
 $("dfBack").onclick=()=>{dfNav=false;if(dfFrom==="chMenu")return openChMenu();show(dfFrom||"freeP")};
-all("[data-df]").forEach(b=>b.onclick=()=>{const g=b.dataset.df,fc=dfFrom==="chMenu";party=null;trn=null;daily=null;chl=null;chNav=fc;dfNav=!fc;dur={l:30,c:45};mode=g;if(g==="k")startDf("k");else{$("dst").textContent="";show("dictP")}});
+all("[data-df]").forEach(b=>b.onclick=()=>{const g=b.dataset.df,fc=dfFrom==="chMenu";party=null;trn=null;daily=null;chl=null;chNav=fc;dfNav=!fc;dur={l:30,c:45};dfDu=30;mode=g;
+ const go=()=>{if(g==="k")startDf("k");else{$("dst").textContent="";show("dictP")}};
+ if(dfFrom!=="trainP")return go();
+ durDf=true;$("durT").textContent=t("m"+g.toUpperCase());$("durB").innerHTML=[30,60,0].map(v=>'<button class="btn p mb" data-ddu="'+v+'">'+(v?t("secs",v):t("inf"))+"</button>").join("");
+ all("[data-ddu]").forEach(x=>x.onclick=()=>{dfDu=+x.dataset.ddu;mode=g;go()});show("durP")});
 // fenêtre « règles du défi » avant un défi de la Partie classique en multijoueur
 document.addEventListener("click",e=>{const b=e.target.closest("[data-dfr]");if(!b)return;const g=b.dataset.dfr.toUpperCase();modal(t("m"+g),t("i"+g)+t(isGP()?"gpProc":"dfProc"),[{l:t("close"),c:"p",f:closeModal}])});
 // ----- multijoueur : buzzer (l'hôte fait foi) -----
 function dfSync(){const x=dfx,R=MP&&MP.R;if(!x||!R||!R.bz||!mpr||mpr.rid!==R.rid)return;const b=R.bz;
  if(b.st!=="pre"&&!x.ready)dfReady();
  if(b.st==="ans"&&b.who===MID&&!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,(b.ms||DFMS)===DFMS?DFMS-(b.rem||0):null)}
- if(b.st!==x.st){if(b.st==="run"&&x.st==="ans"&&music===A.defis&&hasS(music)&&musicOn&&!x.fin)music.play().catch(()=>{});if(b.st!=="run"||b.who){x.bzS=0;clearInterval(x.bzI)}x.st=b.st}
+ if(b.st!==x.st){if(b.st==="run"&&x.st==="ans"&&music===(x.mus||A.defis)&&hasS(music)&&musicOn&&!x.fin)music.play().catch(()=>{});if(b.st!=="run"||b.who){x.bzS=0;clearInterval(x.bzI)}x.st=b.st}
  if(b.wk!==x.wk){x.wk=b.wk;if(b.w)msg(b.w.id===MID?t("dfOutMe"):t("dfWrong",b.w.n,b.w.a?dfUp(b.w.a):"—"),"ko","dfmsg")}
  if(b.st==="done"&&!x.fin){x.fin=1;stopM();if(b.ok){if(b.ok.id===MID){score=7;if(!x.bzMe){x.bzMe=1;bzAdd(R.gid,0,null)}bzAdd(R.gid,1)}ding();msg(t("dfRight",b.ok.n,dfUp(b.ok.a)),"ok","dfmsg")}else msg(t(b.hs?"mpHStopd":b.to?"timeUp":"dfNoOne"),"ko","dfmsg")}
  dfCtl();dfTick()}
@@ -3060,7 +3074,7 @@ function plMk(){const g=mode;if(!g||mpr)return null;const now=performance.now(),
  if(g==="l"){e.l=dl;e.d=dur.l||0;e.v=best?best.length:0;e.x=(best||tried||"").slice(0,12);e.t=best?plN(RTL,0,3600000):null;e.r=e.d===30?1:0}
  else if(g==="c"){e.d=dur.c||0;e.v=bv===null?null:Math.min(Math.abs(tgt-bv),9999);e.x=(tgt+":"+(bv===null?"":bv)).slice(0,24);e.t=bv===null?null:plN(RTL,0,3600000);e.r=e.d===45?1:0}
  else if(g==="w"){e.l=dl;e.d=120;const n=rounds.filter(x=>x.done).length;e.v=n;e.x=rounds.map(x=>x.done?1:0).join("");e.t=n?plN(RTL,0,3600000):null;e.r=1}
- else if(df){e.l=g==="k"?null:dl||null;e.v=score>0?1:0;e.t=score>0&&dfx&&dfx.r0?plN(now-dfx.r0,0,3600000):null}
+ else if(df){if(m==="e"&&dfx&&dfx.ms!==DFMS)e.d=dfx.inf?0:Math.round(dfx.ms/1000);e.l=g==="k"?null:dl||null;e.v=score>0?1:0;e.t=score>0&&dfx&&dfx.r0?plN(now-dfx.r0,0,3600000):null}
  else return null;
  if(m==="f"||m==="e")e.r=0; // records : Partie rapide et Entraînement ne comptent plus
  return plAdd(e)}
@@ -7537,7 +7551,8 @@ $("admMl").onclick=async()=>{const b=$("admMl");if(b.disabled||!needSb())return;
 // le compte administrateur est connecté. Les autres joueurs : bruitages neutres, sans musique.
 // NE PAS renommer PMC ni les noms de fichiers de PMK : les musiques déjà chargées ne seraient plus retrouvées.
 var PMC="dcl-perso-musiques",PMU={},PM0=null,
- PMK={theme:"theme.mp3",ding:"ding.mp3",chiffres:"musique-chiffres.mp3",lettres:"musique-lettres.mp3",l60:"lettres-60.mp3",linf:"lettres-infini.mp3",c90:"chiffres-90.mp3",cinf:"chiffres-infini.mp3",clic:"tirage-clic.mp3",cible:"tirage-cible.mp3",defis:"musique-defis.mp3",vid:"generique.mp4"};
+ PMK={theme:"theme.mp3",ding:"ding.mp3",chiffres:"musique-chiffres.mp3",lettres:"musique-lettres.mp3",l60:"lettres-60.mp3",linf:"lettres-infini.mp3",c90:"chiffres-90.mp3",cinf:"chiffres-infini.mp3",clic:"tirage-clic.mp3",cible:"tirage-cible.mp3",defis:"musique-defis.mp3",d60:"defis-60.mp3",dinf:"defis-infini.mp3",vid:"generique.mp4"};
+const PMO=["d60","dinf"]; // facultatifs : sinon musique Lettres 60 s / infini
 PM0={ding:A.ding.getAttribute("src"),clic:A.clic.getAttribute("src"),cible:A.cible.getAttribute("src")};
 const pmUrl=f=>new URL("__perso/"+f,location.href).href;
 function pmApply(){if(!PM0)return;const on=admIs();let fx=false;
@@ -7572,14 +7587,14 @@ Object.assign(T.fr,{pmB:"🎵 Musiques perso (ce téléphone)",pmT:"🎵 Musique
  pmH:"<p>Tes musiques et ta vidéo d'ouverture ne sont pas sur internet. Ils ne jouent que sur <b>ce téléphone</b>, quand <b>ton compte</b> est connecté. Les autres joueurs ont le jeu sans musique.</p>",
  pmN:"<b>{n} / 12</b> fichiers présents sur ce téléphone.",pmMiss:"Manquants : {n}",pmAll:"✅ Tout est prêt.",
  pmPick:"📂 Choisir les fichiers",pmPickH:"<p style='font-size:14px;color:var(--mut)'>Choisis le fichier <b>musiques-perso.zip</b> (ou les fichiers .mp3/.mp4 un par un).</p>",
- pmDel:"🗑️ Retirer de ce téléphone",pmOk:"✅ {n} fichier(s) chargé(s)",pmNone:"⚠️ Aucun fichier reconnu",pmErr:"⚠️ Chargement impossible",pmDone:"Musiques retirées de ce téléphone"});
+ pmDel:"🗑️ Retirer de ce téléphone",pmOk:"✅ {n} fichier(s) chargé(s)",pmNone:"⚠️ Aucun fichier reconnu",pmErr:"⚠️ Chargement impossible",pmDone:"Musiques retirées de ce téléphone",pmOpt:"Facultatifs (défis 60 s et infini) : {n}. Sans eux, la musique Lettres 60 s ou Lettres infini est utilisée."});
 Object.assign(T.en,{pmB:"🎵 Personal music (this phone)",pmT:"🎵 Personal music",
  pmH:"<p>Your music and opening video are not online. They only play on <b>this phone</b>, when <b>your account</b> is signed in. Other players get the game without music.</p>",
  pmN:"<b>{n} / 12</b> files on this phone.",pmMiss:"Missing: {n}",pmAll:"✅ All set.",
  pmPick:"📂 Choose files",pmPickH:"<p style='font-size:14px;color:var(--mut)'>Choose the <b>musiques-perso.zip</b> file (or the .mp3/.mp4 files one by one).</p>",
- pmDel:"🗑️ Remove from this phone",pmOk:"✅ {n} file(s) loaded",pmNone:"⚠️ No matching file",pmErr:"⚠️ Unable to load",pmDone:"Music removed from this phone"});
-function pmOpen(){const have=Object.keys(PMU).length,miss=Object.keys(PMK).filter(k=>!PMU[k]).map(k=>PMK[k]);
- const h=t("pmH")+"<p>"+t("pmN",have)+"</p>"+(miss.length?"<p style='font-size:13px;color:var(--mut)'>"+esc(t("pmMiss",miss.join(", ")))+"</p>":"<p>"+t("pmAll")+"</p>")+t("pmPickH");
+ pmDel:"🗑️ Remove from this phone",pmOk:"✅ {n} file(s) loaded",pmNone:"⚠️ No matching file",pmErr:"⚠️ Unable to load",pmDone:"Music removed from this phone",pmOpt:"Optional (60 s and endless challenges): {n}. Without them, the Letters 60 s or Letters endless music is used."});
+function pmOpen(){const have=Object.keys(PMU).filter(k=>!PMO.includes(k)).length,miss=Object.keys(PMK).filter(k=>!PMU[k]&&!PMO.includes(k)).map(k=>PMK[k]),opt=PMO.map(k=>(PMU[k]?"✅ ":"➖ ")+PMK[k]).join(", ");
+ const h=t("pmH")+"<p>"+t("pmN",have)+"</p>"+(miss.length?"<p style='font-size:13px;color:var(--mut)'>"+esc(t("pmMiss",miss.join(", ")))+"</p>":"<p>"+t("pmAll")+"</p>")+"<p style='font-size:13px;color:var(--mut)'>"+esc(t("pmOpt",opt))+"</p>"+t("pmPickH");
  const b=[{l:t("pmPick"),c:"p",f:()=>{const i=document.createElement("input");i.type="file";i.multiple=true;i.accept=".zip,.mp3,.mp4,audio/*,video/*,application/zip";
   i.onchange=async()=>{const fs=[...(i.files||[])];if(!fs.length)return;closeModal();try{const n=await pmImport(fs);toast(n?t("pmOk",n):t("pmNone"))}catch(e){toast(t("pmErr"))}pmOpen()};i.click()}}];
  if(have)b.push({l:t("pmDel"),f:async()=>{closeModal();try{await caches.delete(PMC)}catch(e){}await pmLoad();toast(t("pmDone"))}});
