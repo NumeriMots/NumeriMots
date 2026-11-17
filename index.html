@@ -8037,7 +8037,7 @@ const WK0="2026-11-16",RKP=DG.concat("wk");let wkO=0;
 const wkMon=d=>addDay(d,-((new Date(d+"T12:00:00Z").getUTCDay()+6)%7));
 const wkNum=m=>Math.round(cmDays(WK0,m)/7)+1;
 const wkRange=m=>fmtDayS(m,true)+" – "+fmtDayS(addDay(m,6),true);
-function wkList(){const cur=wkMon(pToday()),s0=cur<WK0&&admIs()?cur:WK0,a=[];for(let m=cur;m>=s0;m=addDay(m,-7))a.push(m);return a}
+function wkList(){const cur=wkMon(pToday()),s0=admIs()?(cur<WK0?cur:"2026-11-09"):WK0,a=[];for(let m=cur;m>=s0;m=addDay(m,-7))a.push(m);return a}
 const wkLbl=m=>m<WK0?t("wkPv"):t("wkN",wkNum(m));
 function wkLeft(){const p=pParts(new Date()),wd=(new Date(pToday()+"T12:00:00Z").getUTCDay()+6)%7,s=(6-wd)*86400+Math.max(60,86400-(+p.hour*3600+ +p.minute*60+ +p.second)),d=Math.floor(s/86400),h=Math.floor(s%86400/3600);
  return d?t("cmDH",d,h):t("cmHM",h,Math.floor(s%3600/60))}
