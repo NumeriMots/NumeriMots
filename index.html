@@ -8752,4 +8752,76 @@ palTabs=(o=>function(){o.apply(this,arguments);const b=all("#palTabs [data-pal]"
 palLoad=(o=>async function(){if(palK!=="m")return o.apply(this,arguments);++palTok;palTabs();
  $("palL").innerHTML='<p class="dnote">'+t("mdPick")+"</p>"+mdGames().map(g=>'<button class="btn bl mb ic" data-mdg="'+g+'"><i class="mi" style="font-size:20px">🏅</i><span class="mt"><span>'+esc(mdName(g))+'</span><small class="sub">'+esc(mdSubT(g))+"</small></span>"+MDCHV+"</button>").join("")})(palLoad);
 $("palL").addEventListener("click",e=>{const b=e.target.closest("[data-mdg]");if(b)openMed(b.dataset.mdg,"palP")});
+// ===================== ANTI-TRICHE (version légère) =====================
+// 1) Une épreuve du jour = une seule tentative par compte, vérifiée par Supabase (même depuis un autre appareil).
+// 2) Si cet appareil a déjà servi à un AUTRE compte pour la même épreuve du jour, le joueur est prévenu
+//    avant de jouer : il peut jouer, mais son résultat reste hors classement.
+// 3) Les résultats suspects sont listés dans l'écran Admin (onglet « Triche »). Rien n'est bloqué ni supprimé.
+// Si Supabase ne répond pas, le jeu continue comme avant (jamais de blocage par erreur).
+Object.assign(T.fr,{acShT:"Hors classement",acSh:"<p>Cette épreuve du jour a déjà été jouée <b>sur cet appareil</b> avec un autre compte.</p><p>Tu peux la jouer, mais ton résultat <b>ne comptera pas au classement</b>.</p>",acShGo:"Jouer quand même",
+ acOff:"🚫 Hors classement : cette épreuve avait déjà été jouée sur cet appareil avec un autre compte.",acOffR:"Ton résultat : {n}",
+ admAc:"Triche",acNone:"Aucun résultat suspect sur cette période. 👍",acHelp:"Résultats repérés automatiquement. Rien n'est bloqué ni supprimé : c'est à toi de juger.",acD7:"7 jours",acD30:"30 jours",
+ acErr:"Impossible de charger les données. Vérifie ta connexion, et que les 3 parties du script anti-triche ont bien été lancées dans Supabase.",acNoAcc:"compte supprimé",
+ acR_floor:"⚡ plus rapide que le minimum humain pour saisir cette réponse ({n})",acR_shared:"📱 appareil déjà utilisé par un autre compte pour cette épreuve (hors classement)",
+ acR_fast:"🏎️ au moins 3 fois plus rapide que les autres joueurs (médiane : {n})",acR_habit:"📈 au moins 4 fois plus rapide que d'habitude (médiane : {n})",acR_ip:"🌐 même connexion internet qu'un autre joueur ou un invité qui a joué avant"});
+Object.assign(T.en,{acShT:"Unranked",acSh:"<p>Today's challenge has already been played <b>on this device</b> with another account.</p><p>You can play it, but your result <b>won't count in the leaderboard</b>.</p>",acShGo:"Play anyway",
+ acOff:"🚫 Unranked: this challenge had already been played on this device with another account.",acOffR:"Your result: {n}",
+ admAc:"Cheating",acNone:"No suspicious result over this period. 👍",acHelp:"Results flagged automatically. Nothing is blocked or deleted: it's up to you to judge.",acD7:"7 days",acD30:"30 days",
+ acErr:"Couldn't load the data. Check your connection, and that the 3 parts of the anti-cheat script have been run in Supabase.",acNoAcc:"deleted account",
+ acR_floor:"⚡ faster than the human minimum to enter this answer ({n})",acR_shared:"📱 device already used by another account for this challenge (unranked)",
+ acR_fast:"🏎️ at least 3 times faster than the other players (median: {n})",acR_habit:"📈 at least 4 times faster than usual (median: {n})",acR_ip:"🌐 same internet connection as another player or a guest who played before"});
+// identifiant aléatoire de l'appareil (ne contient aucune donnée personnelle)
+function acDev(){let d=null;try{d=localStorage.getItem("nmDev")}catch(e){}
+ if(!d||d.length<8||d.length>64){d=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);try{localStorage.setItem("nmDev",d)}catch(e){}}return d}
+// épreuves jouées hors classement (gardées sur l'appareil)
+const ACOK="nmOff";
+function acOffAll(){try{const a=JSON.parse(localStorage.getItem(ACOK)||"[]");return Array.isArray(a)?a:[]}catch(e){return[]}}
+const acOffK=(day,g)=>(ME?ME.id:"")+"|"+day+"|"+g;
+const acIsOff=(day,g)=>!!ME&&acOffAll().includes(acOffK(day,g));
+function acSetOff(day,g){if(!ME)return;const k=acOffK(day,g),a=acOffAll().filter(x=>x!==k);a.push(k);while(a.length>80)a.shift();try{localStorage.setItem(ACOK,JSON.stringify(a))}catch(e){}}
+const acDay=d=>/^\d{4}-\d\d-\d\d$/.test(String(d||""));
+function acRpc(fn,args,ms){return Promise.race([sb.rpc(fn,args).then(r=>{if(r.error)throw r.error;return r.data}),new Promise((_,j)=>setTimeout(()=>j(new Error("timeout")),ms||6000))])}
+// départ d'une épreuve du jour : vérification auprès de Supabase
+startD=(o=>async function(g){const self=this,args=arguments,day=pToday();
+ if(myD(day,g)||!sb||!DGM[g])return o.apply(self,args);
+ $("mb").innerHTML="<p>"+t("loading")+"</p>";$("mbtn").innerHTML="";
+ let r=null;try{r=await acRpc("daily_start",{p_day:day,p_game:g,p_device:acDev(),p_go:false})}catch(e){r=null}
+ if(myD(day,g)||!ME)return o.apply(self,args);
+ if(r&&r.s==="done"){const m=DGM[g];setMy(day,g,r.r==null?{...WORST[m],done:1,sent:1}:{r:r.r,x:r.x||"",t:r.t==null?WORST[m].t:r.t,done:1,sent:1});if(r.off)acSetOff(day,g);closeModal();return rank(g,0)}
+ if(r&&r.s==="shared"){modal(t("acShT"),t("acSh"),[{l:t("no"),f:closeModal},{l:t("acShGo"),c:"p",f:async()=>{
+   $("mb").innerHTML="<p>"+t("loading")+"</p>";$("mbtn").innerHTML="";
+   let r2=null;try{r2=await acRpc("daily_start",{p_day:day,p_game:g,p_device:acDev(),p_go:true})}catch(e){r2=null}
+   if(myD(day,g)){closeModal();return rank(g,0)}
+   if(r2&&r2.s==="done"){const m=DGM[g];setMy(day,g,r2.r==null?{...WORST[m],done:1,sent:1}:{r:r2.r,x:r2.x||"",t:r2.t==null?WORST[m].t:r2.t,done:1,sent:1});if(r2.off)acSetOff(day,g);closeModal();return rank(g,0)}
+   acSetOff(day,g);return o.apply(self,args)}}]);return}
+ if(r&&r.s==="off")acSetOff(day,g);
+ return o.apply(self,args)})(startD);
+// un résultat hors classement n'est jamais envoyé au classement
+sbSend=(o=>async function(day,g){if(acIsOff(day,g))return true;return o.apply(this,arguments)})(sbSend);
+// fin d'une épreuve du jour : le résultat est aussi noté pour l'écran Admin
+dFinish=(o=>function(){const d=daily,ok=!!(d&&!d.done&&!d.champ&&!d.ss&&acDay(d.day)&&DGM[d.g]);const r=o.apply(this,arguments);
+ if(ok&&sb){try{const e=myD(d.day,d.g);if(e&&e.done){const n=Number(e.r);acRpc("daily_done",{p_day:d.day,p_game:d.g,p_device:acDev(),p_result:isFinite(n)?Math.round(n):0,p_detail:String(e.x||"").slice(0,20),p_time_ms:Math.max(0,Math.round(Number(e.t)||0))},15000).catch(()=>{})}}catch(e){}}
+ return r})(dFinish);
+// classement : rappel « hors classement » avec le résultat du joueur
+rank=(o=>async function(g,off){const r=await o.apply(this,arguments);
+ try{const k=Math.max(0,Math.min(RKN-1,off|0)),day=addDay(pToday(),-k),m=DGM[g],el=$("rkL");
+  if(m&&rkG===g&&rkO===k&&acIsOff(day,g)&&el&&!el.querySelector(".acOff")){const me=myD(day,g);let v="";
+   if(me&&me.done){const x={result:me.r,detail:me.x,time_cs:Math.round(me.t/10)};v=rkVal(m,x,true)+(rkNo(m,x)?"":" · "+fmtT(me.t))}
+   el.insertAdjacentHTML("afterbegin",'<p class="dnote acOff" style="margin-bottom:10px">'+t("acOff")+(v?"<br>"+t("acOffR",v):"")+"</p>")}}catch(e){}
+ return r})(rank);
+// écran Admin : onglet « Triche »
+let ACN=7;
+(()=>{const st=document.createElement("style");st.textContent="#admTabs{grid-auto-columns:auto}#admTabs .btn{font-size:12.5px;padding:0 4px}";document.head.appendChild(st)})();
+(()=>{const tb=$("admTabs");if(!tb||tb.querySelector('[data-ad="ac"]'))return;const b=document.createElement("button");b.className="btn";b.dataset.ad="ac";b.textContent=t("admAc");b.onclick=()=>admTab("ac");tb.appendChild(b)})();
+applyLang=(o=>function(){const r=o.apply(this,arguments);try{const b=document.querySelector('#admTabs [data-ad="ac"]');if(b)b.textContent=t("admAc")}catch(e){}return r})(applyLang);
+admTab=(o=>function(k){if(k!=="ac")return o.apply(this,arguments);ADT=k;all("#admTabs .btn").forEach(b=>b.classList.toggle("on",b.dataset.ad===k));admAc()})(admTab);
+async function admAc(){const el=$("admC"),k=++ADTOK;admBusy(el);let a,pl;
+ try{[a,pl]=await Promise.all([admRpc("ac_report",{p_days:ACN}),admRpc("admin_players").catch(()=>[])])}catch(e){if(k===ADTOK)el.innerHTML='<p class="dnote">'+t("acErr")+"</p>";return}
+ if(k!==ADTOK)return;a=Array.isArray(a)?a:[];const ps={};(pl||[]).forEach(p=>ps[p.id]=p.pseudo);
+ const W={floor:"floor_ms",fast:"med_o",habit:"med_me"};
+ let h='<div class="row tabs" id="acPer"><button class="btn'+(ACN===7?" on":"")+'" data-acn="7">'+t("acD7")+'</button><button class="btn'+(ACN===30?" on":"")+'" data-acn="30">'+t("acD30")+"</button></div>"+'<p class="dnote">'+t("acHelp")+"</p>";
+ h+=a.length?a.map(x=>{const m=DGM[x.game],d=String(x.day||"").slice(0,10),rr={result:x.result,detail:x.detail||"",time_cs:Math.round((x.time_ms||0)/10)};
+   const why=(x.why||[]).filter(w=>T[L]["acR_"+w]).map(w=>"<small>"+t("acR_"+w,W[w]?fmtT(x[W[w]]||0):"")+"</small>").join("");
+   return'<button class="admR" data-au="'+esc(x.user_id||"")+'"><b>'+esc(ps[x.user_id]||t("acNoAcc"))+"</b><small>"+esc(acDay(d)?fmtDayS(d,true):d)+" · "+esc(m?nameOf(x.game):x.game)+(m?" · "+rkVal(m,rr,true):"")+" · "+fmtT(x.time_ms||0)+"</small>"+why+"</button>"}).join(""):'<p class="dnote">'+t("acNone")+"</p>";
+ el.innerHTML=h;all("#acPer [data-acn]").forEach(b=>b.onclick=()=>{ACN=+b.dataset.acn;admAc()})}
 </script></body></html>
