@@ -1052,8 +1052,8 @@ function results(why,html){if(over)return;if(mpr)return mpEnd(why,html);if(tbx)r
 // ↓↓↓ Classement en ligne : colle ici l'URL du projet Supabase et sa clé publique (publishable / anon), voir le guide
 const SB={url:"https://destghbdqigegolliggd.supabase.co",key:"sb_publishable_arAUj7PGF7TMzS1IcHYnVw_1MroacPZ"};
 let daily=null,rkG="lf",rkO=0,rkTok=0,rkScope="top";const CMN={};
-const DG=["lf","le","c","df","de","wf","we"],DGM={lf:"l",le:"l",c:"c",df:"j",de:"j",wf:"w",we:"w"},DGL={lf:"fr",le:"en",df:"fr",de:"en",wf:"fr",we:"en"},DUR={l:"s30",c:"s45",w:"s120",j:"s30",t:"s30",k:"s30",u:"s30",s:"s30"};
-const WORST={j:{r:0,x:"",t:30000},l:{r:0,x:"",t:30000},c:{r:9999,x:"",t:45000},w:{r:0,x:"",t:120000},t:{r:0,x:"",t:30000},k:{r:0,x:"",t:30000},u:{r:0,x:"",t:30000},s:{r:0,x:"",t:30000}};
+const DG=["lf","le","c","df","de","wf","we"],DGM={lf:"l",le:"l",c:"c",df:"j",de:"j",wf:"w",we:"w"},DGL={lf:"fr",le:"en",df:"fr",de:"en",wf:"fr",we:"en"},DUR={l:"s30",c:"s45",w:"s120",j:"s30",t:"s30",k:"s30",u:"s30",s:"s30",v:"s30",h:"s30",z:"s30"};
+const WORST={j:{r:0,x:"",t:30000},l:{r:0,x:"",t:30000},c:{r:9999,x:"",t:45000},w:{r:0,x:"",t:120000},t:{r:0,x:"",t:30000},k:{r:0,x:"",t:30000},u:{r:0,x:"",t:30000},s:{r:0,x:"",t:30000},v:{r:0,x:"",t:30000},h:{r:0,x:"",t:30000},z:{r:0,x:"",t:30000}};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let DK="fwdaily";
 function getD(){try{return JSON.parse(localStorage.getItem(DK)||"{}")}catch(e){return{}}}
@@ -9186,4 +9186,7 @@ NW0.push({d:"2026-11-27",e:"🔑",t:"Nouveau défi : Le mot code",b:"• **Le mo
  try{all("[data-t]").forEach(e=>{const k=e.dataset.t;if(/^(dX|dXT|mZ|rsZ)$/.test(k))e.textContent=t(k)})}catch(e){}}
 NW0.push({d:"2026-11-27",e:"❓",t:"Nouveau défi : L'énigme",b:"• **L'énigme** : 10 lettres cachent un mot de 6 à 9 lettres. Trois indices arrivent pendant le chrono, du plus vague au plus précis : le 1er au départ, le 2e à 10 secondes, le 3e à 20 secondes. Exemple : C'est un sport, puis Il se joue avec un ballon, puis Avec les pieds et la tête, mais sans les mains → FOOTBALL.\n• Elle est jouable partout où il y a des défis, et entre elle aussi dans **La partie du jour** et dans **La Course des as** (saison 3) le **lundi 30 novembre**."});
 
+// demandes d'ami : la pastille du pseudo se met à jour toutes les minutes sur l'accueil, et au retour dans l'appli
+setInterval(()=>{if(document.visibilityState!=="visible"||!ME||!pgOn("home"))return;refreshAcc()},60000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&ME&&(pgOn("home")||pgOn("profP")))refreshAcc()});
 </script></body></html>
