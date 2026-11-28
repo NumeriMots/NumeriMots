@@ -2477,7 +2477,7 @@ async function renderMR(){const el=$("rMulti"),h="<h3>"+t("mpRec")+"</h3>",tok=+
  if(!ME){el.innerHTML=h+'<p class="dnote">'+t("mpRecG")+"</p>";return}el.innerHTML=h+'<p class="dnote">'+t("frLoad")+"</p>";let a=null;
  if(sb&&SESS){try{const r=await sb.rpc("my_multi");if(r.error)throw r.error;a=r.data||[]}catch(e){}}if(tok!==mrTok)return;
  if(!a){el.innerHTML=h+'<p class="dnote">'+t("mpRecErr")+"</p>";return}if(!a.length){el.innerHTML=h+'<p class="dnote">'+t("mpRecNone")+"</p>";return}
- el.innerHTML=h+a.map(x=>{const md=["🥇","🥈","🥉"][x.rank-1]||"",nm=x.mode==="p"?t("mpP")+(x.detail?" · "+t("cuN",x.detail):""):x.mode==="g"?t("gpT")+" · "+t(x.game==="n"?"pN":"pQ"):x.mode==="o"?t("mpO")+" · "+t(x.game==="n"?"pN":"pQ"):t("m"+String(x.game).toUpperCase()),v=x.mode!=="q"?x.points+" "+t("pts"):x.detail?esc(x.game==="l"?String(x.detail).toUpperCase():x.detail):"—";
+ el.innerHTML=h+a.map(x=>{const md=["🥇","🥈","🥉"][x.rank-1]||"",nm=x.mode==="p"?t("mpP")+(x.detail?" · "+t("cuN",x.detail):""):x.mode==="g"?t("gpT")+" · "+t(x.game==="n"?"pN":(x.game==="b"||x.detail==="b")?"gbT":"pQ"):x.mode==="o"?t("mpO")+" · "+t(x.game==="n"?"pN":"pQ"):t("m"+String(x.game).toUpperCase()),v=x.mode!=="q"?x.points+" "+t("pts"):x.detail?esc(x.game==="l"?String(x.detail).toUpperCase():x.detail):"—";
   return'<div class="res"><span>'+md+x.rank+"/"+x.players+" · "+nm+'</span><span class="rv"><b>'+v+"</b> · "+new Date(x.created_at).toLocaleDateString(L==="fr"?"fr-FR":"en-GB")+"</span></div>"}).join("")}
 // ===== v18 : explications du Sprint final =====
 Object.assign(T.fr,{chDfS:"30 secondes · un défi au choix",chGhDok:"👻 {n} a trouvé la bonne réponse !",chGhDko:"👻 {n} s'est trompé",chWinD:"🏆 Tu as trouvé, pas {n} !",chLoseD:"{n} a trouvé, pas toi.",chND:"pas de bonne réponse",chOD:"bonne réponse",
@@ -9551,4 +9551,55 @@ try{HBP.add("svP");HBP.add("svRkP")}catch(e){}
 // partie interrompue (jeu fermé pendant un défi) : comptée au prochain passage
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&svx&&!over)svSave()});
 NW0.push({d:"2026-11-28",e:"❤️",t:"Nouveau : Défis survie",b:"• Un nouveau mode solo, rien que pour les défis : ils s'enchaînent jusqu'à ce que tu n'aies plus de vie !\n• Tu commences avec **3 vies**. Chaque défi raté en coûte une, et **5 défis réussis d'affilée** t'en rendent une (5 au maximum).\n• Trois catégories : **Français**, **Anglais** (6 défis) et **Deux langues** (les 7 défis dans les deux langues, traduction comprise).\n• Tirage équitable : tous les défis passent une fois avant qu'un défi ne revienne.\n• Un classement par catégorie, Top 10 et amis. À toi de jouer : Solo › Défis survie."});
+
+// ===== v37 : Grand Prix « Bataille de défis » (salon) : uniquement des défis, tout le monde répond en même temps, barème F1 =====
+// Langue : français ou anglais (6 défis par tour, sans traduction) ou deux langues (7 défis par tour, traduction comprise).
+// 1, 2 ou 3 tours ; chaque tour fait passer chaque défi une fois, dans un ordre au hasard (jamais deux fois le même d'affilée).
+// En deux langues, au 2e tour chaque défi passe dans l'autre langue qu'au 1er tour (2 tours = les 14 défis).
+Object.assign(IT,{GB:"gbT"});
+Object.assign(T.fr,{gbT:"⚔️ Bataille de défis",gbS:"uniquement des défis, 1 à 3 tours",gbLq:"Quelle langue ?",gbTq:"Combien de tours ?",
+ gbLfr:"🇫🇷 Français",gbLen:"🇬🇧 English",gbL2:"🇫🇷🇬🇧 Deux langues",gbLfrS:"6 défis par tour (sans la traduction)",gbLenS:"6 défis par tour (sans la traduction)",gbL2S:"7 défis par tour, traduction comprise",
+ gbL_fr:"français",gbL_en:"anglais",gbL_2:"deux langues",gbN1:"1 tour · {n} défis",gbNt:"{n} tours · {m} défis",gbD:"environ {n} minutes",
+ iGB:"<p>Une course de vitesse rien qu'avec des défis : tout le monde joue le même défi en même temps, sans buzzer, avec <b>une seule proposition</b>. Les bonnes réponses sont classées de la plus rapide à la plus lente et marquent les points de la Formule 1 (25, 18, 15… jusqu'à 1 point pour le 10e).</p><p>🌍 <b>Français</b> ou <b>anglais</b> : 6 défis par tour (thème, calcul mental, mots gigognes, orthographe, le mot code, l'énigme). <b>Deux langues</b> : les 7 défis par tour, traduction comprise, en français ou en anglais.</p><p>🔁 <b>1, 2 ou 3 tours</b> : à chaque tour, chaque défi passe une fois, dans un ordre tiré au hasard. En deux langues, au 2e tour, chaque défi passe dans l'autre langue.</p>",
+ rGP:T.fr.rGP+"<p>⚔️ <b>Bataille de défis</b> : rien que des défis, 1, 2 ou 3 tours. En français ou en anglais, un tour = les 6 défis (sans la traduction) ; en deux langues, un tour = les 7 défis, traduction comprise, et au 2e tour chaque défi passe dans l'autre langue. Chaque défi passe une fois par tour, dans un ordre au hasard.</p>"});
+Object.assign(T.en,{gbT:"⚔️ Challenge Battle",gbS:"challenges only, 1 to 3 rounds",gbLq:"Which language?",gbTq:"How many rounds?",
+ gbLfr:"🇫🇷 Français",gbLen:"🇬🇧 English",gbL2:"🇫🇷🇬🇧 Both languages",gbLfrS:"6 challenges per round (no translation)",gbLenS:"6 challenges per round (no translation)",gbL2S:"7 challenges per round, translation included",
+ gbL_fr:"French",gbL_en:"English",gbL_2:"both languages",gbN1:"1 round · {n} challenges",gbNt:"{n} rounds · {m} challenges",gbD:"about {n} minutes",
+ iGB:"<p>A speed race with challenges only: everyone plays the same challenge at the same time, no buzzer, with <b>a single attempt</b>. Correct answers are ranked from fastest to slowest and score Formula 1 points (25, 18, 15… down to 1 point for 10th).</p><p>🌍 <b>French</b> or <b>English</b>: 6 challenges per round (theme, mental maths, nested words, spelling, codeword, riddle). <b>Both languages</b>: all 7 challenges per round, translation included, in French or in English.</p><p>🔁 <b>1, 2 or 3 rounds</b>: in each round, every challenge comes up once, in random order. In both languages, in round 2 each challenge switches language.</p>",
+ rGP:T.en.rGP+"<p>⚔️ <b>Challenge Battle</b>: challenges only, 1, 2 or 3 rounds. In French or English, a round = the 6 challenges (no translation); in both languages, a round = all 7 challenges, translation included, and in round 2 each challenge switches language. Every challenge comes up once per round, in random order.</p>"});
+const gbOn=()=>!!(MP&&MP.R&&MP.R.mo==="g"&&MP.R.ty==="b");
+const gbPer=c=>c==="2"?7:6,gbMin=n=>Math.max(1,Math.round(n*0.75));
+// programme de la partie : [{g, lg}]
+function gbSteps(c,n){const out=[];let last=null;
+ if(c!=="2"){for(let i=0;i<n;i++){const b=svBag(c,last);out.push(...b);last=b[b.length-1]}return out}
+ let prev=null;for(let i=0;i<n;i++){let b=sh(DF7);for(let k=0;k<500&&last&&b[0]===last.g;k++)b=sh(DF7);
+  const L0={};b.forEach(g=>L0[g]=prev&&i%2===1?(prev[g]==="fr"?"en":"fr"):(Math.random()<.5?"fr":"en"));
+  const it=b.map(g=>({g,lg:L0[g]}));out.push(...it);last=it[it.length-1];prev=L0}
+ return out}
+// écrans de préparation (langue, nombre de tours)
+mpSubT=(o=>function(){const R=MP&&MP.R;if(!R||R.mo!=="g"||R.ty!=="b")return o.apply(this,arguments);const a=[t("gbT")];
+ if(R.gbl)a.push(t("gbL_"+R.gbl));if(R.gbt){const n=R.gbt*gbPer(R.gbl);a.push(t(R.gbt>1?"gbNt":"gbN1",R.gbt>1?R.gbt:n,n));a.push(t("gbD",gbMin(n)))}return a.join(" · ")})(mpSubT);
+mpSetup=(o=>function(){const r=o.apply(this,arguments);try{const R=MP.R,h=MP.host,dis=h?"":" disabled",X=$("mpBody");
+ const B=(k,lab,sub)=>'<button class="btn p mb" data-ms="'+k+'"'+dis+">"+(sub?"<span>"+lab+'</span><small class="sub">'+sub+"</small>":lab)+"</button>",back='<button class="btn mb" data-ms="back"'+dis+">"+t("back")+"</button>";
+ if(R.scr==="gp"&&!X.querySelector('[data-ms="b"]')){const bk=X.querySelector('[data-ms="back"]');if(bk)bk.insertAdjacentHTML("beforebegin",'<div class="mrow">'+B("b",t("gbT"),t("gbS"))+'<button class="info" data-info="GB">?</button></div>')}
+ else if(R.scr==="gbl")X.innerHTML="<h3>"+t("gbT")+" · "+t("gbLq")+"</h3>"+B("gl-fr",t("gbLfr"),t("gbLfrS"))+B("gl-en",t("gbLen"),t("gbLenS"))+B("gl-2",t("gbL2"),t("gbL2S"))+back;
+ else if(R.scr==="gbt"){const p=gbPer(R.gbl);X.innerHTML="<h3>"+t("gbT")+" · "+t("gbTq")+"</h3>"+[1,2,3].map(n=>B("gt-"+n,t(n>1?"gbNt":"gbN1",n>1?n:p*n,p*n),t("gbD",gbMin(p*n)))).join("")+back}
+ X.classList.toggle("mir",!h)}catch(e){}return r})(mpSetup);
+{const o=$("mpBody").onclick;$("mpBody").onclick=function(e){if(e.target.closest("[data-info]"))return o.call(this,e);
+ const b=e.target.closest("[data-ms]");if(!b||b.disabled||!MP||!MP.host)return o.call(this,e);const R=MP.R,k=b.dataset.ms;
+ if(R.scr==="gp"&&k==="b"){R.ty="b";R.dl=null;R.scr="gbl";return mpPush()}
+ if(R.scr==="gbl"){if(k==="back"){R.scr="gp";R.ty=null}else if(/^gl-/.test(k)){R.gbl=k.slice(3);R.scr="gbt"}return mpPush()}
+ if(R.scr==="gbt"){if(k==="back")R.scr="gbl";else if(/^gt-/.test(k)){R.gbt=Math.max(1,Math.min(3,+k.slice(3)||1));R.dl=R.gbl==="2"?null:R.gbl;R.scr="ready"}return mpPush()}
+ if(R.scr==="ready"&&k==="back"&&R.mo==="g"&&R.ty==="b"){R.scr="gbt";return mpPush()}
+ return o.call(this,e)}}
+// lancement et manches (côté hôte)
+mpLaunch=(o=>function(){const R=MP&&MP.R;if(!gbOn()||!R.gbl||!R.gbt)return o.apply(this,arguments);if(!mpGuests())return;
+ R.sp=0;R.tm=null;R.gid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);const st=gbSteps(R.gbl,R.gbt);R.st=st.map(x=>x.g);R.sl=st.map(x=>x.lg);R.i=0;MP.gbS={used:{}};
+ for(const id in R.pl){if(id!==MID&&!R.pl[id].on)delete R.pl[id];else{R.pl[id].tot=0;R.pl[id].np=0}}mpRound()})(mpLaunch);
+mpRound=(o=>function(){const R=MP.R;if(!gbOn()||!R.sl)return o.apply(this,arguments);const g=R.st[R.i],lg=R.sl[R.i]||"fr";
+ R.last=null;R.bz=null;R.dl=g==="k"?(R.gbl==="2"?null:R.gbl):lg;MP.gbS=MP.gbS||{used:{}};return mpPlay(svDraw(MP.gbS,{g,lg}))})(mpRound);
+// enregistrement de la partie (statistiques multijoueur) : « b » = bataille de défis
+mpSub=(o=>async function(a,gid){if(a&&a.p_mode==="g"&&a.p_game==="b"){const R=MP&&MP.R;a=Object.assign({},a,{p_dict:R&&R.gbl&&R.gbl!=="2"?R.gbl:null});
+ let r=await o.call(this,a,gid);if(r&&r.error)r=await o.call(this,Object.assign({},a,{p_game:"q",p_detail:"b"}),gid);return r}return o.apply(this,arguments)})(mpSub);
+NW0.push({d:"2026-11-28",e:"⚔️",t:"Nouveau : la Bataille de défis",b:"• Le **Grand Prix** (Multijoueur › salon) a un 3e mode : la **Bataille de défis**, rien que des défis !\n• Tout le monde répond en même temps, sans buzzer, une seule proposition : les plus rapides marquent les points de la Formule 1.\n• L'hôte choisit la langue (**français**, **anglais** ou **les deux**) et le nombre de **tours** (1, 2 ou 3) : à chaque tour, chaque défi passe une fois."});
 </script></body></html>
