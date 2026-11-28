@@ -8637,7 +8637,7 @@ function bkHandle(){
  const pg=document.querySelector("main>.pg:not(.hide)"),id=pg?pg.id:"";
  const b=bkFind();if(b){b.click();return true}
  const q=pg&&[...pg.querySelectorAll("[data-quit]")].find(bkVis);
- if(q){const asks=tbx||cmx||MP||(chl&&chl.opp&&!chl.fin)||(daily&&!daily.done)||party;
+ if(q){const asks=tbx||cmx||MP||(chl&&chl.opp&&!chl.fin)||(daily&&!daily.done)||party||(typeof svx!=="undefined"&&svx);
   if(asks||over)q.click();else modal(t("quit"),"<p>"+t("quitQ")+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();q.click()}}]);return true}
  const tm=$("tomenu");if(bkVis(tm)){tm.click();return true}
  const hb=$("homeB");if(bkVis(hb)){hb.click();return true}
@@ -9387,4 +9387,168 @@ NW0.push({d:"2026-11-27",e:"🎓",t:"Nouveau : La Course des as Expert",b:"• *
 // demandes d'ami : la pastille du pseudo se met à jour toutes les minutes sur l'accueil, et au retour dans l'appli
 setInterval(()=>{if(document.visibilityState!=="visible"||!ME||!pgOn("home"))return;refreshAcc()},60000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&ME&&(pgOn("home")||pgOn("profP")))refreshAcc()});
+
+// ===== v36 : Défis survie (solo) : les défis s'enchaînent, 3 vies, +1 vie tous les 5 défis réussis d'affilée (5 vies au plus) =====
+// Catégories : français (6 défis, sans traduction), anglais (6 défis), deux langues (les 7 défis × 2 langues = 14).
+// Tirage par paquets : chaque paquet contient une fois chaque défi, dans un ordre au hasard ; un défi ne revient qu'au paquet suivant
+// (défis n° 7, 13, 19… ou n° 15, 29, 43… en deux langues). Jamais deux fois le même défi d'affilée, ni à la jonction de deux paquets,
+// ni Thème FR puis Thème EN en deux langues. Aucune question ne revient pendant une partie.
+// Quitter ou fermer le jeu pendant un défi = défi raté. Entre deux défis, la partie est gardée et peut être reprise plus tard.
+// Classement en ligne : table sv_runs, fonctions sv_submit et sv_rank (script SQL « Défis survie »).
+Object.assign(T.fr,{svT:"Défis survie",svS:"les défis s'enchaînent · 3 vies",
+ svH:"Les défis s'enchaînent jusqu'à ce que tu n'aies plus de vie. 5 défis réussis d'affilée : +1 vie.",
+ svCfr:"🇫🇷 Français",svCen:"🇬🇧 English",svC2:"🇫🇷🇬🇧 Deux langues",svCfrS:"6 défis en français (sans la traduction)",svCenS:"6 défis en anglais (sans la traduction)",svC2S:"les 7 défis, en français et en anglais",
+ svCs_fr:"Français",svCs_en:"Anglais",svCs_2:"Deux langues",
+ svRec:"Ton record : {n}",svRecNo:"Pas encore de record",svCur:"Partie en cours",svCurD:"Défi n°{n} · {m}",svGo:"▶ Reprendre",svAb:"Abandonner",
+ svAbQ:"Abandonner cette partie ? Ton score ({n}) sera enregistré.",svNewQ:"Tu as une partie en cours ({n}). La nouvelle partie va l'arrêter et enregistrer son score. Continuer ?",
+ svRk:"🏆 Classement",svRkT:"Classement · Défis survie",svLv:"Vies",svDf:"Défi",svNext:"Défi suivant : {n} ▶",svPause:"⏸ Pause",
+ svOver:"Partie terminée !",svDead:"💔 Plus de vie…",svN0:"0 défi réussi",svN1:"1 défi réussi",svNn:"{n} défis réussis",svPl:"{n} défis joués · {m}",
+ svSt:"Série : {n}/5 avant une vie bonus",svBon:"🎁 5 défis réussis d'affilée : +1 vie !",svBonMx:"🎁 5 défis réussis d'affilée, mais tu as déjà 5 vies (le maximum).",svLost:"−1 vie",
+ svQuitQ:"Quitter ? Ce défi sera compté comme raté (−1 vie). Ta partie est gardée : tu pourras la reprendre depuis le menu Défis survie.",
+ svIntr:"Le défi en cours a été interrompu : il compte comme raté (−1 vie).",svRecNew:"🎉 Nouveau record !",svLast:"Dernier défi :",
+ svRkNone:"Personne au classement pour l'instant.",svRkG:"Crée un compte pour entrer au classement.",svNet:"Classement indisponible pour l'instant (pas de connexion ?).",
+ svRkV:"{n} défis",svRkV1:"{n} défi",svAgain:"Rejouer",svSee:"🏆 Voir le classement",svPend:"Ton score sera envoyé au classement dès que la connexion reviendra.",
+ mSV:"Défis survie",rsSV:"les défis s'enchaînent, 3 vies",
+ rSV:"<p>Les défis s'enchaînent, 30 secondes chacun, une seule réponse. Combien en réussiras-tu avant de perdre toutes tes vies ?</p>"+
+  "<p>❤️ <b>Les vies</b> : tu commences avec 3 vies. Chaque défi raté (mauvaise réponse ou temps écoulé) en coûte une. 5 défis réussis d'affilée rapportent une vie de plus (5 vies au maximum). À 0 vie, la partie est terminée.</p>"+
+  "<p>🌍 <b>Trois catégories</b> : <b>Français</b> et <b>Anglais</b> (6 défis : Thème, Calcul mental, Mots gigognes, Orthographe, Le mot code, L'énigme) et <b>Deux langues</b> (les 7 défis, traduction comprise, en français et en anglais, soit 14 défis).</p>"+
+  "<p>🎲 <b>Un tirage équitable</b> : les défis arrivent par paquets. Chaque paquet contient une fois chaque défi, dans un ordre au hasard : un défi ne revient qu'une fois tous les autres joués (défis n° 7, 13, 19… ; n° 15, 29, 43… en deux langues). Jamais deux fois le même défi d'affilée, et aucune question ne revient pendant une partie.</p>"+
+  "<p>⏸ <b>Pause</b> : entre deux défis, tu peux faire une pause et reprendre ta partie plus tard. Mais quitter (ou fermer le jeu) pendant un défi le compte comme raté.</p>"+
+  "<p>🏆 <b>Le classement</b> : le plus de défis réussis gagne ; à égalité, le plus rapide (temps de réponse cumulé) passe devant. Un classement par catégorie, Top 10 et amis (avec un compte).</p>"});
+Object.assign(T.en,{svT:"Survival Challenge",svS:"challenges back to back · 3 lives",
+ svH:"Challenges keep coming until you run out of lives. 5 correct in a row: +1 life.",
+ svCfr:"🇫🇷 Français",svCen:"🇬🇧 English",svC2:"🇫🇷🇬🇧 Both languages",svCfrS:"6 challenges in French (no translation)",svCenS:"6 challenges in English (no translation)",svC2S:"all 7 challenges, in French and in English",
+ svCs_fr:"French",svCs_en:"English",svCs_2:"Both languages",
+ svRec:"Your best: {n}",svRecNo:"No record yet",svCur:"Game in progress",svCurD:"Challenge #{n} · {m}",svGo:"▶ Resume",svAb:"Give up",
+ svAbQ:"Give up this game? Your score ({n}) will be saved.",svNewQ:"You have a game in progress ({n}). The new game will end it and save its score. Continue?",
+ svRk:"🏆 Leaderboard",svRkT:"Leaderboard · Survival Challenge",svLv:"Lives",svDf:"Challenge",svNext:"Next challenge: {n} ▶",svPause:"⏸ Pause",
+ svOver:"Game over!",svDead:"💔 No lives left…",svN0:"0 challenges won",svN1:"1 challenge won",svNn:"{n} challenges won",svPl:"{n} played · {m}",
+ svSt:"Streak: {n}/5 to a bonus life",svBon:"🎁 5 in a row: +1 life!",svBonMx:"🎁 5 in a row, but you already have 5 lives (the maximum).",svLost:"−1 life",
+ svQuitQ:"Quit? This challenge will count as missed (−1 life). Your game is kept: you can resume it from the Survival Challenge menu.",
+ svIntr:"The challenge in progress was interrupted: it counts as missed (−1 life).",svRecNew:"🎉 New record!",svLast:"Last challenge:",
+ svRkNone:"Nobody on the leaderboard yet.",svRkG:"Create an account to join the leaderboard.",svNet:"Leaderboard unavailable right now (no connection?).",
+ svRkV:"{n} challenges",svRkV1:"{n} challenge",svAgain:"Play again",svSee:"🏆 See the leaderboard",svPend:"Your score will be sent to the leaderboard as soon as you're back online.",
+ mSV:"Survival Challenge",rsSV:"challenges back to back, 3 lives",
+ rSV:"<p>Challenges come one after another, 30 seconds each, one answer only. How many can you win before you lose all your lives?</p>"+
+  "<p>❤️ <b>Lives</b>: you start with 3 lives. Each missed challenge (wrong answer or time up) costs one. 5 correct challenges in a row earn an extra life (5 lives maximum). At 0 lives, the game is over.</p>"+
+  "<p>🌍 <b>Three categories</b>: <b>French</b> and <b>English</b> (6 challenges: Theme, Mental maths, Nested words, Spelling, Codeword, Riddle) and <b>Both languages</b> (all 7 challenges, translation included, in French and in English: 14 challenges).</p>"+
+  "<p>🎲 <b>A fair draw</b>: challenges come in packs. Each pack holds every challenge once, in random order: a challenge only comes back once all the others have been played (challenges #7, 13, 19…; #15, 29, 43… in both languages). Never the same challenge twice in a row, and no question comes back during a game.</p>"+
+  "<p>⏸ <b>Pause</b>: between two challenges, you can take a break and resume your game later. But quitting (or closing the game) during a challenge counts it as missed.</p>"+
+  "<p>🏆 <b>Leaderboard</b>: most challenges won wins; on a tie, the fastest (total answer time) goes first. One leaderboard per category, Top 10 and friends (with an account).</p>"});
+
+var svx=null;
+const SVG6=["t","k","u","s","h","z"],SVG7=["t","k","u","s","v","h","z"],SVMAX=5,SVBON=5,SVLIFE=3;
+const svUid=()=>ME&&ME.id?ME.id:"g",svK=()=>"fwsv:"+svUid(),svRK=()=>"fwsvrec:"+svUid(),svQK=()=>"fwsvq:"+svUid();
+const svJ=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||"null");return v==null?d:v}catch(e){return d}},svP=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const svCat=c=>t("svCs_"+c),svFl=lg=>lg==="en"?"🇬🇧":"🇫🇷";
+function svNm(it,cat){const k="dyN"+it.g,n=gNoEm(T[L][k]?t(k):t("m"+it.g.toUpperCase()));return cat==="2"&&it.g!=="k"?n+" "+svFl(it.lg):n}
+function svNs(n){return n===1?t("svN1"):n?t("svNn",n):t("svN0")}
+function svHearts(n){return"❤️".repeat(Math.max(0,n))+(n<SVLIFE?"🖤".repeat(SVLIFE-Math.max(0,n)):"")}
+// ----- paquet de défis -----
+function svBag(cat,last){const it=cat==="2"?SVG7.flatMap(g=>[{g,lg:"fr"},{g,lg:"en"}]):SVG6.map(g=>({g,lg:cat}));
+ for(let k=0;k<5000;k++){const b=sh(it);if(last&&b[0].g===last.g)continue;if(b.some((x,i)=>i&&x.g===b[i-1].g))continue;return b}
+ // filet de sécurité (ne devrait jamais servir) : on construit le paquet pas à pas
+ const r=[],a=sh(it);let p=last?last.g:null;while(a.length){let i=a.findIndex(x=>x.g!==p);if(i<0)i=0;const x=a.splice(i,1)[0];r.push(x);p=x.g}return r}
+function svItem(s){if(!s.bag||!s.bag.length){s.bag=svBag(s.cat,s.last);s.pk=(s.pk|0)+1}return s.bag[0]}
+// tirage d'un défi : aucune question répétée dans la partie
+function svDraw(s,it){const lg=it.lg;s.used=s.used||{};const U=s.used[it.g+lg]=s.used[it.g+lg]||[],kf=d=>it.g==="t"?d.th:it.g==="k"?d.v0+"|"+d.ops.map(z=>z.join("")).join(","):d.i;
+ let d=null;for(let k=0;k<40;k++){d=dfGen(it.g,lg);if(!U.includes(kf(d)))break}
+ if(it.g==="t"&&U.length>=DFT[lg].length)U.length=0;U.push(kf(d));if(U.length>400)U.splice(0,U.length-400);return d}
+// les générateurs rendent le tirage préparé par Défis survie (startDf les appelle par dfGen)
+(()=>{const w=(o,g)=>function(){if(svx&&svx.pend&&svx.pend.g===g){const d=svx.pend;svx.pend=null;return d}return o.apply(this,arguments)};
+ dfGenT=w(dfGenT,"t");dfGenK=w(dfGenK,"k");dfGenU=w(dfGenU,"u");dfGenS=w(dfGenS,"s");dfGenV=w(dfGenV,"v");
+ dfGenH=(o=>function(lg,g="h"){if(svx&&svx.pend&&svx.pend.g===g){const d=svx.pend;svx.pend=null;return d}return o.apply(this,arguments)})(dfGenH)})();
+// ----- sauvegarde de la partie -----
+const svSave=()=>{if(svx&&!svx.dead){const o=Object.assign({},svx);delete o.pend;delete o.res;svP(svK(),o)}};
+const svGet=()=>svJ(svK(),null);
+function svNew(cat){return{cat,lives:SVLIFE,st:0,n:0,ok:0,ms:0,bag:[],pk:0,last:null,used:{},live:0,at:Date.now(),dl0:dl}}
+// ----- jouer -----
+function svPlay(){const s=svx;if(!s)return;const it=svItem(s);
+ party=null;daily=null;trn=null;tbx=null;cmx=null;chl=null;chNav=false;dfNav=false;dur={l:30,c:45};dfDu=30;
+ dl=it.lg;const d=svDraw(s,it);s.cur=it;s.live=1;s.res=null;svSave();s.pend=d;mode=it.g;startDf(it.g)}
+function svBegin(cat){const go=()=>{closeModal();svx=svNew(cat);svPlay()};const o=svGet();
+ if(o&&o.n>0&&!(svx&&svx.dead))return modal(t("svT"),"<p>"+esc(t("svNewQ",svCat(o.cat)+" · "+svNs(o.ok)))+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{svFinish(o,true);go()}}]);
+ svP(svK(),null);go()}
+function svResume(){const o=svGet();if(!o)return renderSv();svx=o;svx.dl0=dl;svx.fin=0;if(svx.live){svApply(false,30000,true);if(svx.dead){svx=null;return renderSv()}}svPlay()}
+// résultat d'un défi : vies, série, bonus
+function svApply(ok,ms,intr){const s=svx;s.live=0;s.n++;s.ms+=Math.max(0,Math.min(30000,Math.round(ms||0)));s.bag.shift();s.last=s.cur;let bon=0;
+ if(ok){s.ok++;s.st++;if(s.st>=SVBON){s.st=0;bon=s.lives<SVMAX?1:2;if(bon===1)s.lives++}}else{s.lives--;s.st=0}
+ s.res={ok,bon};if(s.lives<=0){s.dead=1;svP(svK(),null);svFinish(s);if(intr)toast(t("svIntr"))}else{svSave();if(intr)toast(t("svIntr"))}return s.res}
+function svEnd(why,html){const s=svx,x=dfx||{};over=true;clearInterval(timer);pending=null;stopM();closeModal();dfStop();
+ const ok=!!x.ok,ms=ok?(x.t||0):30000,r=svApply(ok,ms,false);show("end");setStage();
+ const f=$("final");f.classList.remove("ok","z","ko","tx");delete f.dataset.a3;$("eSub").textContent=gNoEm(t("m"+String(x.g||mode).toUpperCase()))+(s.cat==="2"&&x.d&&x.d.lg&&x.g!=="k"?" "+svFl(x.d.lg):"");
+ $("saveBox").classList.add("hide");$("chBox").innerHTML="";wRulB(false);$("drk").classList.add("hide");
+ if(s.dead){$("why").textContent=t("svOver");f.textContent=String(s.ok);f.classList.add("tx");
+  const rec=s.recNew;$("ptot").innerHTML="<b>"+esc(svNs(s.ok))+"</b> · "+esc(svCat(s.cat))+"<br><small>"+esc(t("svPl",s.n,fmtCM(s.ms)))+"</small>";$("ptot").classList.remove("hide");
+  if(rec){$("saveBox").textContent=t("svRecNew");$("saveBox").classList.remove("hide");try{a3Conf()}catch(e){}}
+  $("extra").innerHTML='<p class="mpw">'+esc(t("svDead"))+'</p><p class="dnote" style="margin:10px 0 4px">'+esc(t("svLast"))+" "+esc($("eSub").textContent)+"</p>"+(html||"")+(s.qd?'<p class="dnote">'+esc(t("svPend"))+"</p>":"");
+  $("eSub").textContent=t("svT")+" · "+svCat(s.cat);
+  $("next").textContent=t("svSee");$("next").classList.remove("hide");$("again").textContent=t("svAgain");$("again").classList.remove("hide");$("tomenu").textContent=t("menu");return}
+ $("why").textContent=why;f.textContent=ok?"✓":"✗";f.classList.add(ok?"ok":"ko");
+ $("ptot").innerHTML=(ok?"":'<b style="color:var(--ko,#ff6b6b)">'+esc(t("svLost"))+"</b><br>")+'<span style="font-size:20px;letter-spacing:1px">'+svHearts(s.lives)+"</span><br>"+esc(t("svDf"))+" n°"+s.n+" · "+esc(svNs(s.ok))+"<br><small>"+esc(t("svSt",s.st))+"</small>";$("ptot").classList.remove("hide");
+ $("extra").innerHTML=(r.bon?'<p class="mpw">'+esc(t(r.bon===1?"svBon":"svBonMx"))+"</p>":"")+(html||"");
+ $("next").textContent=t("svNext",svNm(svItem(s),s.cat));$("next").classList.remove("hide");svSave();
+ $("again").classList.add("hide");$("tomenu").textContent=t("svPause")}
+// fin de partie : record perso + classement en ligne
+function svFinish(s,quiet){if(s.fin)return;s.fin=1;const L0=svJ(svRK(),{}),a=L0[s.cat]=L0[s.cat]||[],e={n:s.ok,ms:s.ms,p:s.n,a:Date.now()};
+ const best=a.length?a[0]:null;a.push(e);a.sort((x,y)=>y.n-x.n||x.ms-y.ms||x.a-y.a);L0[s.cat]=a.slice(0,10);svP(svRK(),L0);
+ s.recNew=!quiet&&s.ok>0&&(!best||e.n>best.n||(e.n===best.n&&e.ms<best.ms));
+ if(ME&&s.ok>0){const q=svJ(svQK(),[]);q.push({c:s.cat,n:s.ok,ms:s.ms,p:s.n});svP(svQK(),q);s.qd=!NET;svFlush()}}
+let svFl0=false;
+async function svFlush(){if(svFl0||!ME||!sb||!SESS)return;const q=svJ(svQK(),[]);if(!q.length)return;svFl0=true;const k=svQK();
+ try{while(q.length){const e=q[0];const r=await sb.rpc("sv_submit",{p_cat:e.c,p_n:e.n,p_ms:Math.round(e.ms),p_played:e.p});if(r.error){if(r.error.code==="PGRST202"||/sv_submit/.test(r.error.message||""))break;throw r.error}q.shift();svP(k,q.length?q:null)}}catch(e){}finally{svFl0=false}}
+function svLeave(){const s=svx;ctok++;sfxStop();dfStop();clearTimeout(tmo);clearTimeout(dtm);clearInterval(timer);pending=null;stopM();over=true;closeModal();
+ if(s&&s.dl0)dl=s.dl0;svx=null;chl=null;mode=null;$("tomenu").textContent=t("menu");$("again").textContent=t("again");setStage();openSv()}
+function svQuitAsk(){if(!svx)return;if(over||!dfx||dfx.end||dfx.sent)return svLeave();
+ modal(t("quit"),"<p>"+esc(t("svQuitQ"))+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();const x=dfx;if(x){x.end=1}svApply(false,30000,false);svLeave()}}])}
+// ----- page Défis survie -----
+function svBest(c){const a=svJ(svRK(),{})[c]||[];return a[0]||null}
+function renderSv(){const o=svGet(),C=$("svCur");
+ if(o){C.innerHTML='<div class="pcard"><div class="pm">'+esc(t("svCur"))+" · "+esc(svCat(o.cat))+'</div><div class="pn" style="font-size:22px;letter-spacing:1px">'+svHearts(o.lives)+'</div><div class="pm">'+esc(t("svCurD",o.n+1,svNs(o.ok)))+'</div></div><div class="row"><button class="btn p" id="svGo">'+esc(t("svGo"))+'</button><button class="btn" id="svAb">'+esc(t("svAb"))+"</button></div>";
+  $("svGo").onclick=svResume;$("svAb").onclick=()=>modal(t("svAb"),"<p>"+esc(t("svAbQ",svNs(o.ok)))+"</p>",[{l:t("no"),f:closeModal},{l:t("yes"),c:"p",f:()=>{closeModal();if(o.live)o.n++;svP(svK(),null);svFinish(o,true);renderSv()}}])}
+ else C.innerHTML="";
+ ["fr","en","2"].forEach(c=>{const b=svBest(c),e=$("svR_"+c);if(e)e.textContent=t("svC"+c+"S")+" · "+(b?t("svRec",b.n):t("svRecNo"))})}
+function openSv(){svFlush();renderSv();show("svP")}
+// ----- classement -----
+let svRk={c:"fr",sc:"top",tok:0};
+async function svRank(c){if(c)svRk.c=c;const tok=++svRk.tok,C=svRk.c,SC=svRk.sc,L0=$("svRkL");
+ all("#svRkC [data-svc]").forEach(b=>b.classList.toggle("on",b.dataset.svc===C));all("#svRkS [data-svs]").forEach(b=>b.classList.toggle("on",b.dataset.svs===SC));show("svRkP");
+ if(SC==="friends"&&!ME){L0.innerHTML='<p class="dnote">'+esc(t("svRkG"))+"</p>";return}
+ if(!sb){L0.innerHTML='<p class="dnote">'+esc(t("svNet"))+"</p>";return}
+ L0.innerHTML='<p class="dnote">'+t("rkLoad")+"</p>";await svFlush();let list=null;
+ try{const r=await sb.rpc("sv_rank",{p_cat:C,p_scope:SC});if(r.error)throw r.error;list=r.data||[]}catch(e){}
+ if(tok!==svRk.tok)return;if(!list){L0.innerHTML='<p class="dnote">'+esc(t("svNet"))+"</p>";return}
+ const row=x=>'<div class="res'+(x.me?" me":"")+'"><span class="rn"><b>'+x.pos+".</b>"+esc(x.pseudo||"?")+'</span><span class="rv"><b>'+esc(t(x.n===1?"svRkV1":"svRkV",x.n))+"</b> · "+fmtCM(x.ms)+"</span></div>";
+ L0.innerHTML=list.length?list.map((x,i)=>(i&&x.pos>list[i-1].pos+1?'<div class="res sep">⋯</div>':"")+row(x)).join("")+(ME?"":'<p class="dnote" style="margin-top:10px">'+esc(t("svRkG"))+"</p>"):'<p class="dnote">'+esc(t("svRkNone"))+"</p>"}
+// ----- écrans (ajoutés au chargement) -----
+{const H='<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+ CH='<i class="chv"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i>';
+ $("cmHome").insertAdjacentHTML("afterend",'<button class="btn p mb ic" id="svHome"><i class="mi">'+H+'</i><span class="mt"><span data-sv="svT"></span><small class="sub" data-sv="svS"></small></span>'+CH+"</button>");
+ const rc=document.querySelector('#rulesP [data-r="CM"]');if(rc)rc.insertAdjacentHTML("afterend",'<button class="btn mb ic" data-r="SV"><i class="mi">'+H+'</i><span class="mt"><span data-sv="mSV"></span><small class="sub" data-sv="rsSV"></small></span>'+CH+"</button>");
+ const cat=c=>'<button class="btn p mb" data-svgo="'+c+'"><span data-sv="svC'+c+'"></span><small class="sub" id="svR_'+c+'"></small></button>';
+ document.querySelector("main").insertAdjacentHTML("beforeend",
+  '<section id="svP" class="pg hide"><h2 data-sv="svT"></h2><div class="wkh"><span class="dnote" data-sv="svH" style="margin:0"></span><button class="info" id="svHow">?</button></div><div id="svCur"></div>'+cat("fr")+cat("en")+cat("2")+
+  '<button class="btn mb" id="svRkB" data-sv="svRk"></button><button class="btn mb" id="svBack" data-t="back"></button></section>'+
+  '<section id="svRkP" class="pg hide"><h2 data-sv="svRkT"></h2><div class="row tabs" id="svRkC"><button class="btn" data-svc="fr">🇫🇷</button><button class="btn" data-svc="en">🇬🇧</button><button class="btn" data-svc="2">🇫🇷🇬🇧</button></div>'+
+  '<div class="row tabs" id="svRkS"><button class="btn" data-svs="top" data-t="top10"></button><button class="btn" data-svs="friends" data-t="frTab"></button></div><div id="svRkL"></div><button class="btn mb" id="svRkBack" data-t="back" style="margin-top:16px"></button></section>');
+ const svTx=()=>{all("[data-sv]").forEach(e=>e.textContent=t(e.dataset.sv));all("#svP [data-t],#svRkP [data-t]").forEach(e=>e.textContent=t(e.dataset.t));if(vis("svP"))renderSv()};svTx();
+ applyLang=(o=>function(){const r=o.apply(this,arguments);try{svTx()}catch(e){}return r})(applyLang);
+ $("svHome").onclick=openSv;$("svBack").onclick=()=>show("soloP");$("svHow").onclick=()=>modal(t("mSV"),t("rSV"),[{l:t("close"),c:"p",f:closeModal}]);
+ all("[data-svgo]").forEach(b=>b.onclick=()=>svBegin(b.dataset.svgo));
+ $("svRkB").onclick=()=>{svRk.sc="top";svRank(svRk.c)};$("svRkBack").onclick=openSv;
+ all("#svRkC [data-svc]").forEach(b=>b.onclick=()=>svRank(b.dataset.svc));all("#svRkS [data-svs]").forEach(b=>b.onclick=()=>{svRk.sc=b.dataset.svs;svRank()});
+ const rb=document.querySelector('#rulesP [data-r="SV"]');if(rb)rb.onclick=()=>showRule("SV")}
+// ----- branchements : résultats, boutons de fin, quitter, bandeau du jeu -----
+results=(o=>function(why,html){if(svx&&!mpr&&!tbx&&!cmx)return svEnd(why,html);return o.apply(this,arguments)})(results);
+{const n=$("next").onclick;$("next").onclick=function(e){if(svx){if(svx.dead){const c=svx.cat;svLeave();svRk.sc="top";return svRank(c)}return svPlay()}return n.call(this,e)}}
+{const a=$("again").onclick;$("again").onclick=function(e){if(svx){if(svx.dead){const c=svx.cat,d0=svx.dl0;svx=null;svP(svK(),null);dl=d0;return svBegin(c)}return}return a.call(this,e)}}
+{const m=$("tomenu").onclick;$("tomenu").onclick=function(e){if(svx)return svLeave();return m.call(this,e)}}
+all("[data-quit]").forEach(b=>{const q=b.onclick;b.onclick=function(e){if(svx)return svQuitAsk();return q&&q.call(this,e)}});
+gMode=(o=>function(){if(svx)return{ic:"svHome",tx:t("svT")+" · "+svCat(svx.cat)};return o.apply(this,arguments)})(gMode);
+gBoxes=(o=>function(g){if(svx&&!svx.dead)return'<div class="gbox"><small>'+t("svDf")+"</small><b>"+(svx.n+(over?0:1))+'</b></div><div class="gbox sc"><small>'+t("svLv")+"</small><b>"+Math.max(0,svx.lives)+"❤️</b></div>";return o.apply(this,arguments)})(gBoxes);
+menuHook=(o=>function(id){const r=o.apply(this,arguments);try{if(id==="soloP"){const s=$("svHome").querySelector(".sub"),g=svGet();s.textContent=g?t("svCur")+" · "+svCat(g.cat)+" · "+g.lives+"❤️":t("svS")}}catch(e){}return r})(menuHook);
+try{HBP.add("svP");HBP.add("svRkP")}catch(e){}
+// partie interrompue (jeu fermé pendant un défi) : comptée au prochain passage
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&svx&&!over)svSave()});
+NW0.push({d:"2026-11-28",e:"❤️",t:"Nouveau : Défis survie",b:"• Un nouveau mode solo, rien que pour les défis : ils s'enchaînent jusqu'à ce que tu n'aies plus de vie !\n• Tu commences avec **3 vies**. Chaque défi raté en coûte une, et **5 défis réussis d'affilée** t'en rendent une (5 au maximum).\n• Trois catégories : **Français**, **Anglais** (6 défis) et **Deux langues** (les 7 défis dans les deux langues, traduction comprise).\n• Tirage équitable : tous les défis passent une fois avant qu'un défi ne revienne.\n• Un classement par catégorie, Top 10 et amis. À toi de jouer : Solo › Défis survie."});
 </script></body></html>
